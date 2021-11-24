@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Collections.Generic;
 using System.Windows.Input;
 using System.Linq;
+using System.Collections.Specialized;
 
 namespace AudioPlayerMVVMandNAudio
 {
@@ -47,7 +48,7 @@ namespace AudioPlayerMVVMandNAudio
             }
             set
             {
-                if (bufferTrack!=value)
+                if (bufferTrack != value)
                 {
                     bufferTrack = value;
                     OnPropertyChanged(nameof(BufferTrack));
@@ -63,7 +64,7 @@ namespace AudioPlayerMVVMandNAudio
             get => selectedTrack;
             set
             {
-                if(selectedTrack!=value)
+                if (selectedTrack != value)
                 {
                     selectedTrack = value;
                     OnPropertyChanged(nameof(SelectedTrack));
@@ -142,12 +143,15 @@ namespace AudioPlayerMVVMandNAudio
             foreach (var song in model.SongsList)
                 SongsListObservable.Add(new AudioFileVM(song));
 
-            BufferTrack = SongsListObservable[0];
+            if (!model.IsEmpty)
+                BufferTrack = SongsListObservable[0];
 
             //commands
             LoadTrackCommand = new RelayCommand(LoadTrack);
-            RemoveTracksFromPlaylistCommand = new RelayCommand(RemoveTrackFromPlaylist);
+            RemoveTracksFromPlaylistCommand = new RelayCommand(RemoveTracksFromPlaylist);
             ClearPlaylistCommand = new RelayCommand(ClearPlaylist);
+
+            //SongsListObservable.CollectionChanged += RefreshModel;
         }
 
         #endregion
@@ -186,22 +190,21 @@ namespace AudioPlayerMVVMandNAudio
         public void OnNextTrackRequest(object sender, EventArgs e)
         {
             //Gets index of currently selected track
-            var index = SongsListObservable.IndexOf(BufferTrack) + 2;
+            var index = SongsListObservable.IndexOf(BufferTrack) + 1;
 
             //Checks if can select next track on playlist
-            if (index < SongsListObservable.Count )
+            if (index < SongsListObservable.Count)
             {
                 //Loads next track
                 BufferTrack = SongsListObservable[index];
 
-                //Raises an event
+                //Raises an event and plays buffer track
                 InformAllAboutFileLoading();
             }
 
             //If playlist reaches an end - rasies an event
             else
                 PlaylistEndedEvent?.Invoke(this, new AudioFileVMEventArgs(bufferTrack));
-
         }
 
         /// <summary>
@@ -214,12 +217,17 @@ namespace AudioPlayerMVVMandNAudio
             //Gets index of currently selected track
             var index = SongsListObservable.IndexOf(BufferTrack);
 
-            //Checks if can select previous track on playlist
-            if (index > 0)
-                BufferTrack = SongsListObservable[index - 1];
+            //Sets new index of buffer track, if you press previous track on first trakc it will start over.
+            index += index > 0 ? -1 : 0;
 
-            //Raises an event
-            InformAllAboutFileLoading();
+            //If there are songs in playlist
+            if (index > -1)
+            {
+                BufferTrack = SongsListObservable[index];
+
+                //Raises an event and plays buffer track
+                InformAllAboutFileLoading();
+            }
         }
 
         /// <summary>
@@ -228,38 +236,88 @@ namespace AudioPlayerMVVMandNAudio
         /// <param name="trackPath"></param>
         public void AddTrackToPlaylist(string trackPath)
         {
-            SongsListObservable.Add(new AudioFileVM(trackPath));
+            var track = new AudioFile(trackPath);
+            model.AddTrack(track);
+            SongsListObservable.Add(new AudioFileVM(track));
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="o"></param>
-        private void RemoveTrackFromPlaylist(object o)
+        private void RemoveTracksFromPlaylist(object o)
         {
             //This wierd casting...
             System.Collections.IList items = (System.Collections.IList)o;
             var songs = items.Cast<AudioFileVM>();
 
-            //List of songs without removed
-            //var clean = SongsListObservable.Except(songs);
+            foreach (var song in songs)
+                model.RemoveTrack(song.GetModel());
+
+            //Collection without removed tracks
             var clean = SongsListObservable.Where(x => !songs.Contains(x));
 
-            //Refresh observable collection
+            //Removes tracks from model collection -> method 1 => iterate in reverse
+            //for(var i=SongsListObservable.Count-1;i>=0; i--)
+            //{
+            //    model.RemoveTrack()
+            //}
+
+            //Removes tracks from observable collection -> method 2 => new collection.
             SongsListObservable = new ObservableCollection<AudioFileVM>(clean);
 
             //CollectionChanged does not work for new-ing collection...?
             OnPropertyChanged(nameof(SongsListObservable));
 
-            //Saves playlist in file
+            
+
+
+
         }
 
+        /// <summary>
+        /// Removes all trakcs from playlist.
+        /// </summary>
+        /// <param name="o"></param>
         private void ClearPlaylist(object o)
         {
             SongsListObservable.Clear();
+            model.ClearPlaylist();
         }
 
-        #endregion
+        //private void RefreshModel(object sender, NotifyCollectionChangedEventArgs e)
+        //{
+        //    switch (e.Action)
+        //    {
+        //        //Adding to observable collection
+        //        case NotifyCollectionChangedAction.Add:
+
+        //            //New, last added VM item
+        //            var newToDoVm = (ToDoViewModel)e.NewItems[0];
+
+        //            //Creates new model object from new VM
+        //            if (newToDoVm != null)
+        //                //model.AddTodo(new ToDo(newToDoVm.Title, newToDoVm.FinishDate, newToDoVm.Priority));
+        //                model.AddTodo(newToDoVm.GetModel());
+        //            OnPropertyChanged(nameof(ItemsCount));
+        //            break;
+
+        //        //Removing from observable collection
+        //        case NotifyCollectionChangedAction.Remove:
+
+        //            //
+        //            var removedToDoVm = (ToDoViewModel)e.OldItems[0];
+        //            //
+        //            if (removedToDoVm != null)
+        //                model.RemoveTodo(removedToDoVm.GetModel());
+        //            OnPropertyChanged(nameof(ItemsCount));
+
+        //            break;
+        //    }
+        //}
     }
+
+        #endregion
+    
 }
 

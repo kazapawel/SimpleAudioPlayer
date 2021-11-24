@@ -84,5 +84,7 @@ namespace AudioPlayerMVVMandNAudio
         }
 
         #endregion
+
+        public AudioFile GetModel() => model;
         }
 }

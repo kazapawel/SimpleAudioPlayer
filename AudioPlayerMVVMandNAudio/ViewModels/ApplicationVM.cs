@@ -6,12 +6,16 @@ namespace AudioPlayerMVVMandNAudio
 {
     /*----
     TO DO:
-
+    comm2
         *Everything smaller
         *Better comments
         *Resizing window and fixed control size.
         *Files/projects structure
         *Not to fire stopped by user event all the time
+        *Make play icon functionality
+        *Keyboard keys functionality
+        *File saving/loading WHEN?
+        *Updating model - best way
             +DONE (Title bar - minimize/close window etc)
             +DONE (slider customization)
             +DONE (VolumE slider customization)
@@ -24,7 +28,7 @@ namespace AudioPlayerMVVMandNAudio
             +DONE Playlist functionality: remove file,
             +DONE Playlist functionality: clear playlist,
             +DONE Playlist functionality: remove multiple files
-        **Playlist functionality: save default playlist
+            +DONE Playlist functionality: save/load default playlist
         **Playlist functionality: save playlist,
         **Playlist functionality: laod playlist,
         **Playlist functionality: drag and drop tracks in playlist

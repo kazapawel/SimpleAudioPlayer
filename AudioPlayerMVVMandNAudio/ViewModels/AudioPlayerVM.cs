@@ -1,0 +1,370 @@
+﻿using AudioPlayerNAudio;
+using System.Windows.Threading;
+using System;
+
+namespace AudioPlayerMVVMandNAudio
+{
+    /// <summary>
+    /// View model class for audio player and transport control.
+    /// </summary>
+    public class AudioPlayerVM : BaseViewModel
+    {
+        #region PRIVATE MEMBERS
+
+        /// <summary>
+        /// Audio player model
+        /// </summary>
+        private IAudioFilePlayer<float> audioFilePlayer;
+
+        /// <summary>
+        /// Timer for updating data from model.
+        /// </summary>
+        private DispatcherTimer timer { get; set; }
+
+        /// <summary>
+        /// Returns true if audio is muted.
+        /// </summary>
+        private bool muted;
+
+        /// <summary>
+        /// Buffer volume used when audio is muted.
+        /// </summary>
+        private double storedVolume;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private bool isPlaying;
+
+        #endregion
+
+        #region PUBLIC PROPERTIES
+
+        /// <summary>
+        /// Path of audio file.
+        /// </summary>
+        public string Path { get; set; }
+
+        /// <summary>
+        /// Volume of bufferd/playing audio file.
+        /// </summary>
+        public double Volume
+        {
+            get => storedVolume;
+            set
+            {
+                //Sets buffer volume
+                storedVolume = value;
+
+                //Sets audio file player volume if there is one, based on mute state
+                SetAudioPlayerVolume();
+            }
+
+        }
+
+        /// <summary>
+        /// If true audio file volume is 0.
+        /// </summary>
+        public bool Muted
+        {
+            get
+            {
+                return muted;
+            }
+            set
+            {
+                muted = value;
+                SetAudioPlayerVolume();
+            }
+        }
+
+        /// <summary>
+        /// Returns true if audio is playing.
+        /// </summary>
+        public bool IsPlaying
+        {
+            get
+            {
+                return isPlaying;
+            }
+            set
+            {
+                if(isPlaying!=value)
+                {
+                    isPlaying = value;
+                    OnPropertyChanged(nameof(IsPlaying));
+                }
+            }
+        }
+
+
+        #region PAPAPSDFPASPDFPASDPFAPSDFASDF
+
+        /// <summary>
+        /// Audio time position
+        /// </summary>
+        public double Position
+        {
+            get => audioFilePlayer != null ? (double)(audioFilePlayer.StreamPosition)/(audioFilePlayer.StreamLength/100) : 0;
+            set
+            {
+                if(audioFilePlayer != null)
+                    audioFilePlayer.StreamPosition = (long)value * (audioFilePlayer.StreamLength / 100);
+                OnPropertyChanged(nameof(TimeCurrent));
+            }
+                
+        }
+
+        /// <summary>
+        /// String representation of current time of audio which is playing.
+        /// </summary>
+        public string TimeCurrent => audioFilePlayer != null ? audioFilePlayer.TimeCurrent.ToString(@"mm\:ss") : "--:--";
+
+        /// <summary>
+        /// String representation of total time of audio which is playing
+        /// </summary>
+        public string TimeTotal => audioFilePlayer != null ? audioFilePlayer.TimeTotal.ToString(@"mm\:ss") : "--:--";
+
+        ///// <summary>
+        ///// String representation of remaining time of audio which is playing.
+        ///// </summary>
+        //public string TimeRemaining => audioFilePlayer != null ? (audioFilePlayer.TotalTime - audioFilePlayer.CurrentTime).ToString(@"mm\:ss") : "--:--";//audioPlayer.IsAudioFileLoaded ? (audioPlayer.TotalTime - audioPlayer.CurrentTime).ToString(@"mm\:ss") : "--:--";
+
+        #endregion
+
+        #endregion
+
+        #region EVENTS
+
+        /// <summary>
+        /// Occurs when user stops audio
+        /// </summary>
+        public event EventHandler StopAudioByUserEvent;
+
+        /// <summary>
+        /// Occurs when next song is pressed on ui
+        /// </summary>
+        public event EventHandler NextTrackRequestEvent;
+
+        /// <summary>
+        /// Occurs when prevvious song is pressed on ui
+        /// </summary>
+        public event EventHandler PreviousTrackRequestEvent;
+
+        #endregion
+
+        #region COMMANDS
+
+        public RelayCommand PlayAudioCommand { get; set; }
+
+        public RelayCommand StopAudioCommand { get; set; }
+
+        public RelayCommand PauseAudioCommand { get; set; }
+
+        public RelayCommand NextTrackRequestCommand { get; set; }
+
+        public RelayCommand PreviousTrackRequestCommand { get; set; }
+
+        #endregion
+
+        #region CONSTRUCTORS
+
+        /// <summary>
+        /// Default constructor.
+        /// </summary>
+        public AudioPlayerVM()
+        {
+            //Commands:
+            PlayAudioCommand = new RelayCommand(PlayAudio);
+            StopAudioCommand = new RelayCommand(StopAudio);
+            PauseAudioCommand = new RelayCommand(PauseAudio);
+            NextTrackRequestCommand = new RelayCommand(NextTrackRequest);
+            PreviousTrackRequestCommand = new RelayCommand(PreviousTrackRequest);
+
+            //Sets start volume
+            Volume = 50;
+        }
+
+        #endregion
+
+        #region METHODS
+
+        /// <summary>
+        /// Creates new AudioFilePlayer and plays chosen audio file.
+        /// </summary>
+        /// <param name="o"></param>
+        private void PlayAudio(object o)
+        {
+            //Works only if path is not null
+            if (Path != null)
+            {
+                //If audio is paused - resume audio
+                if (audioFilePlayer != null)
+                    audioFilePlayer.ResumeAudio();
+
+                //If audio is not paused: to prevent from playing multiple files at the same time
+                else
+                {
+                    //Creates new instance of audio file player model
+                    audioFilePlayer = new AudioFilePlayerNAudio(Path);
+
+                    //Sets audioplayer model volume
+                    SetAudioPlayerVolume();
+
+                    //Subscribes to model event which informs about audio reaching it's end.
+                    audioFilePlayer.AudioHasEndedEvent += OnAudioHasEnded;
+
+                    //Plays audio
+                    audioFilePlayer.PlayAudio();
+                }
+
+                //Creates new dispatcher timer for updating time values from model
+                timer = new DispatcherTimer();
+                timer.Tick += new EventHandler(Timer_Tick);
+                timer.Interval = new TimeSpan(0, 0, 1);
+
+                //Starts timer
+                timer.Start();
+
+                //Updates total time on startup
+                OnPropertyChanged(nameof(TimeTotal));
+
+                //Updates acutal time on startup - shows 00:00;
+                OnPropertyChanged(nameof(TimeCurrent));
+
+                //Changes state of player
+                IsPlaying = true;
+            }
+            
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="o"></param>
+        private void StopAudio(object o)
+        {
+            //Stops audio file player
+            audioFilePlayer?.StopAudio();
+
+            //Stops timer
+            timer?.Stop();
+
+            //Setting to null is questionable but how to make it better?
+            audioFilePlayer = null;
+
+            //Updates time to make it 0:00
+            UpdateTime();
+
+            //Changes state of player
+            IsPlaying = false;
+
+            //Raises stop audio by user event - TO DO - NOT TO INVOKE ALL THE TIME!!!!!!!!!!!!!!
+            StopAudioByUserEvent?.Invoke(this, new EventArgs());
+
+            OnPropertyChanged(nameof(TimeTotal));
+            UpdatePosition();
+
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="o"></param>
+        private void PauseAudio(object o)
+        {
+            //Stops timer
+            timer?.Stop();
+
+            //Pause audio
+            audioFilePlayer?.PauseAudio();
+
+            //Change pause state property 
+            IsPlaying = false;
+        }
+
+        /// <summary>
+        /// Raises an next track request event.
+        /// </summary>
+        /// <param name="o"></param>
+        private void NextTrackRequest(object o)
+        {
+            NextTrackRequestEvent?.Invoke(this, new EventArgs());
+        }
+
+        /// <summary>
+        /// Raises an previous track request event.
+        /// </summary>
+        /// <param name="o"></param>
+        private void PreviousTrackRequest(object o)
+        {
+            PreviousTrackRequestEvent?.Invoke(this, new EventArgs());
+        }
+
+        /// <summary>
+        /// Loads new audio file.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public void OnAudioFileLoaded(object sender, AudioFileVMEventArgs e)
+        {
+            //Stops current audio 
+            StopAudio(null);
+
+            //Loads track which was sent by playlist
+            Path = e.AudioFileVM.Path;
+
+            //Plays new track
+            PlayAudio(null);
+        }
+
+        /// <summary>
+        /// If audio file has ended, requests antoher track to load.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public void OnAudioHasEnded(object sender, EventArgs e)
+        {
+            NextTrackRequest(null);
+        }
+
+        public void OnPlaylistEnded(object sender, EventArgs e)
+        {
+            StopAudio(null);
+        }
+
+        /// <summary>
+        /// Helper method. If there is a audio player, sets it's volume.
+        /// </summary>
+        private void SetAudioPlayerVolume()
+        {
+            if (audioFilePlayer != null)
+                audioFilePlayer.Volume = Muted ? 0 : (float)storedVolume / 100f;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            UpdateTime();
+            UpdatePosition();
+        }
+
+
+
+        private void UpdateTime()
+        {
+            OnPropertyChanged(nameof(TimeCurrent));
+        }
+
+        private void UpdatePosition()
+        {
+            OnPropertyChanged(nameof(Position));
+        }
+
+        #endregion
+    }
+}

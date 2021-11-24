@@ -1,0 +1,116 @@
+﻿<UserControl x:Class="AudioPlayerMVVMandNAudio.PlaylistControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:AudioPlayerMVVMandNAudio"
+             mc:Ignorable="d"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:b="MyBehaviorAssembly;assembly=MyBehaviorAssembly"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- PLAYLIST listbox-->
+        <ListBox Grid.Row="0"
+                 x:Name="PlaylistListbox"
+                 VerticalAlignment="Stretch"
+                 Style="{StaticResource PlaylistStyle}"
+                 ItemsSource="{Binding SongsListObservable}"                 
+                 ItemContainerStyle="{StaticResource PlaylistItemStyle}"
+                 
+                 SelectedItem="{Binding SelectedTrack, Mode=OneWayToSource}"
+                 SelectionMode="Extended">
+        </ListBox>
+
+        <!-- Listbox Options -->
+        <Border Grid.Row="1" 
+                BorderThickness="1"
+                BorderBrush="LightPink"
+                Margin="5,0,5,5"
+                Padding="1"
+                HorizontalAlignment="Right">
+            <Grid>
+                <Grid.ColumnDefinitions>
+
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    
+                    <!-- Save button-->
+                    <ColumnDefinition Width="auto"
+                                      />
+                </Grid.ColumnDefinitions>
+                
+               <!-- Header-->
+                <TextBlock Grid.Column="0"
+                           Style="{StaticResource WhiteTextblock}"
+                           Text="Items:"
+                           Padding="2"
+                           FontSize="11"
+                           VerticalAlignment="Center"
+                />
+
+                <!-- Items count-->
+                <TextBlock Grid.Column="1"
+                           Style="{StaticResource WhiteTextblock}"
+                           Text="{Binding Items}"
+                           Padding="2"
+                           FontSize="11"
+                           VerticalAlignment="Center"
+                />
+                
+                <!-- Add item button -->
+                <Button Grid.Column="2"                     
+                        Height="17"
+                        Content="Add"
+                        Margin="2,2,2,0" VerticalAlignment="Top"
+                        Click="AddButton_Click"
+                />
+
+                <!-- Remove items button -->
+                <Button Grid.Column="3"                     
+                        Height="17"
+                        Content="Rmv"
+                        Margin="2"
+                        CommandParameter="{Binding ElementName=PlaylistListbox, Path=SelectedItems}"
+                        Command="{Binding RemoveTracksFromPlaylistCommand}"
+                />
+
+                <!-- Clear playlist button-->
+                <Button Grid.Column="4"                     
+                        Height="17"
+                        Content="CLR"
+                        Margin="2"
+                        Command="{Binding ClearPlaylistCommand}"
+                />
+
+                <!-- Load playlist button-->
+                <Button Grid.Column="5"                     
+                        Height="17"
+                        Content="LOAD"
+                        Margin="2"
+                        />
+
+                <!-- Save playlist button-->
+                <Button Grid.Column="6"                     
+                        Height="17"
+                        Content="SAVE"
+                        Margin="2"
+                        HorizontalAlignment="Right"
+                        />
+
+            </Grid>
+        </Border>
+        
+
+        
+
+    </Grid>
+</UserControl>

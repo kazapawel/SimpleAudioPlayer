@@ -1,0 +1,49 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:AudioPlayerMVVMandNAudio">
+
+    <!-- Playlist main style -->
+    <Style TargetType="{x:Type ListBox}" x:Key="PlaylistStyle">
+        <Setter Property="Background" Value="{StaticResource BackgroundDarkBrush}"/>
+        <Setter Property="MinHeight" Value="200"/>
+        <Setter Property="Margin" Value="5,5,5,2"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="BorderBrush" Value="Bisque"/>
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Visible"/>
+        
+    </Style>
+    
+    <!-- Playlist ITEM basic style -->
+    <Style TargetType="{x:Type ListBoxItem}" x:Key="PlaylistItemStyle">
+
+        <!-- Selection style trigger -->
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#1D556D"/>
+            </Trigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsSelected" Value="True"/>
+                </MultiTrigger.Conditions>
+
+                <Setter Property="Background" Value="#196E92"/>
+            </MultiTrigger>
+        </Style.Triggers>
+
+        <!-- Template -->
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                    <Border x:Name="border"
+                            Background="{TemplateBinding Background}">
+                        <local:PlaylistItem/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+
+</ResourceDictionary>

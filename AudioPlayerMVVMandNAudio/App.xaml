@@ -1,0 +1,42 @@
+﻿<Application x:Class="AudioPlayerMVVMandNAudio.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:AudioPlayerMVVMandNAudio"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                
+                <!-- Colors -->                
+                <ResourceDictionary Source="Styles/Colors.xaml"/>
+                
+                <!-- Textblock styles -->
+                <ResourceDictionary Source="Styles/TextblockStyles.xaml"/>
+                
+                <!-- Button styles -->
+                <ResourceDictionary Source="Styles/ButtonStyles.xaml"/>
+                
+                <!-- Listbox styles -->
+                <ResourceDictionary Source="Styles/ListboxStyles.xaml"/>
+
+                <!-- Window styles -->
+                <ResourceDictionary Source="Styles/WindowStyle.xaml"/>
+                
+                <!-- Checkbox styles -->
+                <ResourceDictionary Source="Styles/CheckboxStyles.xaml"/>
+
+                <!-- Slider styles -->
+                <ResourceDictionary Source="Styles/SliderStyles.xaml"/>
+
+                <!-- Scrollbar styles -->
+                <ResourceDictionary Source="Styles/ScrollbarStyles.xaml"/>
+
+            </ResourceDictionary.MergedDictionaries>
+
+            <!-- Converters -->
+            <local:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+            <local:InvertBoolToVisibilityConverter x:Key="InvertBoolToVisibilityConverter"/>
+
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

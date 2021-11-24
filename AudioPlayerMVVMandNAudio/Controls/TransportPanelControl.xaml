@@ -1,0 +1,222 @@
+﻿<UserControl x:Class="AudioPlayerMVVMandNAudio.TransportPanelControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:AudioPlayerMVVMandNAudio"
+             mc:Ignorable="d"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:b="MyBehaviorAssembly;assembly=MyBehaviorAssembly"
+             
+            >
+    <Grid>
+        <Grid.RowDefinitions>
+
+            <!-- Transport buttons -->
+            <RowDefinition Height="auto"/>
+
+            <!-- Volume slider -->
+            <RowDefinition Height="*"/>
+
+            <!-- Time slider -->
+            <RowDefinition Height="*"/>
+            
+
+        </Grid.RowDefinitions>
+
+
+
+        <!--#region TRANSPORT PANEL -->
+
+        <!-- TRANSPORT PANEL -->
+        <StackPanel Grid.Row="0" 
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Center"
+                    Margin="5">
+
+
+            <!-- PREVIOUS TRACK button -->
+            <Button Style="{StaticResource RoundButton}" 
+                    Width="38"
+                    Tag="pack://application:,,,/Images/previous.png"                   
+                    Command="{Binding PreviousTrackRequestCommand}"
+                    />
+
+            <!-- PLAY / PAUSE button -->
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- PLAY -->
+                <Button Grid.Column="0"
+                    x:Name="playbutton"
+                    Style="{StaticResource RoundButton}" 
+                    Tag="pack://application:,,,/Images/play.png"
+                    Width="55"
+                    Command="{Binding PlayAudioCommand}"
+                    Visibility="{Binding IsPlaying, Converter={StaticResource InvertBoolToVisibilityConverter}}"
+                    />
+
+                <!-- PAUSE -->
+                <Button Grid.Column="0"
+                    x:Name="pausebutton"
+                    Style="{StaticResource RoundButton}" 
+                    Tag="pack://application:,,,/Images/pause.png"
+                    Width="55"
+                    Command="{Binding PauseAudioCommand}"
+                    Visibility="{Binding IsPlaying, Converter={StaticResource BoolToVisibilityConverter}}"
+                    />
+
+            </Grid>
+
+            <!-- NEXT TRACK button-->
+            <Button Style="{StaticResource RoundButton}" 
+                    Width="38"
+                    Tag="pack://application:,,,/Images/next.png"                   
+                    Command="{Binding NextTrackRequestCommand}"
+                    />
+
+            <!-- STOP button-->
+            <Button  Style="{StaticResource RoundButton}" 
+                     Tag="pack://application:,,,/Images/stop.png"
+                     Width="38"
+                     Command="{Binding StopAudioCommand}"
+                     />
+
+            <!-- RANDOM PLAY toggle button -->
+            <Button  Style="{StaticResource RoundButton}" 
+                                 Width="32"
+                                 Margin="4,4,4,0"
+                                 />
+
+            <!-- REPEAT MODE button -->
+            <Button  Style="{StaticResource RoundButton}" 
+                                 Width="32"
+                                 Margin="4,4,4,0"
+                                 />
+
+
+        </StackPanel>
+
+        <!--#endregion-->
+
+        <!--#region  TIME SLIDER -->
+        <!-- TIME PANEL -->
+
+        <Grid Grid.Row="1"
+              Margin="5,0,5,5">
+            <Grid.ColumnDefinitions>
+
+                <!-- Actual time -->
+                <ColumnDefinition Width="auto"/>
+
+                <!-- Time slider -->
+                <ColumnDefinition Width="*"/>
+
+                <!-- Remaining time -->
+                <ColumnDefinition Width="auto"/>
+
+            </Grid.ColumnDefinitions>
+
+            <!-- Actual time textblock -->
+            <TextBlock Grid.Column="0"
+                       Style="{StaticResource WhiteTextblock}" 
+                       Text="{Binding TimeCurrent}"    
+                       FontSize="13"
+                       Margin="2"
+                       HorizontalAlignment="Center"
+                       />
+
+            <!-- Time and position slider-->
+            <Slider Style="{StaticResource TimeSliderStyle}" 
+                    Grid.Column="1"
+
+                        Name="TimeSlider"
+                        Orientation="Horizontal"
+                        Minimum="0"
+                        Maximum="100"
+                        IsMoveToPointEnabled="True"
+                        SmallChange="0.2"
+                        Value="{Binding Position}"
+                    />
+
+            <!-- PopUp with time value-->
+            <Popup Name="TimeValuePopup"
+                       
+                       StaysOpen="True"
+                       PlacementTarget="{Binding ElementName=TimeSlider}"
+                       PlacementRectangle="150,0,0,0">
+                <Grid Background="Red">
+                    <TextBlock Text="{Binding TimeCurrent}"/>
+                </Grid>
+
+                <Popup.Style>
+                    <Style TargetType="Popup">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Path=IsMouseOver, ElementName=TimeSlider}" Value="True">
+                                <Setter Property="IsOpen" Value="True"/>
+                            </DataTrigger>
+
+                        </Style.Triggers>
+                    </Style>
+                </Popup.Style>
+
+
+            </Popup>
+
+            <!-- Remaining time textblock -->
+            <TextBlock Grid.Column="2" 
+                       Style="{StaticResource WhiteTextblock}" 
+                       Text="{Binding TimeTotal}"
+                       Margin="2,2,15,2"                              
+                       FontSize="13"
+                       HorizontalAlignment="Center"
+                       />
+        </Grid>
+        <!--#endregion-->
+
+        <!--#region VOLUME SLIDER -->
+
+        <!-- VOLUME SLIDER -->
+        <Grid Grid.Row="2"
+              Margin="5,0,5,0"
+              HorizontalAlignment="Center">
+
+            <Grid.ColumnDefinitions>
+
+                <!-- Speaker button -->
+                <ColumnDefinition Width="auto"/>
+
+                <!-- Volume slider -->
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="25"/>
+                <ColumnDefinition Width="217.5"/>
+
+            </Grid.ColumnDefinitions>
+
+            <!-- SPEAKER BUTTON-->
+            <CheckBox Grid.Column="0"
+                      Style="{StaticResource MuteAudioCheckbox}"
+                      Width="20"
+                      Height="20"
+                      IsChecked="{Binding Muted}"
+                      />
+
+            <!-- Volume slider-->
+            <Slider Grid.Column="1"
+                    Style="{StaticResource VolumeSliderStyle}"
+                    Value="{Binding Volume, Mode=TwoWay}"
+                    IsMoveToPointEnabled="True"
+                    VerticalAlignment="Center"
+                    Grid.ColumnSpan="3"
+                    Minimum="0"
+                    Maximum="100"
+                    />
+            
+        </Grid>
+    </Grid>
+
+    <!--#endregion-->
+
+</UserControl>

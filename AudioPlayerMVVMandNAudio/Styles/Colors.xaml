@@ -1,0 +1,29 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- Background dark color -->
+    <Color x:Key="BackgroundDarkColor">#121212</Color>
+    <SolidColorBrush x:Key="BackgroundDarkBrush" Color="{StaticResource BackgroundDarkColor}"/>
+
+    <!-- Background main color -->
+    <Color x:Key="BackgroundMainColor">#252525</Color>
+    <SolidColorBrush x:Key="BackgroundMainBrush" Color="{StaticResource BackgroundMainColor}"/>
+
+    <!-- Foreground main color -->
+    <Color x:Key="ForegroundMainColor">White</Color>
+    <SolidColorBrush x:Key="ForegroundMainBrush" Color="{StaticResource ForegroundMainColor}"/>
+
+    <!-- Foreground dark color -->
+    <Color x:Key="ForegroundDarkColor">#a8a8a8</Color>
+    <SolidColorBrush x:Key="ForegroundDarkBrush" Color="{StaticResource ForegroundDarkColor}"/>
+
+    <!-- Light gray color -->
+    <Color x:Key="LightGrayColor">#b9b9b9</Color>
+    <SolidColorBrush x:Key="LightGrayBrush" Color="{StaticResource LightGrayColor}"/>
+
+    <!-- Blue main color -->
+    <Color x:Key="BlueMainColor">#1585B5</Color>
+    <SolidColorBrush x:Key="BlueMainBrush" Color="{StaticResource BlueMainColor}"/>
+    
+    
+</ResourceDictionary>

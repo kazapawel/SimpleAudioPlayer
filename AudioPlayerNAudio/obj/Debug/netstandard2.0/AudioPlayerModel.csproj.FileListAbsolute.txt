@@ -1,0 +1,4 @@
+C:\Users\k\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerNAudio\obj\Debug\netstandard2.0\AudioPlayerModel.csproj.AssemblyReference.cache
+C:\Users\k\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerNAudio\obj\Debug\netstandard2.0\AudioPlayerModel.AssemblyInfoInputs.cache
+C:\Users\k\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerNAudio\obj\Debug\netstandard2.0\AudioPlayerModel.AssemblyInfo.cs
+C:\Users\k\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerNAudio\obj\Debug\netstandard2.0\AudioPlayerModel.csproj.CoreCompileInputs.cache

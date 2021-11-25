@@ -24,6 +24,8 @@ namespace AudioPlayerNAudio
         /// </summary>
         public string Path { get; }
 
+        public string Name { get; }
+
         public string Description => tags.Properties.Description;
         public int AudioChannels => tags.Properties.AudioChannels;
         public int AudioSampleRate => tags.Properties.AudioSampleRate;
@@ -37,17 +39,17 @@ namespace AudioPlayerNAudio
         /// <summary>
         /// Gets audio file's title or path if title is not set.
         /// </summary>
-        public string Title => tags.Tag.Title ?? Path;
+        public string Title => tags.Tag.Title ?? tags.FileAbstraction.Name;
 
         /// <summary>
         /// Gets first artist from performers list or description it there are no performers.
         /// </summary>
-        public string Artist => tags.Tag.Performers.Length > 0 ? tags.Tag.Performers[0] : tags.Properties.MediaTypes.ToString();
+        public string Artist => tags.Tag.Performers.Length > 0 ? tags.Tag.Performers[0] : string.Empty;
 
         /// <summary>
         /// Gets audio's file album title.
         /// </summary>
-        public string Album => tags.Tag.Album ?? "-";
+        public string Album => tags.Tag.Album ?? string.Empty;
 
         #endregion
 
@@ -67,7 +69,7 @@ namespace AudioPlayerNAudio
              * 'E:\Muza\breakbit\Booty Luv - Shine (Destroyers & Aggresivnes Rmx).mp3.sfk (taglib/sfk)'
              * 
              */
-            //Sets file's path
+
             Path = path;
         }
 

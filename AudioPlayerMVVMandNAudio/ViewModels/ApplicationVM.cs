@@ -4,12 +4,23 @@ using System.Collections.ObjectModel;
 
 namespace AudioPlayerMVVMandNAudio
 {
-    /*----
+    /*---- commit 3
     TO DO:
-    comm2
+    GUI:
         *Everything smaller
-        *Better comments
+        *What font
         *Resizing window and fixed control size.
+        *Resizing/minimizing controls with button clicks
+        *Loop image
+        *Random image
+        *Style sliders and whole player
+        *Style min/max/close window buttons
+        *Slider drag and move in XAML if possbile
+        *Popup time to go on mouse position
+        *Logo
+        
+        *Better comments
+        
         *Files/projects structure
         *Not to fire stopped by user event all the time
         *Make play icon functionality
@@ -22,8 +33,7 @@ namespace AudioPlayerMVVMandNAudio
         *ID Numbers of tracks
             +DONE (*Selected/playing file info display)
             +DONE (*Playlist item display and customization)
-            +DONE Playlist slider customization
-        *Slider drag and move in XAML if possbile
+            +DONE Playlist slider customization      
             +DONE Playlist functionality: add files, 
             +DONE Playlist functionality: remove file,
             +DONE Playlist functionality: clear playlist,
@@ -32,15 +42,14 @@ namespace AudioPlayerMVVMandNAudio
         **Playlist functionality: save playlist,
         **Playlist functionality: laod playlist,
         **Playlist functionality: drag and drop tracks in playlist
+        **Playlist items on property changed
         *Filter OpenFileDialog files
         *Drag and drop files into playlist
-        *Volume in decibels
-        *Random image
-        *Loop image
+        *Volume in decibels 
         *Playmode random
         *Playmode loop
-        *Style min/max/close window buttons
-        *Style sliders and whole player
+        
+        
 
     ----*/
     public class ApplicationVM : BaseViewModel
@@ -134,7 +143,7 @@ namespace AudioPlayerMVVMandNAudio
         private void OnAudioStoppedByUser(object sender, EventArgs e)
         {
             if(AudioFileInfoVM !=null)
-            AudioFileInfoVM.IsAudioFilePlaying = false;
+                AudioFileInfoVM.IsAudioFilePlaying = false;
         }
     }
 }

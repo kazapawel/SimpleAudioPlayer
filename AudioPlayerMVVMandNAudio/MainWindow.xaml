@@ -6,10 +6,10 @@
         xmlns:local="clr-namespace:AudioPlayerMVVMandNAudio"
         mc:Ignorable="d"
         Title="MainWindow"  
-        SizeToContent="WidthAndHeight"
-       
+        SizeToContent="WidthAndHeight"     
         Style="{StaticResource MainWindowStyle}"
-        >
+        MinWidth="320"
+        MinHeight="250">
 
     <Window.DataContext>
         <local:ApplicationVM/>
@@ -86,76 +86,92 @@
         <Border Grid.Row="2"
                 BorderThickness="1"
                 BorderBrush="Magenta"
-                Margin="2">
-            
+                Margin="3,5,3,4">
+
             <local:PlaylistControl DataContext="{Binding PlaylistVM}"
                                    VerticalAlignment="Top"/>
-            
+
         </Border>
 
 
         <!--#endregion-->
-        
+
         <!--#region INFO -->
-        <!-- Info-->
-        <Border Grid.Row="3"
+
+
+        <StackPanel Grid.Row="3">
+
+            <!-- AUDIO TRACK Info-->
+            <Border 
+                BorderBrush="LightGreen"
+                BorderThickness="1"
+                Margin="3,0,3,3">
+
+                <Grid >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Title -->
+                    <TextBlock Grid.Column="0" 
+                               Style="{StaticResource TrackInfoTextblock}" 
+                               Text="{Binding AudioFileInfoVM.TrackTitle}"
+                               Foreground="{StaticResource ForegroundMainBrush}"
+                               />
+
+                    <!-- Artist -->
+                    <TextBlock Grid.Column="1"
+                       Style="{StaticResource TrackInfoTextblock}" 
+                       Text="{Binding AudioFileInfoVM.Artist}"
+                       />
+
+                    <!-- Album -->
+                    <TextBlock Grid.Column="2"
+                       Style="{StaticResource TrackInfoTextblock}" 
+                       Text="{Binding AudioFileInfoVM.Album}"
+                       />
+
+                </Grid>
+
+            </Border>
+
+
+            <!-- AUDIO FILE PROPERTIES Info-->
+            <Border 
                 BorderBrush="Red"
                 BorderThickness="1"
                 Margin="3,0,3,3">
 
-            <Grid >
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto"/>
-                    <ColumnDefinition Width="auto"/>
-                    <ColumnDefinition Width="auto"/>
-                    <ColumnDefinition Width="auto"/>
+                <Grid >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="13*"/>
+                        <ColumnDefinition Width="3*"/>
 
-                </Grid.ColumnDefinitions>
+                    </Grid.ColumnDefinitions>
 
-                <!-- Title -->
-                <TextBlock Grid.Column="0" 
-                       Style="{StaticResource WhiteTextblock}" 
-                       Text="{Binding AudioFileInfoVM.TrackTitle}"
-                       VerticalAlignment="Center"
-                       FontSize="13"
-                       Margin="2"
-                       Padding="2"
-                       />
-
-                <!-- Artist -->
-                <TextBlock Grid.Column="1"
-                       Style="{StaticResource GrayTextblock}" 
-                       Text="{Binding AudioFileInfoVM.Artist}"
-                       VerticalAlignment="Center"
-                       FontSize="13"
-                       Margin="2"
-                       Padding="2"
-                       />
-                
-                <!-- Album -->
-                <TextBlock Grid.Column="2"
-                       Style="{StaticResource GrayTextblock}" 
-                       Text="{Binding AudioFileInfoVM.Album}"
-                       VerticalAlignment="Center"
-                       FontSize="13"
-                       Margin="2"      
-                       Padding="2"
-                       />
-
-                <!-- File properties -->
-                <TextBlock Grid.Column="3"
+                    <!-- File properties -->
+                    <TextBlock Grid.Column="3"
                            
-                       Style="{StaticResource GrayTextblock}" 
+                       Style="{StaticResource TrackInfoTextblock}" 
                        Text="{Binding AudioFileInfoVM.FileProperties}"
-                       VerticalAlignment="Center"
-                       FontSize="13"
-                       Margin="2"      
-                       Padding="2"
+                       Margin="2,0,2,0"      
                        />
 
-            </Grid>
+                </Grid>
 
-        </Border>
+            </Border>
+
+        </StackPanel>
+
+
 
 
         <!--#endregion-->

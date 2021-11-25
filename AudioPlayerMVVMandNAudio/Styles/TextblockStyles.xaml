@@ -2,14 +2,29 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:AudioPlayerMVVMandNAudio">
 
+    <!-- DEFAULT WHITE textblock style-->
     <Style TargetType="{x:Type TextBlock}" x:Key="WhiteTextblock">
         <Setter Property="Foreground" Value="{StaticResource ForegroundMainBrush}"/>
-        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontSize" Value="12"/>
     </Style>
 
+    <!-- DEFAULT GRAY textblock style -->
     <Style TargetType="{x:Type TextBlock}" x:Key="GrayTextblock">
         <Setter Property="Foreground" Value="{StaticResource ForegroundDarkBrush}"/>
-        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontSize" Value="12"/>
+    </Style>
+
+    <!-- TIME INFO textblock style -->
+    <Style TargetType="{x:Type TextBlock}" x:Key="TimeTextblock" BasedOn="{StaticResource WhiteTextblock}">
+        <Setter Property="Margin" Value="5"/>
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+    </Style>
+
+    <Style TargetType="{x:Type TextBlock}" x:Key="TrackInfoTextblock" BasedOn="{StaticResource GrayTextblock}">
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="2"/>
+        <Setter Property="Padding" Value="2"/>
     </Style>
 
 </ResourceDictionary>

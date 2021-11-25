@@ -44,8 +44,8 @@
                     <ColumnDefinition Width="auto"/>
                     
                     <!-- Save button-->
-                    <ColumnDefinition Width="auto"
-                                      />
+                    <ColumnDefinition Width="auto"/>
+                    
                 </Grid.ColumnDefinitions>
                 
                <!-- Header-->
@@ -55,7 +55,7 @@
                            Padding="2"
                            FontSize="11"
                            VerticalAlignment="Center"
-                />
+                           />
 
                 <!-- Items count-->
                 <TextBlock Grid.Column="1"
@@ -64,7 +64,7 @@
                            Padding="2"
                            FontSize="11"
                            VerticalAlignment="Center"
-                />
+                           />
                 
                 <!-- Add item button -->
                 <Button Grid.Column="2"                     
@@ -72,7 +72,7 @@
                         Content="Add"
                         Margin="2,2,2,0" VerticalAlignment="Top"
                         Click="AddButton_Click"
-                />
+                        />
 
                 <!-- Remove items button -->
                 <Button Grid.Column="3"                     
@@ -81,7 +81,7 @@
                         Margin="2"
                         CommandParameter="{Binding ElementName=PlaylistListbox, Path=SelectedItems}"
                         Command="{Binding RemoveTracksFromPlaylistCommand}"
-                />
+                        />
 
                 <!-- Clear playlist button-->
                 <Button Grid.Column="4"                     
@@ -89,7 +89,7 @@
                         Content="CLR"
                         Margin="2"
                         Command="{Binding ClearPlaylistCommand}"
-                />
+                        />
 
                 <!-- Load playlist button-->
                 <Button Grid.Column="5"                     

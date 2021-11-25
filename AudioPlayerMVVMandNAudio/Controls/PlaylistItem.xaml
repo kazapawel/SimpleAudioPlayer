@@ -24,7 +24,7 @@
                 <ColumnDefinition Width="26"/>
                 
                 <!-- ID number-->
-                <ColumnDefinition Width="20"/>
+                <ColumnDefinition Width="auto"/>
 
                 <!-- Info display-->
                 <ColumnDefinition Width="*"/>
@@ -39,36 +39,36 @@
                     Style="{StaticResource PlaylistItemButton}"
                     Tag="pack://application:,,,/Images/play.png"
                     Width="20"
-                    Visibility="{Binding Converter={StaticResource BoolToVisibilityConverter}, Path=IsAudioFilePlaying}"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"                  
+                    Visibility="{Binding Converter={StaticResource BoolToVisibilityConverter}, Path=IsAudioFilePlaying}"               
                    />
 
-            <!-- ID number -->
+            <!-- ID number --><!--
             <TextBlock Style="{StaticResource WhiteTextblock}"
                        Text="1."                       
                        HorizontalAlignment="Center"
                        Grid.Column="1"
                        Foreground="White"
                        FontSize="13"
-                       />
+                       />-->
             
             <!-- INFO -->
             <StackPanel Grid.Column="2"
-                        HorizontalAlignment="Left">
+                        HorizontalAlignment="Left"
+                        Margin="2,0,0,0">
 
                 <!-- Title-->
                 <TextBlock HorizontalAlignment="Left"
-                           Style="{StaticResource WhiteTextblock}"
-
+                           Style="{StaticResource WhiteTextblock}"                         
                            Text="{Binding TrackTitle}"
+                           TextTrimming="CharacterEllipsis"
                            />
 
                 <!-- Artist-->
                 <TextBlock HorizontalAlignment="Left"
                            Style="{StaticResource GrayTextblock}"
-                           FontSize="12"
+                           FontSize="11"
                            Text="{Binding Artist}"
+                           TextTrimming="CharacterEllipsis"
                            />
                 
             </StackPanel>
@@ -80,7 +80,7 @@
                        HorizontalAlignment="Right"
                        VerticalAlignment="Center"
                        Margin="2"
-                       FontSize="13"
+                       FontSize="11"
                        />
         </Grid>
         

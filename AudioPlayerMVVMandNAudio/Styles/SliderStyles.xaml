@@ -133,7 +133,7 @@
                     <Canvas Margin="-6,-1">
                         <Rectangle x:Name="PART_SelectionRange" 
                                    Fill="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" 
-                                   Height="4.0" 
+                                   Height="6.0" 
                                    Visibility="Hidden"/>
                     </Canvas>
                 </Border>
@@ -359,7 +359,7 @@
                         BorderThickness="1" 
                         BorderBrush="Transparent"
                         Height="4.0" 
-                        Margin="5,0" 
+                        Margin="0" 
                         Grid.Row="1" 
                         VerticalAlignment="center">
                     <Canvas Margin="-6,-1">

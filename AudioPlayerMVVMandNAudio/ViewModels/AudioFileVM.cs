@@ -45,7 +45,7 @@ namespace AudioPlayerMVVMandNAudio
         /// </summary>
         public string TimeTotal => model.Duration.ToString(@"hh\:mm\:ss");
 
-        public string FileProperties => $"{model.Description} | {(model.AudioChannels>1 ? "stereo" : "mono")} | {model.AudioSampleRate} | {model.BitsPerSample}";
+        public string FileProperties => $"{model.Description} | {(model.AudioChannels>1 ? "stereo" : "mono")} | {model.AudioSampleRate} Hz | {model.BitsPerSample} bits";
 
         /// <summary>
         /// 
@@ -66,6 +66,7 @@ namespace AudioPlayerMVVMandNAudio
         #endregion
 
         #region CONSTRUCTORS
+
         /// <summary>
         /// Default constructor with audio file model injected.
         /// </summary>

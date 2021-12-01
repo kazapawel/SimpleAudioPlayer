@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Windows.Input;
 using System.Linq;
 using System.Collections.Specialized;
+using System.IO;
 
 namespace AudioPlayerMVVMandNAudio
 {
@@ -234,11 +235,22 @@ namespace AudioPlayerMVVMandNAudio
         /// 
         /// </summary>
         /// <param name="trackPath"></param>
-        public void AddTrackToPlaylist(string trackPath)
+        public void AddTracksToPlaylist(IEnumerable<string> tracksPaths)
         {
-            var track = new AudioFile(trackPath);
-            model.AddTrack(track);
-            SongsListObservable.Add(new AudioFileVM(track));
+            //Adds tracks to model and observable collection
+            foreach (var trackPath in tracksPaths)
+            {
+                if(PathIsValid(trackPath))
+                {
+                    var track = new AudioFile(trackPath);
+                    model.AddTrack(track);
+                    SongsListObservable.Add(new AudioFileVM(track));
+                }            
+            }
+
+            //Raises property changed on read only property
+            OnPropertyChanged(nameof(Items));
+
         }
 
         /// <summary>
@@ -251,6 +263,7 @@ namespace AudioPlayerMVVMandNAudio
             System.Collections.IList items = (System.Collections.IList)o;
             var songs = items.Cast<AudioFileVM>();
 
+            //Removes songs
             foreach (var song in songs)
                 model.RemoveTrack(song.GetModel());
 
@@ -269,9 +282,8 @@ namespace AudioPlayerMVVMandNAudio
             //CollectionChanged does not work for new-ing collection...?
             OnPropertyChanged(nameof(SongsListObservable));
 
-            
-
-
+            //Raise property changed on read only property
+            OnPropertyChanged(nameof(Items));
 
         }
 
@@ -281,8 +293,29 @@ namespace AudioPlayerMVVMandNAudio
         /// <param name="o"></param>
         private void ClearPlaylist(object o)
         {
-            SongsListObservable.Clear();
+            //Makes new observable collection
+            SongsListObservable = new ObservableCollection<AudioFileVM>();
+
+            //Makes new model collection 
             model.ClearPlaylist();
+
+            //CollectionChanged does not work for new-ing collection...?
+            OnPropertyChanged(nameof(SongsListObservable));
+
+            //Raise property changed on read only property
+            OnPropertyChanged(nameof(Items));
+        }
+
+        private bool PathIsValid(string path)
+        {
+            var file = new FileInfo(path);
+
+            return !file.Attributes.HasFlag(FileAttributes.Directory);
+        }
+
+        private bool IsFileDirectory(string path)
+        {
+            return true;
         }
 
         //private void RefreshModel(object sender, NotifyCollectionChangedEventArgs e)

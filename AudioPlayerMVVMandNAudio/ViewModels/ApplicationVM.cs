@@ -27,6 +27,7 @@ namespace AudioPlayerMVVMandNAudio
         *Keyboard keys functionality
         *File saving/loading WHEN?
         *Updating model - best way
+        *Clear playlist event so info can clear
             +DONE (Title bar - minimize/close window etc)
             +DONE (slider customization)
             +DONE (VolumE slider customization)
@@ -41,17 +42,21 @@ namespace AudioPlayerMVVMandNAudio
             +DONE Playlist functionality: save/load default playlist
         **Playlist functionality: save playlist,
         **Playlist functionality: laod playlist,
-        **Playlist functionality: drag and drop tracks in playlist
-        **Playlist items on property changed
+        **Playlist functionality: drag and move tracks in playlist
+            +DONE Playlist items on property changed
         *Filter OpenFileDialog files
-        *Drag and drop files into playlist
+            +DONE Wav file name 
+            +DONE Drag and drop files into playlist
+        *Drag and drop folders into playlist
+        *MVVM Drag and drop files into playlist
+        *Validation rules for files selected
         *Volume in decibels 
         *Playmode random
         *Playmode loop
         
-        
-
+       
     ----*/
+
     public class ApplicationVM : BaseViewModel
     {
         #region PUBLIC PROPERTIES

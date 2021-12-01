@@ -22,14 +22,17 @@ namespace AudioPlayerNAudio
         /// <summary>
         /// Gets file's path.
         /// </summary>
-        public string Path { get; }
+        public string PathOfFile { get; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string Name { get; }
 
         public string Description => tags.Properties.Description;
         public int AudioChannels => tags.Properties.AudioChannels;
         public int AudioSampleRate => tags.Properties.AudioSampleRate;
-        public int BitsPerSample => tags.Properties.BitsPerSample;
+        public int BitsPerSample => tags.Properties.BitsPerSample == 0 ? tags.Properties.AudioBitrate : tags.Properties.BitsPerSample;
 
         /// <summary>
         /// Gets audio file's duration time.
@@ -39,7 +42,7 @@ namespace AudioPlayerNAudio
         /// <summary>
         /// Gets audio file's title or path if title is not set.
         /// </summary>
-        public string Title => tags.Tag.Title ?? tags.FileAbstraction.Name;
+        public string Title => tags.Tag.Title ?? Name;
 
         /// <summary>
         /// Gets first artist from performers list or description it there are no performers.
@@ -61,7 +64,11 @@ namespace AudioPlayerNAudio
         /// <param name="path"></param>
         public AudioFile(string path)
         {
-            //Creates TagLib instance
+            PathOfFile = path;
+            Name = System.IO.Path.GetFileName(path);
+
+            //Creates TagLib instance     TagLib.CorruptFileException: 'MPEG audio header not found.'
+
             tags = File.Create(path);
 
             /*
@@ -70,7 +77,7 @@ namespace AudioPlayerNAudio
              * 
              */
 
-            Path = path;
+            
         }
 
         #endregion

@@ -71,6 +71,9 @@ namespace AudioPlayerNAudio
             SavePlaylistToFile();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public void ClearPlaylist()
         {
             SongsList = new List<AudioFile>();
@@ -91,7 +94,7 @@ namespace AudioPlayerNAudio
 
         private void SavePlaylistToFile()
         {
-            File.WriteAllLines(PlaylistPath, SongsList.Select(x => x.Path));
+            File.WriteAllLines(PlaylistPath, SongsList.Select(x => x.PathOfFile));
         }
 
         private void LoadDummyData()

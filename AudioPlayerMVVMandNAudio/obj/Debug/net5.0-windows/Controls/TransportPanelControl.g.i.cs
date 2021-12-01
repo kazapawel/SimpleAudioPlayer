@@ -90,7 +90,7 @@ namespace AudioPlayerMVVMandNAudio {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/AudioPlayerMVVMandNAudio;V1.0.0.0;component/controls/transportpanelcontrol.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/AudioPlayerMVVMandNAudio;component/controls/transportpanelcontrol.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\Controls\TransportPanelControl.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

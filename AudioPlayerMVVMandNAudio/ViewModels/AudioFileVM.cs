@@ -38,14 +38,14 @@ namespace AudioPlayerMVVMandNAudio
         /// <summary>
         /// 
         /// </summary>
-        public string Path => model.Path;
+        public string Path => model.PathOfFile;
 
         /// <summary>
         /// Total time in string format
         /// </summary>
         public string TimeTotal => model.Duration.ToString(@"hh\:mm\:ss");
 
-        public string FileProperties => $"{model.Description} | {(model.AudioChannels>1 ? "stereo" : "mono")} | {model.AudioSampleRate} Hz | {model.BitsPerSample} bits";
+        public string FileProperties => $"{model.Description} | {(model.AudioChannels>1 ? "stereo" : "mono")} | {model.AudioSampleRate} Hz | {model.BitsPerSample}";
 
         /// <summary>
         /// 
@@ -87,5 +87,6 @@ namespace AudioPlayerMVVMandNAudio
         #endregion
 
         public AudioFile GetModel() => model;
-        }
+
+    }
 }

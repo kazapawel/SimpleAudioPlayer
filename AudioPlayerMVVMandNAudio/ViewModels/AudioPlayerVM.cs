@@ -244,27 +244,29 @@ namespace AudioPlayerMVVMandNAudio
         /// <param name="o"></param>
         private void StopAudio(object o)
         {
-            //Stops audio file player
-            audioFilePlayer?.StopAudio();
+            if(audioFilePlayer != null)
+            {
+                //Stops audio file player
+                audioFilePlayer?.StopAudio();
+                //Stops timer
 
-            //Stops timer
-            timer?.Stop();
+                timer?.Stop();
 
-            //Setting to null is questionable but how to make it better?
-            audioFilePlayer = null;
+                //Setting to null is questionable but how to make it better?
+                audioFilePlayer = null;
 
-            //Updates time to make it 0:00
-            UpdateTime();
+                //Updates time to make it 0:00
+                UpdateTime();
 
-            //Changes state of player
-            IsPlaying = false;
+                //Changes state of player
+                IsPlaying = false;
 
-            //Raises stop audio by user event - TO DO - NOT TO INVOKE ALL THE TIME!!!!!!!!!!!!!!
-            StopAudioByUserEvent?.Invoke(this, new EventArgs());
+                //Raises stop audio by user event - TO DO - NOT TO INVOKE ALL THE TIME!!!!!!!!!!!!!!
+                StopAudioByUserEvent?.Invoke(this, new EventArgs());
 
-            OnPropertyChanged(nameof(TimeTotal));
-            UpdatePosition();
-
+                OnPropertyChanged(nameof(TimeTotal));
+                UpdatePosition();
+            }
         }
 
         /// <summary>
@@ -308,9 +310,11 @@ namespace AudioPlayerMVVMandNAudio
         /// <param name="e"></param>
         public void OnAudioFileLoaded(object sender, AudioFileVMEventArgs e)
         {
-            //Stops current audio 
-            StopAudio(null);
+            //Stops current audio
+            if(audioFilePlayer != null)
+                StopAudio(null);
 
+            //EXCEPTION
             //Loads track which was sent by playlist
             Path = e.AudioFileVM.Path;
 

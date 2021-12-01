@@ -1,18 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Controls;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+﻿using System.Windows;
 using Microsoft.Win32;
 
 namespace AudioPlayerMVVMandNAudio
@@ -22,13 +8,16 @@ namespace AudioPlayerMVVMandNAudio
     /// </summary>
     public partial class PlaylistControl : System.Windows.Controls.UserControl
     {
+        /// <summary>
+        /// Default constructor.
+        /// </summary>
         public PlaylistControl()
         {
             InitializeComponent();
         }
 
         /// <summary>
-        /// Opens new file dialog.
+        /// Opens new file dialog for files selection.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -36,19 +25,43 @@ namespace AudioPlayerMVVMandNAudio
         {
             var dialog = new OpenFileDialog();
 
+            //Enables selection of multiple files
             dialog.Multiselect = true;
 
+            //Sets filter for files that can be chosen
             dialog.Filter = "Audio files |*.mp3;*.wav";
 
-            //If user selects file and presses OK
+            //If user selects files and presses OK
             if (dialog.ShowDialog() == true)
             {
-                var names = dialog.FileNames;
-                var playlistVM = this.DataContext as PlaylistVM;
-                foreach(var name in names)
-                playlistVM.AddTrackToPlaylist(name);
+                //Gets names of all selected files
+                SendFilesToViewModel(dialog.FileNames);
             }
 
+        }
+
+        /// <summary>
+        /// Adds trakcs to playlist by draging file from computer and dropping them on playlist.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void PlaylistListbox_Drop(object sender, DragEventArgs e)
+        {
+            if(e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                //Gets string paths of dropped files
+                SendFilesToViewModel((string[])e.Data.GetData(DataFormats.FileDrop));
+            }
+        }
+
+        /// <summary>
+        /// Sends paths to view model.
+        /// </summary>
+        /// <param name="files"></param>
+        private void SendFilesToViewModel(string[] files)
+        {
+            var playlist = this.DataContext as PlaylistVM;
+            playlist.AddTracksToPlaylist(files);
         }
     }
 }

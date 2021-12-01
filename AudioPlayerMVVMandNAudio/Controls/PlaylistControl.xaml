@@ -20,10 +20,11 @@
                  VerticalAlignment="Stretch"
                  Style="{StaticResource PlaylistStyle}"
                  ItemsSource="{Binding SongsListObservable}"                 
-                 ItemContainerStyle="{StaticResource PlaylistItemStyle}"
-                 
+                 ItemContainerStyle="{StaticResource PlaylistItemStyle}"                
                  SelectedItem="{Binding SelectedTrack, Mode=OneWayToSource}"
-                 SelectionMode="Extended">
+                 SelectionMode="Extended"
+                 AllowDrop="True"
+                 Drop="PlaylistListbox_Drop">
         </ListBox>
 
         <!-- Listbox Options -->
@@ -83,27 +84,27 @@
                         Command="{Binding RemoveTracksFromPlaylistCommand}"
                         />
 
-                <!-- Clear playlist button-->
-                <Button Grid.Column="4"                     
-                        Height="17"
-                        Content="CLR"
-                        Margin="2"
-                        Command="{Binding ClearPlaylistCommand}"
-                        />
-
                 <!-- Load playlist button-->
-                <Button Grid.Column="5"                     
+                <Button Grid.Column="4"                     
                         Height="17"
                         Content="LOAD"
                         Margin="2"
                         />
 
                 <!-- Save playlist button-->
-                <Button Grid.Column="6"                     
+                <Button Grid.Column="5"                     
                         Height="17"
                         Content="SAVE"
                         Margin="2"
                         HorizontalAlignment="Right"
+                        />
+
+                <!-- Clear playlist button-->
+                <Button Grid.Column="6"                     
+                        Height="17"
+                        Content="CLR"
+                        Margin="2"
+                        Command="{Binding ClearPlaylistCommand}"
                         />
 
             </Grid>

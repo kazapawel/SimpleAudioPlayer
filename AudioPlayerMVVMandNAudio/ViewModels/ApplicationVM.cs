@@ -22,6 +22,8 @@ namespace AudioPlayerMVVMandNAudio
         *Better comments
         
         *Files/projects structure
+        *Exceptions error logger
+        *Fix whole player logic!
         *Not to fire stopped by user event all the time
         *Make play icon functionality
         *Keyboard keys functionality
@@ -123,7 +125,7 @@ namespace AudioPlayerMVVMandNAudio
             PlaylistVM.LoadAudioFileEvent += OnAudioFileLoaded;
 
             //Subscribes ApplicationVM to AudioPlayerVM event
-            AudioPlayerVM.StopAudioByUserEvent += OnAudioStoppedByUser;
+            AudioPlayerVM.StopAudioBeforeEndEvent += OnAudioStoppedByUser;
         }
 
         /// <summary>

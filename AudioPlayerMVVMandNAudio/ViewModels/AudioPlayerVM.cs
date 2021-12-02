@@ -1,6 +1,7 @@
 ﻿using AudioPlayerNAudio;
 using System.Windows.Threading;
 using System;
+using System.Collections.Generic;
 
 namespace AudioPlayerMVVMandNAudio
 {
@@ -97,6 +98,11 @@ namespace AudioPlayerMVVMandNAudio
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        public List<string[]> ErrorLog { get; set; }
+
 
         #region PAPAPSDFPASPDFPASDPFAPSDFASDF
 
@@ -139,7 +145,7 @@ namespace AudioPlayerMVVMandNAudio
         /// <summary>
         /// Occurs when user stops audio
         /// </summary>
-        public event EventHandler StopAudioByUserEvent;
+        public event EventHandler StopAudioBeforeEndEvent;
 
         /// <summary>
         /// Occurs when next song is pressed on ui
@@ -183,6 +189,9 @@ namespace AudioPlayerMVVMandNAudio
 
             //Sets start volume
             Volume = 50;
+
+            //Inits errog log list
+            ErrorLog = new List<string[]>();
         }
 
         #endregion
@@ -195,7 +204,7 @@ namespace AudioPlayerMVVMandNAudio
         /// <param name="o"></param>
         private void PlayAudio(object o)
         {
-            //Works only if path is not null
+            //Works only if there is a file ready for play
             if (Path != null)
             {
                 //If audio is paused - resume audio
@@ -205,10 +214,22 @@ namespace AudioPlayerMVVMandNAudio
                 //If audio is not paused: to prevent from playing multiple files at the same time
                 else
                 {
-                    //Creates new instance of audio file player model
-                    audioFilePlayer = new AudioFilePlayerNAudio(Path);
+                    try
+                    {
+                        //Creates new instance of audio file player model
+                        audioFilePlayer = new AudioFilePlayerNAudio(Path);
+                    }
+                    catch (Exception e)
+                    {
+                        //Logs exception info
+                        ErrorLog.Add(new string[] { e.ToString(), e.Message });
 
-                    //Sets audioplayer model volume
+                        audioFilePlayer = null;
+                        //Ends method = no audio playback
+                        return;
+                    }
+                    
+                    //Sets audioplayer model volume based on user volume settings(ex: volume fader)
                     SetAudioPlayerVolume();
 
                     //Subscribes to model event which informs about audio reaching it's end.
@@ -239,11 +260,12 @@ namespace AudioPlayerMVVMandNAudio
         }
 
         /// <summary>
-        /// 
+        /// Stops current audio playback.
         /// </summary>
         /// <param name="o"></param>
         private void StopAudio(object o)
         {
+            //If audio is playing
             if(audioFilePlayer != null)
             {
                 //Stops audio file player
@@ -252,19 +274,20 @@ namespace AudioPlayerMVVMandNAudio
 
                 timer?.Stop();
 
-                //Setting to null is questionable but how to make it better?
+                //Clears audio player. Setting to null is questionable but how to make it better?
                 audioFilePlayer = null;
 
-                //Updates time to make it 0:00
+                //On property changed
                 UpdateTime();
 
                 //Changes state of player
                 IsPlaying = false;
 
                 //Raises stop audio by user event - TO DO - NOT TO INVOKE ALL THE TIME!!!!!!!!!!!!!!
-                StopAudioByUserEvent?.Invoke(this, new EventArgs());
+                StopAudioBeforeEndEvent?.Invoke(this, new EventArgs());
 
                 OnPropertyChanged(nameof(TimeTotal));
+
                 UpdatePosition();
             }
         }
@@ -312,7 +335,10 @@ namespace AudioPlayerMVVMandNAudio
         {
             //Stops current audio
             if(audioFilePlayer != null)
+            {
                 StopAudio(null);
+            }
+
 
             //EXCEPTION
             //Loads track which was sent by playlist
@@ -334,7 +360,8 @@ namespace AudioPlayerMVVMandNAudio
 
         public void OnPlaylistEnded(object sender, EventArgs e)
         {
-            StopAudio(null);
+            audioFilePlayer = null;
+            //StopAudio(null);
         }
 
         /// <summary>
@@ -358,12 +385,17 @@ namespace AudioPlayerMVVMandNAudio
         }
 
 
-
+        /// <summary>
+        /// Raises OnPropertyChanged event to inform about audio time changes.
+        /// </summary>
         private void UpdateTime()
         {
             OnPropertyChanged(nameof(TimeCurrent));
         }
 
+        /// <summary>
+        /// Raises OnPropertyChanged event to inform about audio stream position changes.
+        /// </summary>
         private void UpdatePosition()
         {
             OnPropertyChanged(nameof(Position));

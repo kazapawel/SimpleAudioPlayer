@@ -306,6 +306,11 @@ namespace AudioPlayerMVVMandNAudio
             OnPropertyChanged(nameof(Items));
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
         private bool PathIsValid(string path)
         {
             var file = new FileInfo(path);

@@ -11,48 +11,48 @@ namespace AudioPlayerNAudio
         #region PRIVATE MEMBERS
 
         /// <summary>
-        /// Private instance of TagLib. Contains info about  file.
+        /// Private instance of TagLib. Contains info about audio file.
         /// </summary>
-        private File tags;
+        private readonly File tags;
 
         #endregion
 
         #region PUBLIC PROPERTIES
 
         /// <summary>
-        /// Gets file's path.
+        /// Gets audio file's path.
         /// </summary>
         public string PathOfFile { get; }
 
         /// <summary>
-        /// 
+        /// Gets audio file's name ex: audiofile.wav
         /// </summary>
-        public string Name { get; }
-
-        public string Description => tags.Properties.Description;
-        public int AudioChannels => tags.Properties.AudioChannels;
-        public int AudioSampleRate => tags.Properties.AudioSampleRate;
-        public int BitsPerSample => tags.Properties.BitsPerSample == 0 ? tags.Properties.AudioBitrate : tags.Properties.BitsPerSample;
+        public string Name { get; private set; }
 
         /// <summary>
-        /// Gets audio file's duration time.
+        /// Gets audio file's title. If title is not set gets file's name.
         /// </summary>
-        public TimeSpan Duration => tags.Properties.Duration;
-
-        /// <summary>
-        /// Gets audio file's title or path if title is not set.
-        /// </summary>
-        public string Title => tags.Tag.Title ?? Name;
+        public string Title => tags is null ? Name : tags.Tag.Title ?? Name;
 
         /// <summary>
         /// Gets first artist from performers list or description it there are no performers.
         /// </summary>
-        public string Artist => tags.Tag.Performers.Length > 0 ? tags.Tag.Performers[0] : string.Empty;
+        public string Artist => tags is null ? string.Empty : tags.Tag.Performers.Length > 0 ? tags.Tag.Performers[0] : string.Empty;
 
         /// <summary>
         /// Gets audio's file album title.
         /// </summary>
-        public string Album => tags.Tag.Album ?? string.Empty;
+        public string Album => tags is null ? string.Empty : tags.Tag.Album;
+
+        /// <summary>
+        /// Gets audio file's duration time.
+        /// </summary>
+        public TimeSpan Duration => tags is null ? new TimeSpan(0) : tags.Properties.Duration;
+
+        public string Description => tags is null ? string.Empty : tags.Properties.Description;
+        public int AudioChannels => tags is null ? 0 : tags.Properties.AudioChannels;
+        public int AudioSampleRate => tags is null ? 0 : tags.Properties.AudioSampleRate;
+        public int BitsPerSample => tags is null ? 0 : tags.Properties.BitsPerSample == 0 ? tags.Properties.AudioBitrate : tags.Properties.BitsPerSample;
 
         #endregion
 
@@ -64,20 +64,29 @@ namespace AudioPlayerNAudio
         /// <param name="path"></param>
         public AudioFile(string path)
         {
+            //File's path
             PathOfFile = path;
+
+            //File's name
             Name = System.IO.Path.GetFileName(path);
 
-            //Creates TagLib instance     TagLib.CorruptFileException: 'MPEG audio header not found.'
+            //Creates TagLib instance
+            try
+            {
+                tags = File.Create(path);
+            }
 
-            tags = File.Create(path);
+            //TagLib.CorruptFileException: 'MPEG audio header not found.
+            catch (CorruptFileException e)
+            {
+                //So user can see info about file corruption
+                Name = e.Message;
+            }
 
             /*
              * TagLib.UnsupportedFormatException: 
              * 'E:\Muza\breakbit\Booty Luv - Shine (Destroyers & Aggresivnes Rmx).mp3.sfk (taglib/sfk)'
-             * 
              */
-
-            
         }
 
         #endregion

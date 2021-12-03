@@ -99,6 +99,7 @@ namespace AudioPlayerNAudio
 
         private void LoadDummyData()
         {
+            
             SongsList.Add(new AudioFile(@"D:\sample po procesach.wav"));
             SongsList.Add(new AudioFile(@"D:\gitarasolo2.wav"));
             SongsList.Add(new AudioFile(@"D:\VOX czysty.wav"));

@@ -204,7 +204,7 @@ namespace AudioPlayerMVVMandNAudio
         /// <param name="o"></param>
         private void PlayAudio(object o)
         {
-            //Works only if there is a file ready for play
+            //Works only if there is a path ready for loading into audio player
             if (Path != null)
             {
                 //If audio is paused - resume audio
@@ -224,7 +224,9 @@ namespace AudioPlayerMVVMandNAudio
                         //Logs exception info
                         ErrorLog.Add(new string[] { e.ToString(), e.Message });
 
+                        //Resets audioFilePlayer
                         audioFilePlayer = null;
+
                         //Ends method = no audio playback
                         return;
                     }
@@ -237,6 +239,9 @@ namespace AudioPlayerMVVMandNAudio
 
                     //Plays audio
                     audioFilePlayer.PlayAudio();
+
+                    //Here should be an event informing all about new audio plyaback start
+                    //
                 }
 
                 //Creates new dispatcher timer for updating time values from model
@@ -255,8 +260,7 @@ namespace AudioPlayerMVVMandNAudio
 
                 //Changes state of player
                 IsPlaying = true;
-            }
-            
+            }         
         }
 
         /// <summary>
@@ -270,8 +274,8 @@ namespace AudioPlayerMVVMandNAudio
             {
                 //Stops audio file player
                 audioFilePlayer?.StopAudio();
-                //Stops timer
 
+                //Stops timer
                 timer?.Stop();
 
                 //Clears audio player. Setting to null is questionable but how to make it better?
@@ -283,7 +287,7 @@ namespace AudioPlayerMVVMandNAudio
                 //Changes state of player
                 IsPlaying = false;
 
-                //Raises stop audio by user event - TO DO - NOT TO INVOKE ALL THE TIME!!!!!!!!!!!!!!
+                //Raises stop audio before end event
                 StopAudioBeforeEndEvent?.Invoke(this, new EventArgs());
 
                 OnPropertyChanged(nameof(TimeTotal));
@@ -333,15 +337,15 @@ namespace AudioPlayerMVVMandNAudio
         /// <param name="e"></param>
         public void OnAudioFileLoaded(object sender, AudioFileVMEventArgs e)
         {
-            //Stops current audio
+            //If audio is playing stops it
             if(audioFilePlayer != null)
             {
                 StopAudio(null);
             }
 
 
-            //EXCEPTION
-            //Loads track which was sent by playlist
+            //EXCEPTION - where to check if file exists - model?
+            //Loads track path which was sent by playlist
             Path = e.AudioFileVM.Path;
 
             //Plays new track
@@ -355,6 +359,10 @@ namespace AudioPlayerMVVMandNAudio
         /// <param name="e"></param>
         public void OnAudioHasEnded(object sender, EventArgs e)
         {
+            //Clears audio player
+            audioFilePlayer = null;
+
+            //Request
             NextTrackRequest(null);
         }
 

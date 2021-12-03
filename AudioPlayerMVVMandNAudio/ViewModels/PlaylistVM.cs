@@ -179,7 +179,7 @@ namespace AudioPlayerMVVMandNAudio
             //Raise event
             LoadAudioFileEvent?.Invoke(this, new AudioFileVMEventArgs(bufferTrack));
 
-            //Sets buffer track state 
+            //Sets buffer track state - this has to chagne when playback starts
             BufferTrack.IsAudioFilePlaying = true;
         }
 

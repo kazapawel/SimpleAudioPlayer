@@ -23,9 +23,9 @@ namespace AudioPlayerNAudio
         private AudioFileReader audioFileReader;
 
         /// <summary>
-        /// Flag that informs if playback was stopped by user.
+        /// Flag that informs if playback was stopped before reaching its end(ex: by user pressing stop).
         /// </summary>
-        private bool StoppedByUser;
+        private bool StoppedBeforeEnd;
 
         #endregion
 
@@ -86,12 +86,25 @@ namespace AudioPlayerNAudio
         public AudioFilePlayerNAudio(string path)
         {
             outputDevice = new WaveOutEvent();
-            audioFileReader = new AudioFileReader(path);
+
+            //Creates audio file reader
+            try
+            {
+                audioFileReader = new AudioFileReader(path);
+            }
+            catch (System.IO.InvalidDataException e)
+            {
+                //Re-throws exception
+                throw;
+            }
+            
 
             /*
              * System.InvalidOperationException: 
              * 'Got a frame at sample rate 32000, in an MP3 with sample rate 44100.
              * Mp3FileReader does not support sample rate changes.'
+             * System.IO.InvalidDataException: 'Invalid MP3 file - no MP3 Frames Detected'
+
              * 
              */
             outputDevice.PlaybackStopped += OnPlaybackStopped;
@@ -133,11 +146,11 @@ namespace AudioPlayerNAudio
         }
 
         /// <summary>
-        /// Stops audio playback requested by user, before audio file end. This stop do not dispose player.
+        /// Stops audio playback before audio file ends (ex. user pressed stop).
         /// </summary>
         public void StopAudio()
         {
-            StoppedByUser = true;
+            StoppedBeforeEnd = true;
             outputDevice?.Stop();
         }
 
@@ -152,7 +165,7 @@ namespace AudioPlayerNAudio
             DisposeDevices();
 
             //If audio has stopped by reaching it's end - raises an event
-            if (!StoppedByUser)
+            if (!StoppedBeforeEnd)
                 AudioHasEndedEvent?.Invoke(this, new EventArgs());
         }
 

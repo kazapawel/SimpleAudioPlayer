@@ -10,94 +10,147 @@
     <Grid>
         <Grid.RowDefinitions>
 
-            <!-- Transport buttons -->
+            <!-- Transport buttons and volume slider -->
             <RowDefinition Height="auto"/>
-
-            <!-- Volume slider -->
-            <RowDefinition Height="*"/>
 
             <!-- Time slider -->
             <RowDefinition Height="*"/>
 
         </Grid.RowDefinitions>
 
+        <!--#region TRANSPORT PANEL  -->
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
 
-        <!--#region TRANSPORT PANEL -->
+                <!-- Transport panel-->
+                <ColumnDefinition Width="auto"/>
 
-        <!-- TRANSPORT PANEL -->
-        <StackPanel Grid.Row="0" 
-                    Orientation="Horizontal"
-                    HorizontalAlignment="Center"
-                    Margin="5,5,5,0">
+                <!-- Volume slider and mute button -->
+                <ColumnDefinition Width="auto"/>
 
-            <!-- PREVIOUS TRACK button -->
-            <Button Style="{StaticResource RoundButton}" 
-                    Width="36"
-                    Tag="pack://application:,,,/Images/previous.png"                   
-                    Command="{Binding PreviousTrackRequestCommand}"
-                    />
+            </Grid.ColumnDefinitions>
 
-            <!-- PLAY / PAUSE button -->
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto"/>
-                </Grid.ColumnDefinitions>
+            <!-- TRANSPORT PANEL -->
+            <StackPanel Grid.Column="0" 
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Left"
+                        Margin="5,5,5,0">
 
-                <!-- PLAY -->
-                <Button Grid.Column="0"
+                <!-- PREVIOUS TRACK button -->
+                <Button Style="{StaticResource RoundButton}" 
+                        Width="36"
+                        Tag="pack://application:,,,/Images/previous.png"                   
+                        Command="{Binding PreviousTrackRequestCommand}"
+                        />
+
+                <!-- PLAY / PAUSE button -->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- PLAY -->
+                    <Button Grid.Column="0"
                     x:Name="playbutton"
                     Style="{StaticResource RoundButton}" 
                     Tag="pack://application:,,,/Images/play.png"
-                    Width="53"
+                    Width="36"
                     Command="{Binding PlayAudioCommand}"
                     Visibility="{Binding IsPlaying, Converter={StaticResource InvertBoolToVisibilityConverter}}"
                     />
 
-                <!-- PAUSE -->
-                <Button Grid.Column="0"
+                    <!-- PAUSE -->
+                    <Button Grid.Column="0"
                     x:Name="pausebutton"
                     Style="{StaticResource RoundButton}" 
                     Tag="pack://application:,,,/Images/pause.png"
-                    Width="53"
+                    Width="36"
                     Command="{Binding PauseAudioCommand}"
                     Visibility="{Binding IsPlaying, Converter={StaticResource BoolToVisibilityConverter}}"
                     />
 
-            </Grid>
+                </Grid>
 
-            <!-- NEXT TRACK button-->
-            <Button Style="{StaticResource RoundButton}" 
+                <!-- NEXT TRACK button-->
+                <Button Style="{StaticResource RoundButton}" 
                     Width="36"
                     Tag="pack://application:,,,/Images/next.png"                   
                     Command="{Binding NextTrackRequestCommand}"
                     />
 
-            <!-- STOP button-->
-            <Button  Style="{StaticResource RoundButton}" 
+                <!-- STOP button-->
+                <Button  Style="{StaticResource RoundButton}" 
                      Tag="pack://application:,,,/Images/stop.png"
                      Width="36"
                      Command="{Binding StopAudioCommand}"
                      />
 
-            <!-- RANDOM PLAY toggle button -->
+                <!-- RANDOM PLAY toggle button -->
+                <!--
             <Button  Style="{StaticResource RoundButton}" 
                                  Width="30"
                                  Margin="4,4,4,0"
                                  />
 
-            <!-- REPEAT MODE button -->
+            -->
+                <!-- REPEAT MODE button -->
+                <!--
             <Button  Style="{StaticResource RoundButton}" 
                                  Width="30"
                                  Margin="4,4,4,0"
-                                 />
+                                 />-->
+
+            </StackPanel>
+
+            <!--#region VOLUME SLIDER -->
+            <!--VOLUME SLIDER-->
+            <Grid Grid.Column="1"
+                  Margin="5,0,5,0"
+                  HorizontalAlignment="Right"
+                  VerticalAlignment="Center">
+
+                <Grid.ColumnDefinitions>
+
+                    <!--Volume slider-->
+                    <ColumnDefinition Width="*"/>
+
+                    <!--<ColumnDefinition Width="26.882"/>
+                    <ColumnDefinition Width="28.061"/>
+                    <ColumnDefinition Width="8.29"/>
+                    <ColumnDefinition Width="154.267"/>-->
+
+                    <!--Speaker button-->
+                    <ColumnDefinition Width="auto"/>
+
+                </Grid.ColumnDefinitions>
 
 
-        </StackPanel>
+                <!--Volume slider-->
+                <Slider Grid.Column="0"
+                        Style="{StaticResource VolumeSliderStyle}"
+                        Value="{Binding Volume, Mode=TwoWay}"
+                        IsMoveToPointEnabled="True"
+                        MinWidth="90"
+                        Minimum="0"
+                        Maximum="100"
+                        Margin="0,0,0,0"
+                        />
 
+                <!--SPEAKER BUTTON-->
+                <CheckBox Grid.Column="1"
+                          Style="{StaticResource MuteAudioCheckbox}"
+                          Width="17"
+                          Height="17"
+                          IsChecked="{Binding Muted}"
+                          Margin="10,0,5,0"                     
+                          />
+
+            </Grid>
+        </Grid>
         <!--#endregion-->
 
-        <!--#region  TIME SLIDER -->
-        <!-- TIME PANEL -->
+        <!--#region POSITION TIME SLIDER -->
+        <!-- POSITION/TIME PANEL -->
 
         <Grid Grid.Row="1"
               Margin="5,0,5,5">
@@ -166,51 +219,11 @@
         </Grid>
         <!--#endregion-->
 
-        <!--#region VOLUME SLIDER -->
-
-        <!-- VOLUME SLIDER -->
-        <Grid Grid.Row="2"
-              Margin="5,0,5,0"
-              HorizontalAlignment="Center">
-
-            <Grid.ColumnDefinitions>
-
-                <!-- Speaker button -->
-                <ColumnDefinition Width="auto"/>
-
-                <!-- Volume slider -->
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="25"/>
-                <ColumnDefinition Width="26.882"/>
-                <ColumnDefinition Width="28.061"/>
-                <ColumnDefinition Width="8.29"/>
-                <ColumnDefinition Width="154.267"/>
-
-            </Grid.ColumnDefinitions>
-
-            <!-- SPEAKER BUTTON-->
-            <CheckBox Grid.Column="0"
-                      Style="{StaticResource MuteAudioCheckbox}"
-                      Width="18"
-                      Height="18"
-                      IsChecked="{Binding Muted}" HorizontalAlignment="Left"
-                      />
-
-            <!-- Volume slider-->
-            <Slider Grid.Column="1"
-                    Style="{StaticResource VolumeSliderStyle}"
-                    Value="{Binding Volume, Mode=TwoWay}"
-                    IsMoveToPointEnabled="True"
-                    VerticalAlignment="Center"
-                    Grid.ColumnSpan="6"
-                    Minimum="0"
-                    Maximum="100"
-                    Margin="0,0,0,5"
-                    />
-
-        </Grid>
     </Grid>
 
+
     <!--#endregion-->
+
+
 
 </UserControl>

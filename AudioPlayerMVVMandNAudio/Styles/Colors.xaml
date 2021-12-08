@@ -24,6 +24,33 @@
     <!-- Blue main color -->
     <Color x:Key="BlueMainColor">#1585B5</Color>
     <SolidColorBrush x:Key="BlueMainBrush" Color="{StaticResource BlueMainColor}"/>
-    
-    
+
+
+
+    <!-- NEW SIMPLE UI COLORS CDA8F6 -->
+    <Color x:Key="BackgroundSimpleMainColor">#2E3440</Color>
+    <SolidColorBrush x:Key="BackgroundSimpleMainBrush" Color="{StaticResource BackgroundSimpleMainColor}"/>
+
+    <Color x:Key="ForegroundSimplePinkColor">#CBA8FA</Color>
+    <SolidColorBrush x:Key="ForegroundSimplePinkBrush" Color="{StaticResource ForegroundSimplePinkColor}"/>
+
+    <Color x:Key="ForegroundSimplePinkColorTwo">#CB99C9</Color>
+    <SolidColorBrush x:Key="ForegroundSimplePinkBrushTwo" Color="{StaticResource ForegroundSimplePinkColor}"/>
+
+    <Color x:Key="ForegroundSimpleLightGreenColor">#5FF697</Color>
+    <SolidColorBrush x:Key="ForegroundSimpleLightGreenBrush" Color="{StaticResource ForegroundSimpleLightGreenColor}"/>
+
+    <Color x:Key="ForegroundSimpleLightGreenColor2">#5FF697</Color>
+    <SolidColorBrush x:Key="ForegroundSimpleLightGreenBrush2" Color="{StaticResource ForegroundSimpleLightGreenColor2}"/>
+
+    <Color x:Key="ForegroundSimpleDarkGreenColor">#76C1A3</Color>
+    <SolidColorBrush x:Key="ForegroundSimpleDarkGreenBrush" Color="{StaticResource ForegroundSimpleDarkGreenColor}"/>
+
+    <Color x:Key="ForegroundSimpleBorderColor">#767C8A</Color>
+    <SolidColorBrush x:Key="ForegroundSimpleBorderBrush" Color="{StaticResource ForegroundSimpleBorderColor}"/>
+
+    <Color x:Key="ForegroundSimpleOrangeColor">#D88C4C</Color>
+    <SolidColorBrush x:Key="ForegroundSimpleOrangeBrush" Color="{StaticResource ForegroundSimpleOrangeColor}"/>
+
+
 </ResourceDictionary>

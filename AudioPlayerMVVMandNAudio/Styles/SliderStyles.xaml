@@ -60,9 +60,9 @@
         <Border BorderThickness="2"
                 
                 Background="{StaticResource BackgroundMainBrush}"
-                Width="11"
+                Width="7"
                 Height="{TemplateBinding Height}"
-                BorderBrush="Magenta"/>
+                BorderBrush="{StaticResource ForegroundSimplePinkBrush}"/>
     </ControlTemplate>
     
     <ControlTemplate x:Key="SliderThumbHorizontalTop" TargetType="{x:Type Thumb}">
@@ -147,11 +147,12 @@
                         <RepeatButton Command="{x:Static Slider.IncreaseLarge}" 
                                       Style="{StaticResource RepeatButtonTransparent2}"/>
                     </Track.IncreaseRepeatButton>
-                    
+
+                    <!-- THUMBTHUMBTHUMBTHUMBTHUMBTHUMBTHUMBTHUMBTHUMBTHUMBTHUMBTHUMBTHUMBTHUMBTHUMBTHUMBTHUMBTHUMBTHUMB-->
                     <Track.Thumb>
                         <Thumb x:Name="Thumb" 
                                Focusable="False" 
-                               Height="18" 
+                               Height="15" 
                                OverridesDefaultStyle="True" 
                                Template="{StaticResource SliderThumbHorizontalDefault}" 
                                VerticalAlignment="Center" Width="11"/>
@@ -330,7 +331,7 @@
                     <Border Background="{TemplateBinding Background}"
                                Height="{TemplateBinding Height}" 
                                Width="{TemplateBinding Width}">
-                        <Border Height="4" Background="LightGreen"/>
+                        <Border Height="4" Background="{StaticResource ForegroundSimpleLightGreenBrush}"/>
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
@@ -383,7 +384,7 @@
                     <Track.Thumb>
                         <Thumb x:Name="Thumb" 
                                Focusable="False" 
-                               Height="18" 
+                               Height="15" 
                                OverridesDefaultStyle="True" 
                                Template="{StaticResource SliderThumbHorizontalDefault}" 
                                VerticalAlignment="Center" Width="11"/>

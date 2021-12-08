@@ -7,6 +7,9 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 
+                <!-- Fonts -->
+                <ResourceDictionary Source="Styles/Fonts.xaml"/>
+                
                 <!-- Colors -->                
                 <ResourceDictionary Source="Styles/Colors.xaml"/>
                 

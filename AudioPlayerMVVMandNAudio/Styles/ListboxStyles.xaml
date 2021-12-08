@@ -4,10 +4,10 @@
 
     <!-- Playlist main style -->
     <Style TargetType="{x:Type ListBox}" x:Key="PlaylistStyle">
-        <Setter Property="Background" Value="{StaticResource BackgroundDarkBrush}"/>
+        <Setter Property="Background" Value="Transparent"/>
         <Setter Property="MinHeight" Value="200"/>
         <Setter Property="Margin" Value="5,5,5,2"/>
-        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="BorderBrush" Value="Bisque"/>
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Visible"/>

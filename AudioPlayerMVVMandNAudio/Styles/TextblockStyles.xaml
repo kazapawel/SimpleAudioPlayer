@@ -2,26 +2,64 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:AudioPlayerMVVMandNAudio">
 
+    <!-- Medium font -->
+    <Style TargetType="{x:Type TextBlock}" x:Key="SourceCodeProMedium">
+        <Setter Property="FontFamily" Value="/Fonts/Source_Code_Pro/static/SourceCodePro-Medium.ttf #Source Code Pro Medium"/>
+    </Style>
+
+    <!-- Regular font -->
+    <Style TargetType="{x:Type TextBlock}" x:Key="SourceCodeProRegular">
+        <Setter Property="FontFamily" Value="/Fonts/Source_Code_Pro/static/SourceCodePro-Regular.ttf #Source Code Pro"/>
+    </Style>
+
+
     <!-- DEFAULT WHITE textblock style-->
-    <Style TargetType="{x:Type TextBlock}" x:Key="WhiteTextblock">
+    <Style TargetType="{x:Type TextBlock}" x:Key="WhiteTextblock" BasedOn="{StaticResource SourceCodeProRegular}">
         <Setter Property="Foreground" Value="{StaticResource ForegroundMainBrush}"/>
         <Setter Property="FontSize" Value="12"/>
     </Style>
 
     <!-- DEFAULT GRAY textblock style -->
-    <Style TargetType="{x:Type TextBlock}" x:Key="GrayTextblock">
+    <Style TargetType="{x:Type TextBlock}" x:Key="GrayTextblock" BasedOn="{StaticResource SourceCodeProRegular}">
         <Setter Property="Foreground" Value="{StaticResource ForegroundDarkBrush}"/>
         <Setter Property="FontSize" Value="12"/>
     </Style>
 
+    <!-- DEFAULT PINK textblock style -->
+    <Style TargetType="{x:Type TextBlock}" x:Key="PinkTextblock" BasedOn="{StaticResource SourceCodeProRegular}">
+        <Setter Property="Foreground" Value="{StaticResource ForegroundSimplePinkBrushTwo}"/>
+        <Setter Property="FontSize" Value="12"/>
+    </Style>
+
+    <!-- DEFAULT GREEN textblock style -->
+    <Style TargetType="{x:Type TextBlock}" x:Key="GreenTextblock" BasedOn="{StaticResource SourceCodeProRegular}">
+        <Setter Property="Foreground" Value="{StaticResource ForegroundSimpleLightGreenBrush}"/>
+        <Setter Property="FontSize" Value="12"/>
+    </Style>
+
+    <!-- DEFAULT DARK GREEN textblock style -->
+    <Style TargetType="{x:Type TextBlock}" x:Key="DarkGreenTextblock" BasedOn="{StaticResource SourceCodeProRegular}">
+        <Setter Property="Foreground" Value="{StaticResource ForegroundSimpleDarkGreenBrush}"/>
+        <Setter Property="FontSize" Value="12"/>
+    </Style>
+
+    <!-- DEFAULT ORANGE textblock style -->
+    <Style TargetType="{x:Type TextBlock}" x:Key="OrangeTextblock" BasedOn="{StaticResource SourceCodeProRegular}">
+        <Setter Property="Foreground" Value="{StaticResource ForegroundSimpleOrangeBrush}"/>
+        <Setter Property="FontSize" Value="12"/>
+    </Style>
+
+
+
     <!-- TIME INFO textblock style -->
     <Style TargetType="{x:Type TextBlock}" x:Key="TimeTextblock" BasedOn="{StaticResource WhiteTextblock}">
         <Setter Property="Margin" Value="5"/>
-        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="FontSize" Value="11"/>
         <Setter Property="HorizontalAlignment" Value="Center"/>
     </Style>
 
-    <Style TargetType="{x:Type TextBlock}" x:Key="TrackInfoTextblock" BasedOn="{StaticResource GrayTextblock}">
+    <!-- TRACK INFO textblock style-->
+    <Style TargetType="{x:Type TextBlock}" x:Key="TrackInfoTextblock" BasedOn="{StaticResource GreenTextblock}">
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="Margin" Value="2"/>
         <Setter Property="Padding" Value="2"/>

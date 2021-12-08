@@ -7,9 +7,10 @@
         mc:Ignorable="d"
         Title="MainWindow"  
         SizeToContent="WidthAndHeight"
-        Style="{StaticResource MainWindowStyle}"
+        Style="{StaticResource MainWindowStyle2}"
         MinWidth="320"
-        MinHeight="250">
+        MinHeight="250"
+        FontFamily="{StaticResource SourceCodeProMediumItalic}">
 
     <Window.DataContext>
         <local:ApplicationVM/>
@@ -83,28 +84,19 @@
         <!--#endregion-->
 
         <!--#region PLAYLIST -->
-        <Border Grid.Row="2"
-                BorderThickness="1"
-                BorderBrush="Magenta"
-                Margin="3,5,3,4">
-
-            <local:PlaylistControl DataContext="{Binding PlaylistVM}"
-                                   VerticalAlignment="Top"/>
-
-        </Border>
-
-
+        <local:PlaylistControl Grid.Row="2"
+                               DataContext="{Binding PlaylistVM}"
+                               VerticalAlignment="Top"
+                               />
         <!--#endregion-->
 
         <!--#region INFO -->
-
-
         <StackPanel Grid.Row="3">
 
             <!-- AUDIO TRACK Info-->
             <Border 
                 BorderBrush="LightGreen"
-                BorderThickness="1"
+                BorderThickness="0"
                 Margin="3,0,3,3">
 
                 <Grid >
@@ -120,19 +112,21 @@
                     <TextBlock Grid.Column="0" 
                                Style="{StaticResource TrackInfoTextblock}" 
                                Text="{Binding AudioFileInfoVM.TrackTitle}"
-                               Foreground="{StaticResource ForegroundMainBrush}"
+                               Foreground="{StaticResource ForegroundSimpleOrangeBrush}"
                                />
 
                     <!-- Artist -->
                     <TextBlock Grid.Column="1"
-                       Style="{StaticResource TrackInfoTextblock}" 
-                       Text="{Binding AudioFileInfoVM.Artist}"
-                       />
+                               Style="{StaticResource TrackInfoTextblock}" 
+                               Text="{Binding AudioFileInfoVM.Artist}"
+                               Foreground="{StaticResource ForegroundSimpleLightGreenBrush}"
+                               />
 
                     <!-- Album -->
                     <TextBlock Grid.Column="2"
-                       Style="{StaticResource TrackInfoTextblock}" 
-                       Text="{Binding AudioFileInfoVM.Album}"
+                               Style="{StaticResource TrackInfoTextblock}" 
+                               Text="{Binding AudioFileInfoVM.Album}"
+                               Foreground="{StaticResource ForegroundSimpleDarkGreenBrush}"
                        />
 
                 </Grid>
@@ -143,7 +137,7 @@
             <!-- AUDIO FILE PROPERTIES Info-->
             <Border 
                 BorderBrush="Red"
-                BorderThickness="1"
+                BorderThickness="0"
                 Margin="3,0,3,3">
 
                 <Grid >

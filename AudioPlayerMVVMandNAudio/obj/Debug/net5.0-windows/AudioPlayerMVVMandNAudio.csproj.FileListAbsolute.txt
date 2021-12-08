@@ -48,3 +48,4 @@ C:\Users\k\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerMVVMandNAudio\obj\De
 C:\Users\k\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerMVVMandNAudio\obj\Debug\net5.0-windows\Styles\ScrollbarStyles.baml
 C:\Users\k\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerMVVMandNAudio\obj\Debug\net5.0-windows\Controls\PlaylistControl.g.cs
 C:\Users\k\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerMVVMandNAudio\obj\Debug\net5.0-windows\Controls\PlaylistControl.baml
+C:\Users\k\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerMVVMandNAudio\obj\Debug\net5.0-windows\Styles\Fonts.baml

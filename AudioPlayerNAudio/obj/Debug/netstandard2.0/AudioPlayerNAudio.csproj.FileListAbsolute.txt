@@ -6,5 +6,4 @@ C:\Users\k\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerNAudio\bin\Debug\net
 C:\Users\k\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerNAudio\bin\Debug\netstandard2.0\AudioPlayerNAudio.pdb
 C:\Users\k\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerNAudio\obj\Debug\netstandard2.0\AudioPlayerNAudio.dll
 C:\Users\k\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerNAudio\obj\Debug\netstandard2.0\AudioPlayerNAudio.pdb
-C:\Users\k\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerNAudio\obj\Debug\netstandard2.0\AudioPlayerNAudio.csproj.AssemblyReference.cache
 C:\Users\k\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerNAudio\obj\Debug\netstandard2.0\AudioPlayerNAudio.GeneratedMSBuildEditorConfig.editorconfig

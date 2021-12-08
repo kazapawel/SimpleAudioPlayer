@@ -58,7 +58,7 @@
 
                 <!-- Title-->
                 <TextBlock HorizontalAlignment="Left"
-                           Style="{StaticResource WhiteTextblock}"                         
+                           Style="{StaticResource PinkTextblock}"                         
                            Text="{Binding TrackTitle}"
                            TextTrimming="CharacterEllipsis"
                            />

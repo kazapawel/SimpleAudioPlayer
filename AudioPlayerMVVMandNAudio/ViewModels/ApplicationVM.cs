@@ -23,8 +23,8 @@ namespace AudioPlayerMVVMandNAudio
         
         *Files/projects structure
         *Exceptions error logger
-        *Fix whole player logic!
-        *Not to fire stopped by user event all the time
+            +DONE Fix whole player logic!
+            +DONE Not to fire stopped by user event all the time
         *Make play icon functionality
         *Keyboard keys functionality
         *File saving/loading WHEN?

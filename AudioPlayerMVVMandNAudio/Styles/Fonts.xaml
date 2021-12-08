@@ -1,0 +1,8 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <FontFamily x:Key="SourceCodeProMedium">pack://appliction;,,,/Fonts/Source_Code_Pro/Static/Source Code Pro Medium</FontFamily>
+
+    <FontFamily x:Key="SourceCodeProMediumItalic">pack://appliction;,,,/Fonts/Source_Code_Pro/Static/Source Code Pro Medium</FontFamily>
+
+</ResourceDictionary>

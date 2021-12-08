@@ -7,6 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Fonts\Source_Code_Pro\static\SourceCodePro-Medium.ttf" />
+    <None Remove="Fonts\Source_Code_Pro\static\SourceCodePro-MediumItalic.ttf" />
+    <None Remove="Fonts\Source_Code_Pro\static\SourceCodePro-Regular.ttf" />
     <None Remove="Images\audio mute.png" />
     <None Remove="Images\audio unmute.png" />
     <None Remove="Images\next.png" />
@@ -26,6 +29,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Fonts\Source_Code_Pro\static\SourceCodePro-Medium.ttf" />
+    <Resource Include="Fonts\Source_Code_Pro\static\SourceCodePro-MediumItalic.ttf" />
+    <Resource Include="Fonts\Source_Code_Pro\static\SourceCodePro-Regular.ttf" />
     <Resource Include="Images\audio mute.png" />
     <Resource Include="Images\audio unmute.png" />
     <Resource Include="Images\next.png" />
@@ -33,6 +39,10 @@
     <Resource Include="Images\play.png" />
     <Resource Include="Images\previous.png" />
     <Resource Include="Images\stop.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Images\SimpleImages\" />
   </ItemGroup>
 
 </Project>

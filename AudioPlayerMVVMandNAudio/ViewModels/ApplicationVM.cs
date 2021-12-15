@@ -4,59 +4,52 @@ using System.Collections.ObjectModel;
 
 namespace AudioPlayerMVVMandNAudio
 {
-    /*---- commit 3
+    /*---- commit x
+     * 
     TO DO:
-    GUI:
-        *Everything smaller
-        *What font
-        *Resizing window and fixed control size.
-        *Resizing/minimizing controls with button clicks
-        *Loop image
-        *Random image
-        *Style sliders and whole player
-        *Style min/max/close window buttons
-        *Slider drag and move in XAML if possbile
+
+    GUI look:
+        *Not to resize playlist - fixed values, min values etc.
+        *Transport buttons remake
+        *Current playing icon remake
+        *Options buttons remake - again
+        *Resizing/minimizing controls with button clicks - view model for manipulating 
+        *Loop playback image
+        *Random playback image
+        *Style min/max/close window buttons       
         *Popup time to go on mouse position
         *Logo
+    
+    GUI logic:
+        *Slider drag and move in XAML if possbile
+        *Drag and drop to reorder items in playlist
+        *Time display - not to display hours but total minutes
+        *Keyboard keys functionality (ex: space - play/pause etc)
+        *Remeber player settings after restart - file and viewmodel
+        *Track options right click
         
-        *Better comments
-        
-        *Files/projects structure
+    PLAYER logic
+        *Oddzielny viewmodel for audioFileifo - applicationVM only for coordinate others
+        *Catch exception in playlist when creating audiofile (wrong file format)
+        *MP3 loads to slow - change this in audio library implementation
+            +DONE "Clear playlist" event so info can clear
         *Exceptions error logger
-            +DONE Fix whole player logic!
-            +DONE Not to fire stopped by user event all the time
-        *Make play icon functionality
-        *Keyboard keys functionality
-        *File saving/loading WHEN?
-        *Updating model - best way
-        *Clear playlist event so info can clear
-            +DONE (Title bar - minimize/close window etc)
-            +DONE (slider customization)
-            +DONE (VolumE slider customization)
-        *ID Numbers of tracks
-            +DONE (*Selected/playing file info display)
-            +DONE (*Playlist item display and customization)
-            +DONE Playlist slider customization      
-            +DONE Playlist functionality: add files, 
-            +DONE Playlist functionality: remove file,
-            +DONE Playlist functionality: clear playlist,
-            +DONE Playlist functionality: remove multiple files
-            +DONE Playlist functionality: save/load default playlist
+        *Validation rules for files selected
+        *Playlist loading/saving - when (On program close)
+        *Playmode random
+        *Playmode loop
+        *Volume in decibels
+        *Filter OpenFileDialog files
+            +DONE Drag and drop directories into playlist
+        *Drag and drop files also on player, not only playlist
         **Playlist functionality: save playlist,
         **Playlist functionality: laod playlist,
         **Playlist functionality: drag and move tracks in playlist
-            +DONE Playlist items on property changed
-        *Filter OpenFileDialog files
-            +DONE Wav file name 
-            +DONE Drag and drop files into playlist
-        *Drag and drop folders into playlist
-        *MVVM Drag and drop files into playlist
-        *Validation rules for files selected
-        *Volume in decibels 
-        *Playmode random
-        *Playmode loop
-        
-       
+     
+    PROJECT:
+        *Better comments     
+        *Files/projects structure      
+    
     ----*/
 
     public class ApplicationVM : BaseViewModel
@@ -116,6 +109,7 @@ namespace AudioPlayerMVVMandNAudio
             //Subscribes PlaylistVM to AudioPlayerVM events:
             AudioPlayerVM.NextTrackRequestEvent += PlaylistVM.OnNextTrackRequest;
             AudioPlayerVM.PreviousTrackRequestEvent += PlaylistVM.OnPreviousTrackRequest;
+            AudioPlayerVM.StopAudioBeforeEndEvent += PlaylistVM.OnAudioStoppedBeforeEnd;
 
             //Subscribes AudioPlayerVM to PlaylistVM events:
             PlaylistVM.LoadAudioFileEvent += AudioPlayerVM.OnAudioFileLoaded;
@@ -123,9 +117,11 @@ namespace AudioPlayerMVVMandNAudio
 
             //Subscribes ApplicationVM to PlaylistVM event
             PlaylistVM.LoadAudioFileEvent += OnAudioFileLoaded;
+            PlaylistVM.PlaylistEndedEvent += OnPlaylistEnded;
 
             //Subscribes ApplicationVM to AudioPlayerVM event
             AudioPlayerVM.StopAudioBeforeEndEvent += OnAudioStoppedByUser;
+            
         }
 
         /// <summary>
@@ -151,6 +147,11 @@ namespace AudioPlayerMVVMandNAudio
         {
             if(AudioFileInfoVM !=null)
                 AudioFileInfoVM.IsAudioFilePlaying = false;
+        }
+
+        private void OnPlaylistEnded(object sender, EventArgs e)
+        {
+            AudioFileInfoVM = null;
         }
     }
 }

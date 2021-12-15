@@ -15,6 +15,9 @@
 
             <!-- Time slider -->
             <RowDefinition Height="*"/>
+            
+            <!-- TEST  asdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdf-->
+            <RowDefinition Height="*"/>
 
         </Grid.RowDefinitions>
 
@@ -22,24 +25,24 @@
         <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
 
-                <!-- Transport panel-->
+                <!-- Transport buttons -->
                 <ColumnDefinition Width="auto"/>
 
                 <!-- Volume slider and mute button -->
-                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
 
             </Grid.ColumnDefinitions>
 
-            <!-- TRANSPORT PANEL -->
+            <!--#region TRANSPORT BUTTONS-->
             <StackPanel Grid.Column="0" 
                         Orientation="Horizontal"
                         HorizontalAlignment="Left"
                         Margin="5,5,5,0">
 
                 <!-- PREVIOUS TRACK button -->
-                <Button Style="{StaticResource RoundButton}" 
-                        Width="36"
-                        Tag="pack://application:,,,/Images/previous.png"                   
+                <Button Style="{StaticResource ImageButton}" 
+                        Width="18"
+                        Tag="pack://application:,,,/Images/simple white icons/simple front white.png"                   
                         Command="{Binding PreviousTrackRequestCommand}"
                         />
 
@@ -52,9 +55,9 @@
                     <!-- PLAY -->
                     <Button Grid.Column="0"
                     x:Name="playbutton"
-                    Style="{StaticResource RoundButton}" 
-                    Tag="pack://application:,,,/Images/play.png"
-                    Width="36"
+                    Style="{StaticResource ImageButton}" 
+                    Tag="pack://application:,,,/Images/simple white icons/simple play white.png"
+                    Width="22"
                     Command="{Binding PlayAudioCommand}"
                     Visibility="{Binding IsPlaying, Converter={StaticResource InvertBoolToVisibilityConverter}}"
                     />
@@ -62,9 +65,9 @@
                     <!-- PAUSE -->
                     <Button Grid.Column="0"
                     x:Name="pausebutton"
-                    Style="{StaticResource RoundButton}" 
-                    Tag="pack://application:,,,/Images/pause.png"
-                    Width="36"
+                    Style="{StaticResource ImageButton}" 
+                    Tag="pack://application:,,,/Images/simple white icons/simple pause white.png"
+                    Width="22"
                     Command="{Binding PauseAudioCommand}"
                     Visibility="{Binding IsPlaying, Converter={StaticResource BoolToVisibilityConverter}}"
                     />
@@ -72,16 +75,16 @@
                 </Grid>
 
                 <!-- NEXT TRACK button-->
-                <Button Style="{StaticResource RoundButton}" 
-                    Width="36"
-                    Tag="pack://application:,,,/Images/next.png"                   
+                <Button Style="{StaticResource ImageButton}" 
+                    Width="18"
+                    Tag="pack://application:,,,/Images/simple white icons/simple end white.png"                
                     Command="{Binding NextTrackRequestCommand}"
                     />
 
                 <!-- STOP button-->
-                <Button  Style="{StaticResource RoundButton}" 
-                     Tag="pack://application:,,,/Images/stop.png"
-                     Width="36"
+                <Button  Style="{StaticResource ImageButton}" 
+                     Tag="pack://application:,,,/Images/simple white icons/simple stop white.png"
+                     Width="18"
                      Command="{Binding StopAudioCommand}"
                      />
 
@@ -101,23 +104,19 @@
                                  />-->
 
             </StackPanel>
+            <!--#endregion-->
 
             <!--#region VOLUME SLIDER -->
             <!--VOLUME SLIDER-->
             <Grid Grid.Column="1"
                   Margin="5,0,5,0"
-                  HorizontalAlignment="Right"
+                  
                   VerticalAlignment="Center">
 
                 <Grid.ColumnDefinitions>
 
                     <!--Volume slider-->
                     <ColumnDefinition Width="*"/>
-
-                    <!--<ColumnDefinition Width="26.882"/>
-                    <ColumnDefinition Width="28.061"/>
-                    <ColumnDefinition Width="8.29"/>
-                    <ColumnDefinition Width="154.267"/>-->
 
                     <!--Speaker button-->
                     <ColumnDefinition Width="auto"/>
@@ -133,7 +132,8 @@
                         MinWidth="90"
                         Minimum="0"
                         Maximum="100"
-                        Margin="0,0,0,0"
+                        Margin="5"
+                        
                         />
 
                 <!--SPEAKER BUTTON-->
@@ -146,12 +146,14 @@
                           />
 
             </Grid>
+
+            <!--#endregion-->
+
         </Grid>
         <!--#endregion-->
-
+        
         <!--#region POSITION TIME SLIDER -->
         <!-- POSITION/TIME PANEL -->
-
         <Grid Grid.Row="1"
               Margin="5,0,5,5">
             <Grid.ColumnDefinitions>
@@ -174,9 +176,9 @@
                        />
 
             <!-- Time and position slider-->
-            <Slider Style="{StaticResource TimeSliderStyle}" 
+            <Slider x:Name="PositionSlider"
+                    Style="{StaticResource TimeSliderStyle}" 
                     Grid.Column="1"
-                    Name="TimeSlider"
                     Orientation="Horizontal"
                     VerticalAlignment="Center"
                     Minimum="0"
@@ -184,7 +186,6 @@
                     IsMoveToPointEnabled="True"
                     SmallChange="0.2"
                     Value="{Binding Position}"
-                    
                     />
 
             <!-- PopUp with time value-->
@@ -200,7 +201,7 @@
                 <Popup.Style>
                     <Style TargetType="Popup">
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding Path=IsMouseOver, ElementName=TimeSlider}" Value="True">
+                            <DataTrigger Binding="{Binding Path=IsMouseOver, ElementName=PositionSlider}" Value="True">
                                 <Setter Property="IsOpen" Value="True"/>
                             </DataTrigger>
 
@@ -218,12 +219,7 @@
                        />
         </Grid>
         <!--#endregion-->
-
+        
     </Grid>
-
-
-    <!--#endregion-->
-
-
 
 </UserControl>

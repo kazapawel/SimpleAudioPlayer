@@ -24,5 +24,25 @@ namespace AudioPlayerMVVMandNAudio
         {
             InitializeComponent();
         }
+
+        private void PositionSlider_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+
+        }
+
+        private void PositionSlider_DragStarted(object sender, System.Windows.Controls.Primitives.DragStartedEventArgs e)
+        {
+            
+        }
+
+        private void PositionSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+
+        }
+
+        private void PositionSlider_GotMouseCapture(object sender, MouseEventArgs e)
+        {
+
+        }
     }
 }

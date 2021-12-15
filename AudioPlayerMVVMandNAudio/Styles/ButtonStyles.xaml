@@ -2,6 +2,89 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:AudioPlayerMVVMandNAudio">
 
+    <!-- Image button -->
+    <Style TargetType="{x:Type Button}" x:Key="ImageButton">
+        <Setter Property="Margin" Value="4"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    
+                    <Border x:Name="buttonBorder"
+                            Background="Transparent">
+                        
+                        <Image x:Name="buttonImage"
+                               Source="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Tag}"                               
+                               Width="{TemplateBinding Width}"
+                               Height="{TemplateBinding Height}" 
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               RenderOptions.BitmapScalingMode="HighQuality"
+                               RenderOptions.EdgeMode="Aliased"
+                               RenderTransformOrigin=".5,.5"
+                               Opacity="0.8">
+
+                            <Image.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform x:Name="ImageScale" ScaleX="1" ScaleY="1"/>
+                                    <RotateTransform x:Name="ImageRotate" Angle="0"/>
+                                </TransformGroup>
+                            </Image.RenderTransform>
+                        </Image>
+                    </Border>
+                    <!-- Image -->
+
+
+                    <!-- Triggers -->
+                    <ControlTemplate.Triggers>
+                        
+                        
+                         <!--Mouse hover animation-->
+                        <EventTrigger RoutedEvent="MouseEnter">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation Storyboard.TargetName="buttonImage" Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:0:0.1"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+
+                         <!--Mouse leave animation--> 
+                        <EventTrigger RoutedEvent="MouseLeave">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation Storyboard.TargetName="buttonImage" Storyboard.TargetProperty="Opacity" To="0.8" Duration="0:0:0:0.1"/>
+
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+
+                        <!-- Mouse click down-->
+                        <EventTrigger RoutedEvent="PreviewMouseDown">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation Storyboard.TargetName="ImageScale" Storyboard.TargetProperty="(ScaleTransform.ScaleX)" To="1.1" Duration="0:0:0:0.05" />
+                                    <DoubleAnimation Storyboard.TargetName="ImageScale" Storyboard.TargetProperty="(ScaleTransform.ScaleY)" To="1.1" Duration="0:0:0:0.1" />
+                                   
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+
+                        <!-- Mouse click up -->
+                        <EventTrigger RoutedEvent="PreviewMouseUp">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation Storyboard.TargetName="ImageScale" Storyboard.TargetProperty="(ScaleTransform.ScaleX)" To="1" Duration="0:0:0:0.05" />
+                                    <DoubleAnimation Storyboard.TargetName="ImageScale" Storyboard.TargetProperty="(ScaleTransform.ScaleY)" To="1" Duration="0:0:0:0.1" />
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <!-- Round transport control button -->
     <Style TargetType="{x:Type Button}" x:Key="RoundButton">
         <Setter Property="Margin" Value="4"/>
@@ -245,10 +328,10 @@
                             Height="{TemplateBinding Height}"
                             Background="Transparent">
 
-                        <!-- Image -->
+                        <!-- Textblock -->
                         <TextBlock x:Name="ButtonText"
-                                 FontSize="25"
-                                 Foreground="White"
+                                   FontSize="16"
+                                   Foreground="White"
                                    HorizontalAlignment="Center"
                                    VerticalAlignment="Center"
                             Text="{Binding Tag, RelativeSource={RelativeSource TemplatedParent}}"/>
@@ -269,7 +352,7 @@
                         <EventTrigger RoutedEvent="MouseEnter">
                             <BeginStoryboard>
                                 <Storyboard>
-                                    <DoubleAnimation Storyboard.TargetName="ButtonText" Storyboard.TargetProperty="FontSize" To="30" Duration="0:0:0:0.1" />
+                                    <DoubleAnimation Storyboard.TargetName="ButtonText" Storyboard.TargetProperty="FontSize" To="22" Duration="0:0:0:0.1" />
 
                                 </Storyboard>
                             </BeginStoryboard>

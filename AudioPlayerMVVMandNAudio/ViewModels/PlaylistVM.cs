@@ -237,20 +237,17 @@ namespace AudioPlayerMVVMandNAudio
         /// <param name="trackPath"></param>
         public void AddTracksToPlaylist(IEnumerable<string> tracksPaths)
         {
+
             //Adds tracks to model and observable collection
             foreach (var trackPath in tracksPaths)
             {
-                if(PathIsValid(trackPath))
-                {
-                    var track = new AudioFile(trackPath);
-                    model.AddTrack(track);
-                    SongsListObservable.Add(new AudioFileVM(track));
-                }            
+                var track = new AudioFile(trackPath);
+                model.AddTrack(track);
+                SongsListObservable.Add(new AudioFileVM(track));        
             }
 
             //Raises property changed on read only property
             OnPropertyChanged(nameof(Items));
-
         }
 
         /// <summary>
@@ -306,22 +303,18 @@ namespace AudioPlayerMVVMandNAudio
             OnPropertyChanged(nameof(Items));
         }
 
+        public void OnAudioStoppedBeforeEnd(object sender, EventArgs e)
+        {
+            if (SongsListObservable.Count==0)
+                PlaylistEndedEvent?.Invoke(this, new AudioFileVMEventArgs(BufferTrack));
+        }
+
         /// <summary>
         /// 
         /// </summary>
         /// <param name="path"></param>
         /// <returns></returns>
-        private bool PathIsValid(string path)
-        {
-            var file = new FileInfo(path);
-
-            return !file.Attributes.HasFlag(FileAttributes.Directory);
-        }
-
-        private bool IsFileDirectory(string path)
-        {
-            return true;
-        }
+        
 
         //private void RefreshModel(object sender, NotifyCollectionChangedEventArgs e)
         //{

@@ -2,6 +2,7 @@
 using NAudio.Wave;
 using System.Linq;
 using System.Text;
+using System.IO;
 
 namespace AudioPlayerNAudio
 {
@@ -96,8 +97,7 @@ namespace AudioPlayerNAudio
             {
                 //Re-throws exception
                 throw;
-            }
-            
+            }            
 
             /*
              * System.InvalidOperationException: 

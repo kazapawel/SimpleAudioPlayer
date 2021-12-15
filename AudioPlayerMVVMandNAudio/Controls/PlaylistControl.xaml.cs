@@ -1,4 +1,8 @@
-﻿using System.Windows;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Windows;
+using System.Windows.Input;
 using Microsoft.Win32;
 
 namespace AudioPlayerMVVMandNAudio
@@ -50,15 +54,57 @@ namespace AudioPlayerMVVMandNAudio
             if(e.Data.GetDataPresent(DataFormats.FileDrop))
             {
                 //Gets string paths of dropped files
-                SendFilesToViewModel((string[])e.Data.GetData(DataFormats.FileDrop));
+                SendFilesToViewModel(GetFiles((IEnumerable<string>)e.Data.GetData(DataFormats.FileDrop)));
             }
+        }
+
+
+        private IEnumerable<string> GetFiles(IEnumerable<string> data)
+        {
+            //Collections which is going to be returned
+            var files = new List<string>();
+
+            //Checks if path is directory or file
+            foreach(var path in data)
+            {
+                //If path is directory
+                if (IsDirectory(path))
+                {
+                    //Gets all items from this directory
+                    foreach ( var file in GetFiles(Directory.GetFileSystemEntries(path)))
+                        files.Add(file);
+                }
+
+                //Adds file to collection
+                else
+                    files.Add(path);
+            }
+
+            return files;
+        }
+
+        private IEnumerable<string> GetFilesFromDirectory(string directory)
+        {
+            return null;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        private bool IsDirectory(string path)
+        {
+            var file = new FileInfo(path);
+
+            return file.Attributes.HasFlag(FileAttributes.Directory);
         }
 
         /// <summary>
         /// Sends paths to view model.
         /// </summary>
         /// <param name="files"></param>
-        private void SendFilesToViewModel(string[] files)
+        private void SendFilesToViewModel(IEnumerable<string> files)
         {
             var playlist = this.DataContext as PlaylistVM;
             playlist.AddTracksToPlaylist(files);

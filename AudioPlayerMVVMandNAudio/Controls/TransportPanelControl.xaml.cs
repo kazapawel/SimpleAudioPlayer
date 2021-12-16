@@ -20,29 +20,30 @@ namespace AudioPlayerMVVMandNAudio
     /// </summary>
     public partial class TransportPanelControl : UserControl
     {
+        /// <summary>
+        /// Occurs when files are drop into control.
+        /// </summary>
+        public EventHandler<DropFilesEventArgs> FilesDropEvent;
+
+        /// <summary>
+        /// Dedfault constructor
+        /// </summary>
         public TransportPanelControl()
         {
             InitializeComponent();
         }
 
-        private void PositionSlider_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Grid_Drop(object sender, DragEventArgs e)
         {
-
-        }
-
-        private void PositionSlider_DragStarted(object sender, System.Windows.Controls.Primitives.DragStartedEventArgs e)
-        {
-            
-        }
-
-        private void PositionSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-        {
-
-        }
-
-        private void PositionSlider_GotMouseCapture(object sender, MouseEventArgs e)
-        {
-
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                FilesDropEvent?.Invoke(this, new DropFilesEventArgs((string[])e.Data.GetData(DataFormats.FileDrop)));
+            }
         }
     }
 }

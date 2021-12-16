@@ -20,9 +20,20 @@ namespace AudioPlayerMVVMandNAudio
     /// </summary>
     public partial class MainWindow : Window
     {
+        /// <summary>
+        /// Occurs when files are drop into control.
+        /// </summary>
+        public EventHandler<DropFilesEventArgs> WindowFilesDropEvent;
+
+        /// <summary>
+        /// Default constructor
+        /// </summary>
         public MainWindow()
         {
             InitializeComponent();
+            
+            transportPanelControl.FilesDropEvent += playlistControl.OnFilesDragOutsidePlaylist;
+            WindowFilesDropEvent+=playlistControl.OnFilesDragOutsidePlaylist;
         }
 
         /// <summary>
@@ -53,6 +64,19 @@ namespace AudioPlayerMVVMandNAudio
         private void MinimizeButton_Click(object sender, RoutedEventArgs e)
         {
             this.WindowState = this.WindowState == WindowState.Minimized ? WindowState.Normal : WindowState.Minimized;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Window_Drop(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                WindowFilesDropEvent?.Invoke(this, new DropFilesEventArgs((string[])e.Data.GetData(DataFormats.FileDrop)));
+            }
         }
     }
 }

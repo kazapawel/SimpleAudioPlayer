@@ -10,7 +10,9 @@
         Style="{StaticResource MainWindowStyle2}"
         MinWidth="320"
         MinHeight="250"
-        FontFamily="{StaticResource SourceCodeProMediumItalic}">
+        FontFamily="{StaticResource SourceCodeProMediumItalic}"
+        AllowDrop="True"
+        Drop="Window_Drop">
 
     <Window.DataContext>
         <local:ApplicationVM/>
@@ -77,7 +79,8 @@
         <Border Grid.Row="1">
 
             <!-- Transport panel -->
-            <local:TransportPanelControl DataContext="{Binding AudioPlayerVM}"/>
+            <local:TransportPanelControl DataContext="{Binding AudioPlayerVM}"
+                                         x:Name="transportPanelControl"/>
 
         </Border>
 
@@ -87,6 +90,7 @@
         <local:PlaylistControl Grid.Row="2"
                                DataContext="{Binding PlaylistVM}"
                                VerticalAlignment="Top"
+                               x:Name="playlistControl"
                                />
         <!--#endregion-->
 

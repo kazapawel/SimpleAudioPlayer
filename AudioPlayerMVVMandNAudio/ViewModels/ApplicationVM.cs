@@ -10,7 +10,7 @@ namespace AudioPlayerMVVMandNAudio
 
     GUI look:
         *Not to resize playlist - fixed values, min values etc.
-        *Transport buttons remake
+        *Transport buttons remake - again
         *Current playing icon remake
         *Options buttons remake - again
         *Resizing/minimizing controls with button clicks - view model for manipulating 
@@ -23,12 +23,13 @@ namespace AudioPlayerMVVMandNAudio
     GUI logic:
         *Slider drag and move in XAML if possbile
         *Drag and drop to reorder items in playlist
-        *Time display - not to display hours but total minutes
+            +DONETime display - not to display hours but total minutes
         *Keyboard keys functionality (ex: space - play/pause etc)
         *Remeber player settings after restart - file and viewmodel
         *Track options right click
         
     PLAYER logic
+        *Fix kolejnosc dodowania plikow in directory drop
         *Oddzielny viewmodel for audioFileifo - applicationVM only for coordinate others
         *Catch exception in playlist when creating audiofile (wrong file format)
         *MP3 loads to slow - change this in audio library implementation
@@ -40,8 +41,8 @@ namespace AudioPlayerMVVMandNAudio
         *Playmode loop
         *Volume in decibels
         *Filter OpenFileDialog files
-            +DONE Drag and drop directories into playlist
-        *Drag and drop files also on player, not only playlist
+            +DONE Drag and drop directories into playlist       
+            +DONEDrag and drop files also on player, not only playlist
         **Playlist functionality: save playlist,
         **Playlist functionality: laod playlist,
         **Playlist functionality: drag and move tracks in playlist

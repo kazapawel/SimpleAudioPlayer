@@ -43,7 +43,7 @@ namespace AudioPlayerMVVMandNAudio
         /// <summary>
         /// Total time in string format
         /// </summary>
-        public string TimeTotal => model.Duration.ToString(@"mm\:ss");
+        public string TimeTotal => $"{model.Duration.Hours * 60 + model.Duration.Minutes}:{model.Duration.Seconds}";
 
         public string FileProperties => $"{model.Description} | {(model.AudioChannels>1 ? "stereo" : "mono")} | {model.AudioSampleRate} Hz | {model.BitsPerSample}";
 

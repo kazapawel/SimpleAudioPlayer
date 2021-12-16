@@ -2,7 +2,7 @@
 
 namespace AudioPlayerMVVMandNAudio
 {
-    public class PlaylistVmEventArgs
+    public class PlaylistVmEventArgs :EventArgs
     {
         public bool IsEnded { get; set; }
 

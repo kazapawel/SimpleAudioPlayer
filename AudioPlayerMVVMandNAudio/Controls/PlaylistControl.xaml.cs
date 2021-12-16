@@ -58,7 +58,11 @@ namespace AudioPlayerMVVMandNAudio
             }
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         private IEnumerable<string> GetFiles(IEnumerable<string> data)
         {
             //Collections which is going to be returned
@@ -83,6 +87,11 @@ namespace AudioPlayerMVVMandNAudio
             return files;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="directory"></param>
+        /// <returns></returns>
         private IEnumerable<string> GetFilesFromDirectory(string directory)
         {
             return null;
@@ -108,6 +117,16 @@ namespace AudioPlayerMVVMandNAudio
         {
             var playlist = this.DataContext as PlaylistVM;
             playlist.AddTracksToPlaylist(files);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public void OnFilesDragOutsidePlaylist(object sender, DropFilesEventArgs e)
+        {
+            SendFilesToViewModel(GetFiles( (string[])e.Files ));
         }
     }
 }

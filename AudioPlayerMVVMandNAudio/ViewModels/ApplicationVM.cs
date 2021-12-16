@@ -4,15 +4,16 @@ using System.Collections.ObjectModel;
 
 namespace AudioPlayerMVVMandNAudio
 {
-    /*---- commit x
+    /*
      * 
     TO DO:
 
     GUI look:
-        *Not to resize playlist - fixed values, min values etc.
-        *Transport buttons remake - again
-        *Current playing icon remake
-        *Options buttons remake - again
+            +DONENot to resize playlist - fixed values, min values etc.
+        *!Transport buttons remake - again
+        *!Current playing icon remake
+        *!Options buttons remake - again
+        *!Playlist item style
         *Resizing/minimizing controls with button clicks - view model for manipulating 
         *Loop playback image
         *Random playback image
@@ -21,16 +22,18 @@ namespace AudioPlayerMVVMandNAudio
         *Logo
     
     GUI logic:
-        *Slider drag and move in XAML if possbile
-        *Drag and drop to reorder items in playlist
+        *!Slider drag and move in XAML if possbile
+        *!Drag and drop to reorder items in playlist
             +DONETime display - not to display hours but total minutes
+        *Main Window view viewmodel etc.
         *Keyboard keys functionality (ex: space - play/pause etc)
         *Remeber player settings after restart - file and viewmodel
         *Track options right click
         
     PLAYER logic
-        *Fix kolejnosc dodowania plikow in directory drop
-        *Oddzielny viewmodel for audioFileifo - applicationVM only for coordinate others
+        *Fix problem -> audio plays, clear playlist, audio stop by user, clear viewmodelinfo
+        *Fix order of adding files when drop - frist files than directories
+        *Seperate viewmodel for audioFileinfo - applicationVM only for coordinate others
         *Catch exception in playlist when creating audiofile (wrong file format)
         *MP3 loads to slow - change this in audio library implementation
             +DONE "Clear playlist" event so info can clear

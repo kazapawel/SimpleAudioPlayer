@@ -31,8 +31,6 @@ namespace AudioPlayerMVVMandNAudio
         public MainWindow()
         {
             InitializeComponent();
-            
-            transportPanelControl.FilesDropEvent += playlistControl.OnFilesDragOutsidePlaylist;
             WindowFilesDropEvent+=playlistControl.OnFilesDragOutsidePlaylist;
         }
 

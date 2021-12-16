@@ -90,16 +90,6 @@ namespace AudioPlayerMVVMandNAudio
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="directory"></param>
-        /// <returns></returns>
-        private IEnumerable<string> GetFilesFromDirectory(string directory)
-        {
-            return null;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="path"></param>
         /// <returns></returns>
         private bool IsDirectory(string path)
@@ -126,7 +116,7 @@ namespace AudioPlayerMVVMandNAudio
         /// <param name="e"></param>
         public void OnFilesDragOutsidePlaylist(object sender, DropFilesEventArgs e)
         {
-            SendFilesToViewModel(GetFiles( (string[])e.Files ));
+            SendFilesToViewModel(GetFiles(e.Files));
         }
     }
 }

@@ -8,7 +8,7 @@
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:b="MyBehaviorAssembly;assembly=MyBehaviorAssembly">
     <Grid AllowDrop="True"
-          Drop="Grid_Drop">
+          >
         <Grid.RowDefinitions>
 
             <!-- Transport buttons and volume slider -->

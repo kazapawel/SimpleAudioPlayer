@@ -10,24 +10,26 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Grid.RowDefinitions>
+            
+            <!-- playlsit listbox -->
             <RowDefinition Height="*"/>
+            
+            <!-- playlist options -->
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
-        <!-- PLAYLIST listbox-->
+        <!-- PLAYLIST -->
         <ListBox Grid.Row="0"
-                 x:Name="PlaylistListbox"
-                 VerticalAlignment="Stretch"
+                 x:Name="PlaylistListbox"                
                  Style="{StaticResource PlaylistStyle}"
                  ItemsSource="{Binding SongsListObservable}"                 
                  ItemContainerStyle="{StaticResource PlaylistItemStyle}"                
                  SelectedItem="{Binding SelectedTrack, Mode=OneWayToSource}"
                  SelectionMode="Extended"
                  AllowDrop="True"
-                 Drop="PlaylistListbox_Drop">
-        </ListBox>
+                 />
 
-        <!-- Listbox Options -->
+        <!-- OPPTIONS -->
         <Border Grid.Row="1" 
                 BorderThickness="0"
                 BorderBrush="LightPink"

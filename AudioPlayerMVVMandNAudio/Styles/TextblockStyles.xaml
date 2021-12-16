@@ -61,7 +61,7 @@
     <!-- TRACK INFO textblock style-->
     <Style TargetType="{x:Type TextBlock}" x:Key="TrackInfoTextblock" BasedOn="{StaticResource GreenTextblock}">
         <Setter Property="VerticalAlignment" Value="Center"/>
-        <Setter Property="Margin" Value="2"/>
+        <Setter Property="Margin" Value="2,0,2,0"/>
         <Setter Property="Padding" Value="2"/>
     </Style>
 

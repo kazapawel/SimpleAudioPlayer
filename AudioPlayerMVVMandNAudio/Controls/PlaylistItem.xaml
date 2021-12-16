@@ -16,15 +16,13 @@
 
     <Border BorderThickness="0"
             Background="Transparent"
-            Margin="2">
+            Margin="0">
+        
         <Grid>
             <Grid.ColumnDefinitions>
 
                 <!-- Play/pause selection image-->
                 <ColumnDefinition Width="26"/>
-                
-                <!-- ID number-->
-                <ColumnDefinition Width="auto"/>
 
                 <!-- Info display-->
                 <ColumnDefinition Width="*"/>
@@ -34,52 +32,47 @@
 
             </Grid.ColumnDefinitions>
             
+            
             <!-- IMAGE -->
             <Button Grid.Column="0"
                     Style="{StaticResource PlaylistItemButton}"
                     Tag="pack://application:,,,/Images/play.png"
                     Width="20"
                     Visibility="{Binding Converter={StaticResource BoolToVisibilityConverter}, Path=IsAudioFilePlaying}"               
-                   />
+                    />
 
-            <!-- ID number --><!--
-            <TextBlock Style="{StaticResource WhiteTextblock}"
-                       Text="1."                       
-                       HorizontalAlignment="Center"
-                       Grid.Column="1"
-                       Foreground="White"
-                       FontSize="13"
-                       />-->
             
             <!-- INFO -->
-            <StackPanel Grid.Column="2"
-                        HorizontalAlignment="Left"
-                        Margin="2,0,0,0">
+            <StackPanel Grid.Column="1"
+                        HorizontalAlignment="Left">
 
                 <!-- Title-->
                 <TextBlock HorizontalAlignment="Left"
-                           Style="{StaticResource PinkTextblock}"                         
+                           Style="{StaticResource PinkTextblock}"
+                           Margin="2,0,15,0"
                            Text="{Binding TrackTitle}"
+                           Width="300"
                            TextTrimming="CharacterEllipsis"
                            />
 
                 <!-- Artist-->
                 <TextBlock HorizontalAlignment="Left"
                            Style="{StaticResource GrayTextblock}"
+                           Margin="2,0,15,0"
                            FontSize="11"
                            Text="{Binding Artist}"
                            TextTrimming="CharacterEllipsis"
                            />
-                
             </StackPanel>
 
+                      
             <!-- TIME -->
-            <TextBlock Grid.Column="3"
+            <TextBlock Grid.Column="2"
                        Style="{StaticResource WhiteTextblock}"
                        Text="{Binding TimeTotal}"
                        HorizontalAlignment="Right"
                        VerticalAlignment="Center"
-                       Margin="2"
+                       Margin="2,0,5,0"
                        FontSize="11"
                        />
         </Grid>

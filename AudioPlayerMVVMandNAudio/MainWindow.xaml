@@ -6,10 +6,12 @@
         xmlns:local="clr-namespace:AudioPlayerMVVMandNAudio"
         mc:Ignorable="d"
         Title="MainWindow"  
-        SizeToContent="WidthAndHeight"
+        
         Style="{StaticResource MainWindowStyle2}"
         MinWidth="320"
-        MinHeight="250"
+        MinHeight="175"
+        Width="320"
+        Height="450"
         FontFamily="{StaticResource SourceCodeProMediumItalic}"
         AllowDrop="True"
         Drop="Window_Drop">
@@ -89,7 +91,7 @@
         <!--#region PLAYLIST -->
         <local:PlaylistControl Grid.Row="2"
                                DataContext="{Binding PlaylistVM}"
-                               VerticalAlignment="Top"
+                               VerticalAlignment="Stretch"
                                x:Name="playlistControl"
                                />
         <!--#endregion-->
@@ -157,11 +159,11 @@
 
                     <!-- File properties -->
                     <TextBlock Grid.Column="3"
-                           
-                       Style="{StaticResource TrackInfoTextblock}" 
-                       Text="{Binding AudioFileInfoVM.FileProperties}"
-                       Margin="2,0,2,0"      
-                       />
+                               Style="{StaticResource TrackInfoTextblock}" 
+                               Text="{Binding AudioFileInfoVM.FileProperties}"
+                               Width="500"
+                               TextTrimming="CharacterEllipsis"
+                               />
 
                 </Grid>
 

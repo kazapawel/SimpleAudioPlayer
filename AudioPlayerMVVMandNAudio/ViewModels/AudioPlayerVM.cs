@@ -260,7 +260,7 @@ namespace AudioPlayerMVVMandNAudio
 
                 //Changes state of player
                 IsPlaying = true;
-            }         
+            }
         }
 
         /// <summary>
@@ -343,8 +343,8 @@ namespace AudioPlayerMVVMandNAudio
                 StopAudio(null);
             }
 
-
             //EXCEPTION - where to check if file exists - model?
+
             //Loads track path which was sent by playlist
             Path = e.AudioFileVM.Path;
 
@@ -366,6 +366,11 @@ namespace AudioPlayerMVVMandNAudio
             NextTrackRequest(null);
         }
 
+        /// <summary>
+        /// Clears audio file player.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void OnPlaylistEnded(object sender, EventArgs e)
         {
             audioFilePlayer = null;
@@ -373,12 +378,26 @@ namespace AudioPlayerMVVMandNAudio
         }
 
         /// <summary>
-        /// Helper method. If there is a audio player, sets it's volume.
+        /// If there is a audio player, sets it's volume.
         /// </summary>
         private void SetAudioPlayerVolume()
         {
             if (audioFilePlayer != null)
-                audioFilePlayer.Volume = Muted ? 0 : (float)storedVolume / 100f;
+            {
+                var volume = (float)(DbToPercent(storedVolume) / 100f);
+                audioFilePlayer.Volume = Muted ? 0 : volume;
+            }
+        }
+
+        /// <summary>
+        /// Calculates volume percentage based on dB.
+        /// </summary>
+        /// <param name="db"></param>
+        /// <returns></returns>
+        private static double DbToPercent(double dB)
+        {
+            var vol = Math.Pow(10, (double)dB / 10) * 100;
+            return vol;
         }
 
         /// <summary>
@@ -391,7 +410,6 @@ namespace AudioPlayerMVVMandNAudio
             UpdateTime();
             UpdatePosition();
         }
-
 
         /// <summary>
         /// Raises OnPropertyChanged event to inform about audio time changes.

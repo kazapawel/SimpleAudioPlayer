@@ -4,6 +4,7 @@ using System.IO;
 using System.Windows;
 using System.Windows.Input;
 using Microsoft.Win32;
+using System.Linq;
 
 namespace AudioPlayerMVVMandNAudio
 {
@@ -68,8 +69,8 @@ namespace AudioPlayerMVVMandNAudio
             //Collections which is going to be returned
             var files = new List<string>();
 
-            //Checks if path is directory or file
-            foreach(var path in data)
+            //Adds files to collection - first files in root directory then files in subdirectories
+            foreach (var path in data.OrderBy(x => IsDirectory(x)))
             {
                 //If path is directory
                 if (IsDirectory(path))

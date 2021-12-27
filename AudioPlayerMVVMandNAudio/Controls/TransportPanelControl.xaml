@@ -131,8 +131,8 @@
                         Value="{Binding Volume, Mode=TwoWay}"
                         IsMoveToPointEnabled="True"
                         MinWidth="90"
-                        Minimum="0"
-                        Maximum="100"
+                        Minimum="-60"
+                        Maximum="0"
                         Margin="5"
                         
                         />

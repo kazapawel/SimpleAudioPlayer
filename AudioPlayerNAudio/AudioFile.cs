@@ -77,9 +77,10 @@ namespace AudioPlayerNAudio
             }
 
             //TagLib.CorruptFileException: 'MPEG audio header not found.
-            catch (CorruptFileException e)
+            catch (Exception e)//(CorruptFileException e)
             {
                 //So user can see info about file corruption
+               
                 Name = e.Message;
             }
 

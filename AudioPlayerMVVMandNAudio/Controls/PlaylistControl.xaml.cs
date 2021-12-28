@@ -13,6 +13,8 @@ namespace AudioPlayerMVVMandNAudio
     /// </summary>
     public partial class PlaylistControl : System.Windows.Controls.UserControl
     {
+        #region CONSTRUCTORS
+
         /// <summary>
         /// Default constructor.
         /// </summary>
@@ -20,6 +22,10 @@ namespace AudioPlayerMVVMandNAudio
         {
             InitializeComponent();
         }
+
+        #endregion
+
+        #region ADD FILES TO PLAYLIST / DRAG AND DROP FILES INTO PLAYLIST
 
         /// <summary>
         /// Opens new file dialog for files selection.
@@ -119,5 +125,13 @@ namespace AudioPlayerMVVMandNAudio
         {
             SendFilesToViewModel(GetFiles(e.Files));
         }
+
+        #endregion
+
+        #region MOVE ITEMS IN PLAYLIST BY DRAG AND DROP
+
+
+
+        #endregion
     }
 }

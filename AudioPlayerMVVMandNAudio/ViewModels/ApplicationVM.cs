@@ -33,7 +33,8 @@ namespace AudioPlayerMVVMandNAudio
         
     PLAYER logic
         *Fix problem -> audio plays, clear playlist, audio stop by user, clear viewmodelinfo
-            +DONE Fix order of adding files when drop - frist files than directories
+            +DONE Fix order of adding files when drop - first files than directories
+            +DONE Fix problem => change play button when audio ends and playlist ends
         *Seperate viewmodel for audioFileinfo - applicationVM only for coordinate others
         *Catch exception in playlist when creating audiofile (wrong file format)
         *MP3 loads to slow - change this in audio library implementation
@@ -73,34 +74,9 @@ namespace AudioPlayerMVVMandNAudio
         public PlaylistVM PlaylistVM { get; set; }
 
         /// <summary>
-        /// 
+        /// Info about current track
         /// </summary>
-        private AudioFileVM info;
-
-        /// <summary>
-        /// Audio file which is currently loaded in buffer
-        /// </summary>
-        public AudioFileVM AudioFileInfoVM
-        {
-            get
-            {
-                return info;
-            }
-            set
-            {
-                if(info!=value)
-                {
-                    info = value;
-                    OnPropertyChanged(nameof(AudioFileInfoVM));
-                }
-            }
-        }
-
-        #endregion
-
-        #region COMMANDS
-
-
+        public AudioInfoVM AudioInfoVM { get; set; }
 
         #endregion
 
@@ -111,6 +87,7 @@ namespace AudioPlayerMVVMandNAudio
         {
             PlaylistVM = new PlaylistVM();
             AudioPlayerVM = new AudioPlayerVM();
+            AudioInfoVM = new AudioInfoVM();
 
             //Subscribes PlaylistVM to AudioPlayerVM events:
             AudioPlayerVM.NextTrackRequestEvent += PlaylistVM.OnNextTrackRequest;
@@ -121,43 +98,12 @@ namespace AudioPlayerMVVMandNAudio
             PlaylistVM.LoadAudioFileEvent += AudioPlayerVM.OnAudioFileLoaded;
             PlaylistVM.PlaylistEndedEvent += AudioPlayerVM.OnPlaylistEnded;
 
-            //Subscribes ApplicationVM to PlaylistVM event
-            PlaylistVM.LoadAudioFileEvent += OnAudioFileLoaded;
-            PlaylistVM.PlaylistEndedEvent += OnPlaylistEnded;
+            //Subscribes AudioInfo to PlaylistVM event
+            PlaylistVM.LoadAudioFileEvent += AudioInfoVM.OnAudioFileLoaded;
+            PlaylistVM.PlaylistEndedEvent += AudioInfoVM.OnPlaylistEnded;
 
-            //Subscribes ApplicationVM to AudioPlayerVM event
-            AudioPlayerVM.StopAudioBeforeEndEvent += OnAudioStoppedByUser;
-            
-        }
-
-        /// <summary>
-        /// Creates new instance of AudioFileVM, which represent info about current, active audio file.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void OnAudioFileLoaded(object sender, AudioFileVMEventArgs e)
-        {
-            //AudioFileInfoVM = new AudioFileInfoVM(e.AudioFileVM);
-            if(AudioFileInfoVM is not null)
-                AudioFileInfoVM.IsAudioFilePlaying = false;
-
-            AudioFileInfoVM = e.AudioFileVM;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void OnAudioStoppedByUser(object sender, EventArgs e)
-        {
-            if(AudioFileInfoVM !=null)
-                AudioFileInfoVM.IsAudioFilePlaying = false;
-        }
-
-        private void OnPlaylistEnded(object sender, EventArgs e)
-        {
-            AudioFileInfoVM = null;
+            //Subscribes AudioInfo to AudioPlayerVM event
+            AudioPlayerVM.StopAudioBeforeEndEvent += AudioInfoVM.OnAudioStoppedBeforeEnd;
         }
     }
 }

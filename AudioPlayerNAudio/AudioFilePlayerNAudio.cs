@@ -141,6 +141,7 @@ namespace AudioPlayerNAudio
         /// </summary>
         public void ResumeAudio()
         {
+            //NAudio.MM.Exception: 'NoDriver calling waveOutRestart'
             if (outputDevice?.PlaybackState == PlaybackState.Paused)
                 outputDevice.Play();
         }

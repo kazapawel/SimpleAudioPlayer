@@ -97,7 +97,8 @@
         <!--#endregion-->
 
         <!--#region INFO -->
-        <StackPanel Grid.Row="3">
+        <StackPanel Grid.Row="3"
+                    DataContext="{Binding AudioInfoVM}">
 
             <!-- AUDIO TRACK Info-->
             <Border 
@@ -117,21 +118,21 @@
                     <!-- Title -->
                     <TextBlock Grid.Column="0" 
                                Style="{StaticResource TrackInfoTextblock}" 
-                               Text="{Binding AudioFileInfoVM.TrackTitle}"
+                               Text="{Binding AudioFileVM.TrackTitle}"
                                Foreground="{StaticResource ForegroundSimpleOrangeBrush}"
                                />
 
                     <!-- Artist -->
                     <TextBlock Grid.Column="1"
                                Style="{StaticResource TrackInfoTextblock}" 
-                               Text="{Binding AudioFileInfoVM.Artist}"
+                               Text="{Binding AudioFileVM.Artist}"
                                Foreground="{StaticResource ForegroundSimpleLightGreenBrush}"
                                />
 
                     <!-- Album -->
                     <TextBlock Grid.Column="2"
                                Style="{StaticResource TrackInfoTextblock}" 
-                               Text="{Binding AudioFileInfoVM.Album}"
+                               Text="{Binding AudioFileVM.Album}"
                                Foreground="{StaticResource ForegroundSimpleDarkGreenBrush}"
                        />
 
@@ -160,7 +161,7 @@
                     <!-- File properties -->
                     <TextBlock Grid.Column="3"
                                Style="{StaticResource TrackInfoTextblock}" 
-                               Text="{Binding AudioFileInfoVM.FileProperties}"
+                               Text="{Binding AudioFileVM.FileProperties}"
                                Width="500"
                                TextTrimming="CharacterEllipsis"
                                />

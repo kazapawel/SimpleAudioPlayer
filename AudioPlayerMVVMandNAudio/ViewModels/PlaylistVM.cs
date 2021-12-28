@@ -190,6 +190,9 @@ namespace AudioPlayerMVVMandNAudio
         /// <param name="e"></param>
         public void OnNextTrackRequest(object sender, EventArgs e)
         {
+            //Change state of current audio file playing bool flag
+            BufferTrack.IsAudioFilePlaying = false;
+
             //Gets index of currently selected track
             var index = SongsListObservable.IndexOf(BufferTrack) + 1;
 
@@ -215,6 +218,9 @@ namespace AudioPlayerMVVMandNAudio
         /// <param name="e"></param>
         public void OnPreviousTrackRequest(object sender, EventArgs e)
         {
+            //Change state of current audio file playing bool flag
+            BufferTrack.IsAudioFilePlaying = false;
+
             //Gets index of currently selected track
             var index = SongsListObservable.IndexOf(BufferTrack);
 
@@ -305,6 +311,8 @@ namespace AudioPlayerMVVMandNAudio
 
         public void OnAudioStoppedBeforeEnd(object sender, EventArgs e)
         {
+            //BufferTrack = null;
+
             if (SongsListObservable.Count==0)
                 PlaylistEndedEvent?.Invoke(this, new AudioFileVMEventArgs(BufferTrack));
         }

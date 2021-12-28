@@ -264,7 +264,7 @@ namespace AudioPlayerMVVMandNAudio
         }
 
         /// <summary>
-        /// Stops current audio playback.
+        /// Stops current audio playback before audio reaching it's end.
         /// </summary>
         /// <param name="o"></param>
         private void StopAudio(object o)
@@ -361,6 +361,9 @@ namespace AudioPlayerMVVMandNAudio
         {
             //Clears audio player
             audioFilePlayer = null;
+
+            //Changes state of the player
+            IsPlaying = false;
 
             //Request
             NextTrackRequest(null);

@@ -165,6 +165,10 @@ namespace AudioPlayerMVVMandNAudio
         /// <param name="o"></param>
         private void LoadTrack(object o)
         {
+            //Changes state of current audiofile bool flag
+            if (BufferTrack !=null)
+                BufferTrack.IsAudioFilePlaying = false;
+
             //Selected track becomes buffer track
             BufferTrack = SelectedTrack;
 
@@ -172,15 +176,26 @@ namespace AudioPlayerMVVMandNAudio
         }
 
         /// <summary>
-        /// 
+        /// Raises and evetn about loading audio file into buffer.
         /// </summary>
         private void InformAllAboutFileLoading()
         {
-            //Raise event
-            LoadAudioFileEvent?.Invoke(this, new AudioFileVMEventArgs(bufferTrack));
+            //Raises event
+            LoadAudioFileEvent?.Invoke(this, new AudioFileVMEventArgs(bufferTrack));   
+        }
 
+        #region SUBSCRIPTIONS METHODS
+
+        /// <summary>
+        /// Changes buffer track state flag when audio starts playing. 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public void OnAudioStart(object sender, EventArgs e)
+        {
             //Sets buffer track state - this has to chagne when playback starts
-            BufferTrack.IsAudioFilePlaying = true;
+            if(BufferTrack != null)
+                BufferTrack.IsAudioFilePlaying = true;
         }
 
         /// <summary>
@@ -190,10 +205,10 @@ namespace AudioPlayerMVVMandNAudio
         /// <param name="e"></param>
         public void OnNextTrackRequest(object sender, EventArgs e)
         {
-            //Change state of current audio file playing bool flag
+            //Changes state of current audiofile bool flag
             BufferTrack.IsAudioFilePlaying = false;
 
-            //Gets index of currently selected track
+            //Gets index of next  track
             var index = SongsListObservable.IndexOf(BufferTrack) + 1;
 
             //Checks if can select next track on playlist
@@ -206,7 +221,7 @@ namespace AudioPlayerMVVMandNAudio
                 InformAllAboutFileLoading();
             }
 
-            //If playlist reaches an end - rasies an event
+            //If playlist reaches an end - raises an event
             else
                 PlaylistEndedEvent?.Invoke(this, new AudioFileVMEventArgs(bufferTrack));
         }
@@ -236,6 +251,31 @@ namespace AudioPlayerMVVMandNAudio
                 InformAllAboutFileLoading();
             }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public void OnAudioStoppedBeforeEnd(object sender, EventArgs e)
+        {
+            BufferTrack.IsAudioFilePlaying = false;
+
+            //If playlist was cleared during audio play
+            if (SongsListObservable.Count == 0)
+            {
+                
+                //Clears buffer track
+                //BufferTrack = null;
+
+                //Raises event about playlist end
+                //PlaylistEndedEvent?.Invoke(this, new AudioFileVMEventArgs(BufferTrack));
+            }
+        }
+
+        #endregion
+
+        #region PLAYLIST CRUD METHODS
 
         /// <summary>
         /// 
@@ -309,20 +349,9 @@ namespace AudioPlayerMVVMandNAudio
             OnPropertyChanged(nameof(Items));
         }
 
-        public void OnAudioStoppedBeforeEnd(object sender, EventArgs e)
-        {
-            //BufferTrack = null;
+        #endregion
 
-            if (SongsListObservable.Count==0)
-                PlaylistEndedEvent?.Invoke(this, new AudioFileVMEventArgs(BufferTrack));
-        }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="path"></param>
-        /// <returns></returns>
-        
 
         //private void RefreshModel(object sender, NotifyCollectionChangedEventArgs e)
         //{
@@ -356,7 +385,7 @@ namespace AudioPlayerMVVMandNAudio
         //}
     }
 
-        #endregion
-    
+    #endregion
+
 }
 

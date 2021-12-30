@@ -49,7 +49,7 @@ namespace AudioPlayerMVVMandNAudio
         #region METHODS
 
         /// <summary>
-        /// Creates new instance of AudioFileVM, which represent info about current, active audio file.
+        /// 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>

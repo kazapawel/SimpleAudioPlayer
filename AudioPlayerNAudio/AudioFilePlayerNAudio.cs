@@ -156,7 +156,7 @@ namespace AudioPlayerNAudio
         }
 
         /// <summary>
-        /// 
+        /// When audio is stopped (ends or stopped before end) this methos is invoked.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>

@@ -80,7 +80,7 @@ namespace AudioPlayerMVVMandNAudio
         }
 
         /// <summary>
-        /// Returns true if audio is playing.
+        /// Returns true if audio is playing. This is a flag to swap between play and pase image in gui.
         /// </summary>
         public bool IsPlaying
         {
@@ -143,19 +143,24 @@ namespace AudioPlayerMVVMandNAudio
         #region EVENTS
 
         /// <summary>
-        /// Occurs when user stops audio
+        /// Occurs when user stops audio.
         /// </summary>
         public event EventHandler StopAudioBeforeEndEvent;
 
         /// <summary>
-        /// Occurs when next song is pressed on ui
+        /// Occurs when next track is requested.
         /// </summary>
         public event EventHandler NextTrackRequestEvent;
 
         /// <summary>
-        /// Occurs when prevvious song is pressed on ui
+        /// Occurs when previous track is requested.
         /// </summary>
         public event EventHandler PreviousTrackRequestEvent;
+
+        /// <summary>
+        /// Occurs when audio player starts playback.
+        /// </summary>
+        public event EventHandler AudioStartEvent;
 
         #endregion
 
@@ -198,6 +203,8 @@ namespace AudioPlayerMVVMandNAudio
 
         #region METHODS
 
+        #region TRANSPORT METHODS
+
         /// <summary>
         /// Creates new AudioFilePlayer and plays chosen audio file.
         /// </summary>
@@ -211,7 +218,7 @@ namespace AudioPlayerMVVMandNAudio
                 if (audioFilePlayer != null)
                     audioFilePlayer.ResumeAudio();
 
-                //If audio is not paused: to prevent from playing multiple files at the same time
+                //If audio is not paused: creates new audioplayer model to prevent from playing multiple files at the same time
                 else
                 {
                     try
@@ -240,8 +247,8 @@ namespace AudioPlayerMVVMandNAudio
                     //Plays audio
                     audioFilePlayer.PlayAudio();
 
-                    //Here should be an event informing all about new audio plyaback start
-                    //
+                    //Event informing all about new audio plyaback start
+                    AudioStartEvent?.Invoke(this, new EventArgs());
                 }
 
                 //Creates new dispatcher timer for updating time values from model
@@ -258,7 +265,7 @@ namespace AudioPlayerMVVMandNAudio
                 //Updates acutal time on startup - shows 00:00;
                 OnPropertyChanged(nameof(TimeCurrent));
 
-                //Changes state of player
+                //Changes player's state flag
                 IsPlaying = true;
             }
         }
@@ -290,8 +297,10 @@ namespace AudioPlayerMVVMandNAudio
                 //Raises stop audio before end event
                 StopAudioBeforeEndEvent?.Invoke(this, new EventArgs());
 
+                //
                 OnPropertyChanged(nameof(TimeTotal));
 
+                //
                 UpdatePosition();
             }
         }
@@ -318,6 +327,10 @@ namespace AudioPlayerMVVMandNAudio
         /// <param name="o"></param>
         private void NextTrackRequest(object o)
         {
+            //Stops audio first
+            StopAudio(null);
+
+            //
             NextTrackRequestEvent?.Invoke(this, new EventArgs());
         }
 
@@ -327,7 +340,29 @@ namespace AudioPlayerMVVMandNAudio
         /// <param name="o"></param>
         private void PreviousTrackRequest(object o)
         {
+            //Stops audio
             PreviousTrackRequestEvent?.Invoke(this, new EventArgs());
+        }
+
+        #endregion
+
+        #region SUBSCRIPTIONS METHODS
+
+        /// <summary>
+        /// If audio file has ended, clears model and requests another track to load.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public void OnAudioHasEnded(object sender, EventArgs e)
+        {
+            //Clears audio player
+            audioFilePlayer = null;
+
+            //Changes state of the player
+            IsPlaying = false;
+
+            //Request
+            NextTrackRequest(null);
         }
 
         /// <summary>
@@ -353,32 +388,21 @@ namespace AudioPlayerMVVMandNAudio
         }
 
         /// <summary>
-        /// If audio file has ended, requests antoher track to load.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        public void OnAudioHasEnded(object sender, EventArgs e)
-        {
-            //Clears audio player
-            audioFilePlayer = null;
-
-            //Changes state of the player
-            IsPlaying = false;
-
-            //Request
-            NextTrackRequest(null);
-        }
-
-        /// <summary>
         /// Clears audio file player.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         public void OnPlaylistEnded(object sender, EventArgs e)
         {
-            audioFilePlayer = null;
+
+            if(IsPlaying)
+                audioFilePlayer = null;
             //StopAudio(null);
         }
+
+        #endregion
+
+        #region PRIVATE INNER METHODS
 
         /// <summary>
         /// If there is a audio player, sets it's volume.
@@ -429,6 +453,8 @@ namespace AudioPlayerMVVMandNAudio
         {
             OnPropertyChanged(nameof(Position));
         }
+
+        #endregion
 
         #endregion
     }

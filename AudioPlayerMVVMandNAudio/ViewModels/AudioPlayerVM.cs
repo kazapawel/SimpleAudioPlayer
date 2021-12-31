@@ -80,7 +80,7 @@ namespace AudioPlayerMVVMandNAudio
         }
 
         /// <summary>
-        /// Returns true if audio is playing. This is a flag to swap between play and pase image in gui.
+        /// Returns true if audio is playing. This is a flag to swap between play and pause image in gui.
         /// </summary>
         public bool IsPlaying
         {
@@ -285,7 +285,7 @@ namespace AudioPlayerMVVMandNAudio
                 //Stops timer
                 timer?.Stop();
 
-                //Clears audio player. Setting to null is questionable but how to make it better?
+                //Clears model
                 audioFilePlayer = null;
 
                 //On property changed
@@ -306,7 +306,7 @@ namespace AudioPlayerMVVMandNAudio
         }
 
         /// <summary>
-        /// 
+        /// Pauses current playback and stops time timer.
         /// </summary>
         /// <param name="o"></param>
         private void PauseAudio(object o)
@@ -322,7 +322,7 @@ namespace AudioPlayerMVVMandNAudio
         }
 
         /// <summary>
-        /// Raises an next track request event.
+        /// Stops current audio playback and requests next track.
         /// </summary>
         /// <param name="o"></param>
         private void NextTrackRequest(object o)
@@ -330,17 +330,20 @@ namespace AudioPlayerMVVMandNAudio
             //Stops audio first
             StopAudio(null);
 
-            //
+            //Raises an event
             NextTrackRequestEvent?.Invoke(this, new EventArgs());
         }
 
         /// <summary>
-        /// Raises an previous track request event.
+        /// Stops current audio playback and requests previous track.
         /// </summary>
         /// <param name="o"></param>
         private void PreviousTrackRequest(object o)
         {
             //Stops audio
+            StopAudio(null);
+
+            //
             PreviousTrackRequestEvent?.Invoke(this, new EventArgs());
         }
 
@@ -361,8 +364,8 @@ namespace AudioPlayerMVVMandNAudio
             //Changes state of the player
             IsPlaying = false;
 
-            //Request
-            NextTrackRequest(null);
+            //Requests next track
+            NextTrackRequestEvent?.Invoke(this, new EventArgs());
         }
 
         /// <summary>
@@ -380,7 +383,7 @@ namespace AudioPlayerMVVMandNAudio
 
             //EXCEPTION - where to check if file exists - model?
 
-            //Loads track path which was sent by playlist
+            //Loads track path which was sent by playlist - exception sometimes
             Path = e.AudioFileVM.Path;
 
             //Plays new track
@@ -398,6 +401,16 @@ namespace AudioPlayerMVVMandNAudio
             if(IsPlaying)
                 audioFilePlayer = null;
             //StopAudio(null);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public void OnPlaylistCleared(object sender, EventArgs e)
+        {
+            Path = null;
         }
 
         #endregion

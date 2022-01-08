@@ -32,7 +32,7 @@ namespace AudioPlayerMVVMandNAudio
         *Volume slider nopt linear but expotential
         
     PLAYER logic
-            *Implement AudioInfo again
+            +DONE Implement AudioInfo again
             +DONE Fix problem -> playslit logic - request track -> change selected track -> load track (buffer=selected) -> raise an event
             +DONE Fix problem -> audio plays, clear playlist, audio stop by user, clear buffer
             +DONE Fix order of adding files when drop - first files than directories
@@ -40,7 +40,7 @@ namespace AudioPlayerMVVMandNAudio
             +DONE Seperate viewmodel for audioFileinfo - applicationVM only for coordinate others
         *Catch exception in playlist when creating audiofile (wrong file format)
         *MP3 loads to slow - change this in audio library implementation
-            +DONE "Clear playlist" event so infoVM and player can clear can clear
+            +DONE "Clear playlist" event so infoVM and player can clear
         *Exceptions error logger
         *Validation rules for files selected
         *Playlist loading/saving - when (On program close)
@@ -102,12 +102,13 @@ namespace AudioPlayerMVVMandNAudio
             PlaylistVM.PlaylistEndedEvent += AudioPlayerVM.OnPlaylistEnded;
             PlaylistVM.PlaylistClearedEvent += AudioPlayerVM.OnPlaylistCleared;
 
-            ////Subscribes AUDIO INFO to PlaylistVM event
+            //Subscribes AUDIO INFO to PlaylistVM event
             //PlaylistVM.LoadAudioFileEvent += AudioInfoVM.OnAudioFileLoaded;
             //PlaylistVM.PlaylistEndedEvent += AudioInfoVM.OnPlaylistEnded;
 
-            ////Subscribes AUDIO INFO to AudioPlayerVM event
-            //AudioPlayerVM.StopAudioBeforeEndEvent += AudioInfoVM.OnAudioStoppedBeforeEnd;
+            //Subscribes AUDIO INFO to AudioPlayerVM event
+            AudioPlayerVM.StopAudioBeforeEndEvent += AudioInfoVM.OnAudioStoppedBeforeEnd;
+            AudioPlayerVM.AudioStartEvent += AudioInfoVM.OnAudioFileStart;
         }
     }
 }

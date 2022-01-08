@@ -1,4 +1,5 @@
 ﻿
+using AudioPlayerNAudio;
 using System;
 
 namespace AudioPlayerMVVMandNAudio
@@ -49,17 +50,13 @@ namespace AudioPlayerMVVMandNAudio
         #region METHODS
 
         /// <summary>
-        /// 
+        /// Creates new instance of AudioFileVM
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        public void OnAudioFileLoaded(object sender, AudioFileVMEventArgs e)
+        public void OnAudioFileStart(object sender, FilePathEventArgs e)
         {
-            //AudioFileInfoVM = new AudioFileInfoVM(e.AudioFileVM);
-            if (AudioFileVM is not null)
-                AudioFileVM.IsAudioFilePlaying = false;
-
-            AudioFileVM = e.AudioFileVM;
+            AudioFileVM = new AudioFileVM(new AudioFile(e.Path));
         }
 
         /// <summary>
@@ -69,9 +66,6 @@ namespace AudioPlayerMVVMandNAudio
         /// <param name="e"></param>
         public void OnAudioStoppedBeforeEnd(object sender, EventArgs e)
         {
-            if (AudioFileVM != null)
-                AudioFileVM.IsAudioFilePlaying = false;
-
             AudioFileVM = null;
         }
 

@@ -131,6 +131,7 @@
                         Value="{Binding Volume, Mode=TwoWay}"
                         IsMoveToPointEnabled="True"
                         MinWidth="90"
+                        TickFrequency="10"
                         Minimum="-60"
                         Maximum="0"
                         Margin="5"

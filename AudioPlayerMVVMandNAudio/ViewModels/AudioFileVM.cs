@@ -20,6 +20,7 @@ namespace AudioPlayerMVVMandNAudio
 
         #region PUBLIC PROPERTIES
 
+        public string TestProperty { get; set; } = "Test";
         /// <summary>
         /// Gets track's title.
         /// </summary>

@@ -160,7 +160,7 @@ namespace AudioPlayerMVVMandNAudio
         /// <summary>
         /// Occurs when audio player starts playback.
         /// </summary>
-        public event EventHandler AudioStartEvent;
+        public event EventHandler<FilePathEventArgs> AudioStartEvent;
 
         #endregion
 
@@ -248,7 +248,7 @@ namespace AudioPlayerMVVMandNAudio
                     audioFilePlayer.PlayAudio();
 
                     //Event informing all about new audio plyaback start
-                    AudioStartEvent?.Invoke(this, new EventArgs());
+                    AudioStartEvent?.Invoke(this, new FilePathEventArgs(Path));
                 }
 
                 //Creates new dispatcher timer for updating time values from model
@@ -397,10 +397,8 @@ namespace AudioPlayerMVVMandNAudio
         /// <param name="e"></param>
         public void OnPlaylistEnded(object sender, EventArgs e)
         {
-
             if(IsPlaying)
                 audioFilePlayer = null;
-            //StopAudio(null);
         }
 
         /// <summary>
@@ -422,6 +420,8 @@ namespace AudioPlayerMVVMandNAudio
         /// </summary>
         private void SetAudioPlayerVolume()
         {
+            var a = DbToPercent(Volume);
+            var b = DbToP(Volume);
             if (audioFilePlayer != null)
             {
                 var volume = (float)(DbToPercent(storedVolume) / 100f);
@@ -434,10 +434,20 @@ namespace AudioPlayerMVVMandNAudio
         /// </summary>
         /// <param name="db"></param>
         /// <returns></returns>
-        private static double DbToPercent(double dB)
+        private double DbToPercent(double dB)
         {
             var vol = Math.Pow(10, (double)dB / 10) * 100;
             return vol;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="dB"></param>
+        /// <returns></returns>
+        private double DbToP(double dB)
+        {
+            return 20 * Math.Log(10, Volume);
         }
 
         /// <summary>

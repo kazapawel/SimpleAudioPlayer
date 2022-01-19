@@ -7,6 +7,9 @@ namespace AudioPlayerMVVMandNAudio
     /*
      * 
     TO DO:
+        *Drag and drop to reorder items in playlist
+        *Slider drag and move in XAML if possbile
+        *Volume slider nopt linear but expotential
 
     GUI look:
             +DONE Not to resize playlist - fixed values, min values etc.
@@ -22,6 +25,7 @@ namespace AudioPlayerMVVMandNAudio
         *Logo
     
     GUI logic:
+        *Display itme time with correct format: 0m:0s ex:  04:03
         *!Slider drag and move in XAML if possbile
         *!Drag and drop to reorder items in playlist
             +DONE Time display - not to display hours but total minutes
@@ -46,7 +50,6 @@ namespace AudioPlayerMVVMandNAudio
         *Playlist loading/saving - when (On program close)
         *Playmode randome
         *Playmode loop
-            +DONE Volume in decibels
         *Volume
         *Filter OpenFileDialog files
             +DONE Drag and drop directories into playlist       
@@ -101,10 +104,6 @@ namespace AudioPlayerMVVMandNAudio
             PlaylistVM.LoadAudioFileEvent += AudioPlayerVM.OnAudioFileLoaded;
             PlaylistVM.PlaylistEndedEvent += AudioPlayerVM.OnPlaylistEnded;
             PlaylistVM.PlaylistClearedEvent += AudioPlayerVM.OnPlaylistCleared;
-
-            //Subscribes AUDIO INFO to PlaylistVM event
-            //PlaylistVM.LoadAudioFileEvent += AudioInfoVM.OnAudioFileLoaded;
-            //PlaylistVM.PlaylistEndedEvent += AudioInfoVM.OnPlaylistEnded;
 
             //Subscribes AUDIO INFO to AudioPlayerVM event
             AudioPlayerVM.StopAudioBeforeEndEvent += AudioInfoVM.OnAudioStoppedBeforeEnd;

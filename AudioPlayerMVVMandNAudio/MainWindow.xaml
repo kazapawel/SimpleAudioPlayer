@@ -5,8 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AudioPlayerMVVMandNAudio"
         mc:Ignorable="d"
-        Title="MainWindow"  
-        
+        Title="MainWindow"         
         Style="{StaticResource MainWindowStyle2}"
         MinWidth="320"
         MinHeight="175"
@@ -91,8 +90,10 @@
         <!--#region PLAYLIST -->
         <local:PlaylistControl Grid.Row="2"
                                DataContext="{Binding PlaylistVM}"
-                               VerticalAlignment="Stretch"
                                x:Name="playlistControl"
+                               VerticalAlignment="Stretch"
+                               IncomingFiles="{Binding IncomingFiles}"
+                               DropFilesCommand="{Binding DropFilesCommand}"
                                />
         <!--#endregion-->
 

@@ -72,24 +72,28 @@ namespace AudioPlayerMVVMandNAudio
             }
         }
 
-        //public List<AudioFileVM> SelectedMultipleTracks
-        //{
-        //    set
-        //    {
-        //        if
-        //    }
-        //}
-
-        /// <summary>
-        /// Name of the playlist
-        /// </summary>
-        public string Name { get; set; } = "playlist";
-
         /// <summary>
         /// Gets number of items in playlist.
         /// </summary>
         public string Items => model.SongsList.Count.ToString();
 
+        #region DRAG AND DROP PROPERTIES
+
+        private IEnumerable<string> incomingFiles;
+        public IEnumerable<string> IncomingFiles
+        {
+            get => incomingFiles;
+            set
+            {
+                if(incomingFiles!=value)
+                {
+                    incomingFiles = value;
+                    OnPropertyChanged(nameof(IncomingFiles));
+                }
+            }
+        }
+        
+        #endregion
 
         #endregion
 
@@ -105,6 +109,9 @@ namespace AudioPlayerMVVMandNAudio
         /// </summary>
         public event EventHandler<AudioFileVMEventArgs> PlaylistEndedEvent;
 
+        /// <summary>
+        /// 
+        /// </summary>
         public event EventHandler<EventArgs> PlaylistClearedEvent;
 
         #endregion
@@ -125,6 +132,11 @@ namespace AudioPlayerMVVMandNAudio
         /// Removes all tracks from playlist.
         /// </summary>
         public ICommand ClearPlaylistCommand { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public ICommand DropFilesCommand { get; set; }
 
         #endregion
 
@@ -153,6 +165,7 @@ namespace AudioPlayerMVVMandNAudio
             LoadTrackCommand = new RelayCommand(LoadTrack);
             RemoveTracksFromPlaylistCommand = new RelayCommand(RemoveTracksFromPlaylist);
             ClearPlaylistCommand = new RelayCommand(ClearPlaylist);
+            DropFilesCommand = new DropFilesCommand(this);
 
             //SongsListObservable.CollectionChanged += RefreshModel;
         }
@@ -280,7 +293,6 @@ namespace AudioPlayerMVVMandNAudio
         /// <param name="trackPath"></param>
         public void AddTracksToPlaylist(IEnumerable<string> tracksPaths)
         {
-
             //Adds tracks to model and observable collection
             foreach (var trackPath in tracksPaths)
             {

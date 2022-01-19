@@ -14,14 +14,15 @@
         
     </Style>
     
-    <!-- Playlist ITEM basic style -->
+    <!-- PLAYLIST ITEM basic style -->
     <Style TargetType="{x:Type ListBoxItem}" x:Key="PlaylistItemStyle">
 
         <!-- Selection style trigger -->
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter Property="Background" Value="#1D556D"/>
-            </Trigger>
+
+            </Trigger> 
             <MultiTrigger>
                 <MultiTrigger.Conditions>
                     <Condition Property="IsSelected" Value="True"/>

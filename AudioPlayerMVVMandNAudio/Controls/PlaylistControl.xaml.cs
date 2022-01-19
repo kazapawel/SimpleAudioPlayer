@@ -13,6 +13,32 @@ namespace AudioPlayerMVVMandNAudio
     /// </summary>
     public partial class PlaylistControl : System.Windows.Controls.UserControl
     {
+        #region DEPENDENCY PROPERTIES
+
+        public IEnumerable<string> IncomingFiles
+        {
+            get { return (IEnumerable<string>)GetValue(IncomingFilesProperty); }
+            set { SetValue(IncomingFilesProperty, value); }
+        }
+
+        public static readonly DependencyProperty IncomingFilesProperty =
+            DependencyProperty.Register("IncomingFiles", typeof(IEnumerable<string>), typeof(PlaylistControl), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+
+        public ICommand DropFilesCommand
+        {
+            get { return (ICommand)GetValue(DropFilesCommandProperty); }
+            set { SetValue(DropFilesCommandProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for DropFilesCommand.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty DropFilesCommandProperty =
+            DependencyProperty.Register("DropFilesCommand", typeof(ICommand), typeof(PlaylistControl), new PropertyMetadata(null));
+
+
+
+
+        #endregion
+
         #region CONSTRUCTORS
 
         /// <summary>
@@ -46,24 +72,41 @@ namespace AudioPlayerMVVMandNAudio
             if (dialog.ShowDialog() == true)
             {
                 //Gets names of all selected files
-                SendFilesToViewModel(dialog.FileNames);
+                AddFiles(dialog.FileNames);
             }
 
         }
 
         /// <summary>
-        /// Adds trakcs to playlist by draging file from computer and dropping them on playlist.
+        /// 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void PlaylistListbox_Drop(object sender, DragEventArgs e)
+        public void PlaylistListbox_Drop(object sender, DragEventArgs e)
         {
-            if(e.Data.GetDataPresent(DataFormats.FileDrop))
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
-                //Gets string paths of dropped files
-                SendFilesToViewModel(GetFiles((IEnumerable<string>)e.Data.GetData(DataFormats.FileDrop)));
+                if (DropFilesCommand?.CanExecute(null) ?? false)
+                {
+                    IncomingFiles = GetFiles((IEnumerable<string>)e.Data.GetData(DataFormats.FileDrop));
+                    DropFilesCommand?.Execute(null);
+                }
             }
         }
+
+        /// <summary>
+        /// Sends paths to view model.
+        /// </summary>
+        /// <param name="files"></param>
+        private void AddFiles(IEnumerable<string> files)
+        {
+            //var playlist = this.DataContext as PlaylistVM;
+            //playlist.AddTracksToPlaylist(files);
+        }
+
+        #endregion
+
+        #region PRIVATE HELPER METHODS
 
         /// <summary>
         /// 
@@ -82,7 +125,7 @@ namespace AudioPlayerMVVMandNAudio
                 if (IsDirectory(path))
                 {
                     //Gets all items from this directory
-                    foreach ( var file in GetFiles(Directory.GetFileSystemEntries(path)))
+                    foreach (var file in GetFiles(Directory.GetFileSystemEntries(path)))
                         files.Add(file);
                 }
 
@@ -105,32 +148,6 @@ namespace AudioPlayerMVVMandNAudio
 
             return file.Attributes.HasFlag(FileAttributes.Directory);
         }
-
-        /// <summary>
-        /// Sends paths to view model.
-        /// </summary>
-        /// <param name="files"></param>
-        private void SendFilesToViewModel(IEnumerable<string> files)
-        {
-            var playlist = this.DataContext as PlaylistVM;
-            playlist.AddTracksToPlaylist(files);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        public void OnFilesDragOutsidePlaylist(object sender, DropFilesEventArgs e)
-        {
-            SendFilesToViewModel(GetFiles(e.Files));
-        }
-
-        #endregion
-
-        #region MOVE ITEMS IN PLAYLIST BY DRAG AND DROP
-
-
 
         #endregion
     }

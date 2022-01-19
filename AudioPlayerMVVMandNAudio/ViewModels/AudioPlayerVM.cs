@@ -103,9 +103,6 @@ namespace AudioPlayerMVVMandNAudio
         /// </summary>
         public List<string[]> ErrorLog { get; set; }
 
-
-        #region PAPAPSDFPASPDFPASDPFAPSDFASDF
-
         /// <summary>
         /// Audio time position
         /// </summary>
@@ -135,8 +132,6 @@ namespace AudioPlayerMVVMandNAudio
         ///// String representation of remaining time of audio which is playing.
         ///// </summary>
         //public string TimeRemaining => audioFilePlayer != null ? (audioFilePlayer.TotalTime - audioFilePlayer.CurrentTime).ToString(@"mm\:ss") : "--:--";//audioPlayer.IsAudioFileLoaded ? (audioPlayer.TotalTime - audioPlayer.CurrentTime).ToString(@"mm\:ss") : "--:--";
-
-        #endregion
 
         #endregion
 
@@ -420,11 +415,11 @@ namespace AudioPlayerMVVMandNAudio
         /// </summary>
         private void SetAudioPlayerVolume()
         {
-            var a = DbToPercent(Volume);
-            var b = DbToP(Volume);
+            //var a = DbToPercent(Volume);
+            //var b = DbToP(Volume);
             if (audioFilePlayer != null)
             {
-                var volume = (float)(DbToPercent(storedVolume) / 100f);
+                var volume = (float)(storedVolume/100);
                 audioFilePlayer.Volume = Muted ? 0 : volume;
             }
         }

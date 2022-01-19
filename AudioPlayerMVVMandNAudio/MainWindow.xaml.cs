@@ -1,17 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace AudioPlayerMVVMandNAudio
 {
@@ -23,7 +11,7 @@ namespace AudioPlayerMVVMandNAudio
         /// <summary>
         /// Occurs when files are drop into control.
         /// </summary>
-        public EventHandler<DropFilesEventArgs> WindowFilesDropEvent;
+        public EventHandler<DragEventArgs> WindowFilesDropEvent;
 
         /// <summary>
         /// Default constructor
@@ -31,7 +19,10 @@ namespace AudioPlayerMVVMandNAudio
         public MainWindow()
         {
             InitializeComponent();
-            WindowFilesDropEvent+=playlistControl.OnFilesDragOutsidePlaylist;
+            //this.DataContext = new MainWindowViewModel(this);
+
+            //Redirects drop event to playlist control so user can drop files anywhere on the application window.
+            WindowFilesDropEvent += playlistControl.PlaylistListbox_Drop;
         }
 
         /// <summary>
@@ -65,7 +56,7 @@ namespace AudioPlayerMVVMandNAudio
         }
 
         /// <summary>
-        /// 
+        /// When files are dropped from oputside the window, windows raises en event and sends dropped data to subscribers.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -73,7 +64,7 @@ namespace AudioPlayerMVVMandNAudio
         {
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
-                WindowFilesDropEvent?.Invoke(this, new DropFilesEventArgs((string[])e.Data.GetData(DataFormats.FileDrop)));
+                WindowFilesDropEvent?.Invoke(this, e);
             }
         }
     }

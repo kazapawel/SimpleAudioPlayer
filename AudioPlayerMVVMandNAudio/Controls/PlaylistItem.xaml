@@ -6,7 +6,8 @@
              xmlns:local="clr-namespace:AudioPlayerMVVMandNAudio"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800"
-             MouseMove="UserControl_MouseMove">
+             DragOver="PlaylistItem_DragOver"
+             MouseMove="PlaylistItem_MouseMove">
 
     <UserControl.InputBindings>
         <MouseBinding MouseAction="LeftDoubleClick" 

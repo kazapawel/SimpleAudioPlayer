@@ -14,8 +14,8 @@
             
             <!-- playlsit listbox -->
             <RowDefinition Height="*"/>
-            
-            <!-- playlist options -->
+
+            <!-- playlist options ItemContainerStyle="{StaticResource PlaylistItemStyle}"-->
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
@@ -23,11 +23,49 @@
         <ListBox Grid.Row="0"
                  x:Name="PlaylistListbox"                
                  Style="{StaticResource PlaylistStyle}"
-                 ItemsSource="{Binding SongsListObservable}"                 
-                 ItemContainerStyle="{StaticResource PlaylistItemStyle}"                
+                 ItemsSource="{Binding SongsListObservable}"                                                
                  SelectedItem="{Binding SelectedTrack, Mode=OneWayToSource}"
                  SelectionMode="Extended"
-                 AllowDrop="True"/>
+                 AllowDrop="True">
+            
+            <!-- Playlist item style -->
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                    
+                    <!-- Events handlers -->
+                    <EventSetter Event="MouseMove" Handler="Item_MouseMove"/>
+                    <EventSetter Event="DragOver" Handler="Item_DragOver"/>
+                    
+                    <!-- Template -->
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                <Border x:Name="border"
+                            Background="{TemplateBinding Background}">
+                                    <local:PlaylistItem/>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+
+                    <!-- Selection style trigger -->
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#1D556D"/>
+
+                        </Trigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsSelected" Value="True"/>
+                            </MultiTrigger.Conditions>
+
+                            <Setter Property="Background" Value="#196E92"/>
+                        </MultiTrigger>
+                    </Style.Triggers>
+                    
+                </Style>
+            </ListBox.ItemContainerStyle>
+        </ListBox>
 
 
         <!-- OPTIONS -->

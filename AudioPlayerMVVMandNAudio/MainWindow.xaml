@@ -94,6 +94,9 @@
                                VerticalAlignment="Stretch"
                                IncomingFiles="{Binding IncomingFiles}"
                                DropFilesCommand="{Binding DropFilesCommand}"
+                               MoveItemCommand="{Binding MoveItemCommand}"
+                               TargetItem="{Binding TargetItem}"
+                               MovedItem="{Binding MovedItem}"
                                />
         <!--#endregion-->
 

@@ -15,6 +15,34 @@ namespace AudioPlayerMVVMandNAudio
     {
         #region DEPENDENCY PROPERTIES
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public object TargetItem
+        {
+            get { return (object)GetValue(TargetItemProperty); }
+            set { SetValue(TargetItemProperty, value); }
+        }
+
+        public static readonly DependencyProperty TargetItemProperty =
+            DependencyProperty.Register("TargetItem", typeof(object), typeof(PlaylistControl), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault ));
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public object MovedItem
+        {
+            get { return (object)GetValue(MovedItemProperty); }
+            set { SetValue(MovedItemProperty, value); }
+        }
+
+        public static readonly DependencyProperty MovedItemProperty =
+            DependencyProperty.Register("MovedItem", typeof(object), typeof(PlaylistControl), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+
+        /// <summary>
+        /// 
+        /// </summary>
         public IEnumerable<string> IncomingFiles
         {
             get { return (IEnumerable<string>)GetValue(IncomingFilesProperty); }
@@ -24,18 +52,30 @@ namespace AudioPlayerMVVMandNAudio
         public static readonly DependencyProperty IncomingFilesProperty =
             DependencyProperty.Register("IncomingFiles", typeof(IEnumerable<string>), typeof(PlaylistControl), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
 
+        /// <summary>
+        /// 
+        /// </summary>
         public ICommand DropFilesCommand
         {
             get { return (ICommand)GetValue(DropFilesCommandProperty); }
             set { SetValue(DropFilesCommandProperty, value); }
         }
-
-        // Using a DependencyProperty as the backing store for DropFilesCommand.  This enables animation, styling, binding, etc...
+       
         public static readonly DependencyProperty DropFilesCommandProperty =
             DependencyProperty.Register("DropFilesCommand", typeof(ICommand), typeof(PlaylistControl), new PropertyMetadata(null));
 
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        public ICommand MoveItemCommand
+        {
+            get { return (ICommand)GetValue(MoveItemCommandProperty); }
+            set { SetValue(MoveItemCommandProperty, value); }
+        }
+        
+        public static readonly DependencyProperty MoveItemCommandProperty =
+            DependencyProperty.Register("MoveItemCommand", typeof(ICommand), typeof(PlaylistControl), new PropertyMetadata(null));
 
         #endregion
 
@@ -104,6 +144,38 @@ namespace AudioPlayerMVVMandNAudio
             //playlist.AddTracksToPlaylist(files);
         }
 
+
+
+        #endregion
+
+        #region PLAYLIST ITEM DRAG AND DROP
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Item_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed && sender is FrameworkElement frameworkElement)
+            {
+                DragDrop.DoDragDrop(frameworkElement, new DataObject(DataFormats.Serializable, frameworkElement.DataContext), DragDropEffects.Move);
+            }
+        }
+
+        private void Item_DragOver(object sender, DragEventArgs e)
+        {
+            if (MoveItemCommand?.CanExecute(null) ?? false)
+            {
+                if (sender is FrameworkElement element)
+                {
+                    TargetItem = element.DataContext;
+                    MovedItem = e.Data.GetData(DataFormats.Serializable);
+                }
+
+                MoveItemCommand?.Execute(null);
+            }
+        }
         #endregion
 
         #region PRIVATE HELPER METHODS

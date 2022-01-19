@@ -13,24 +13,13 @@
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Visible"/>
         
     </Style>
+
+    <!--Style TargetType="{x:Type local:PlaylistItem}" x:Key="BaseListboxItemStyle">
+        <EventSetter Event="MouseMove" Handler="Item_MouseMove"/>
+    </Style>-->
     
     <!-- PLAYLIST ITEM basic style -->
     <Style TargetType="{x:Type ListBoxItem}" x:Key="PlaylistItemStyle">
-
-        <!-- Selection style trigger -->
-        <Style.Triggers>
-            <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="#1D556D"/>
-
-            </Trigger> 
-            <MultiTrigger>
-                <MultiTrigger.Conditions>
-                    <Condition Property="IsSelected" Value="True"/>
-                </MultiTrigger.Conditions>
-
-                <Setter Property="Background" Value="#196E92"/>
-            </MultiTrigger>
-        </Style.Triggers>
 
         <!-- Template -->
         <Setter Property="Template">
@@ -43,6 +32,23 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+        
+        <!-- Selection style trigger -->
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#1D556D"/>
+                
+            </Trigger> 
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsSelected" Value="True"/>
+                </MultiTrigger.Conditions>
+
+                <Setter Property="Background" Value="#196E92"/>
+            </MultiTrigger>
+        </Style.Triggers>
+
+        
     </Style>
 
 

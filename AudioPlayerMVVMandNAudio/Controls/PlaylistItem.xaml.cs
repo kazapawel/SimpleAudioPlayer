@@ -24,24 +24,5 @@ namespace AudioPlayerMVVMandNAudio
         {
             InitializeComponent();
         }
-
-        private void PlaylistItem_MouseMove(object sender, MouseEventArgs e)
-        {
-            if(e.LeftButton==MouseButtonState.Pressed && sender is FrameworkElement frameworkElement)
-            {
-                DragDrop.DoDragDrop(frameworkElement, new DataObject(DataFormats.Serializable, frameworkElement.DataContext), DragDropEffects.Move);
-            }
-        }
-
-
-        private void PlaylistItem_DragOver(object sender, DragEventArgs e)
-        {
-            //Gets playlist data context
-            var x = sender as PlaylistItem;
-            var audioFileVm = x.DataContext as AudioFileVM;
-
-
-            //Gets index of moved item
-        }
     }
 }

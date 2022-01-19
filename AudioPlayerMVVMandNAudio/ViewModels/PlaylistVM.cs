@@ -92,6 +92,10 @@ namespace AudioPlayerMVVMandNAudio
                 }
             }
         }
+
+        public AudioFileVM TargetItem { get; set; }
+        public AudioFileVM MovedItem { get; set; }
+
         
         #endregion
 
@@ -138,6 +142,11 @@ namespace AudioPlayerMVVMandNAudio
         /// </summary>
         public ICommand DropFilesCommand { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        public ICommand MoveItemCommand { get; set; }
+
         #endregion
 
         #region CONSTRUCTORS
@@ -166,6 +175,7 @@ namespace AudioPlayerMVVMandNAudio
             RemoveTracksFromPlaylistCommand = new RelayCommand(RemoveTracksFromPlaylist);
             ClearPlaylistCommand = new RelayCommand(ClearPlaylist);
             DropFilesCommand = new DropFilesCommand(this);
+            MoveItemCommand = new MoveItemCommand(this);
 
             //SongsListObservable.CollectionChanged += RefreshModel;
         }
@@ -356,6 +366,25 @@ namespace AudioPlayerMVVMandNAudio
 
             //Raise property changed on read only property
             OnPropertyChanged(nameof(Items));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="target"></param>
+        /// <param name="moved"></param>
+        public void MoveItem(AudioFileVM target, AudioFileVM moved)
+        {
+            if (moved == target)
+                return;
+
+            var oldIndex = SongsListObservable.IndexOf(moved);
+            var nextIndex = SongsListObservable.IndexOf(target);
+
+            if (oldIndex != -1 && nextIndex != -1)
+            {
+                SongsListObservable.Move(oldIndex, nextIndex);
+            }
         }
 
         #endregion

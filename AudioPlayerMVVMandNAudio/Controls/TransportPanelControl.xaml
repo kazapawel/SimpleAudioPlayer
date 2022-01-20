@@ -106,10 +106,7 @@
 
             <!--#region VOLUME SLIDER -->
             <!--VOLUME SLIDER-->
-            <Grid Grid.Column="1"
-                  Margin="5,0,5,0"
-                  
-                  VerticalAlignment="Center">
+            <Grid Grid.Column="1" Margin="5,0,5,0" VerticalAlignment="Center">
 
                 <Grid.ColumnDefinitions>
 
@@ -121,9 +118,9 @@
 
                 </Grid.ColumnDefinitions>
 
-
                 <!--Volume slider-->
                 <Slider Grid.Column="0"
+                        x:Name="VolumeSlider"
                         Style="{StaticResource VolumeSliderStyle}"
                         Value="{Binding Volume, Mode=TwoWay}"
                         IsMoveToPointEnabled="True"
@@ -132,7 +129,8 @@
                         Minimum="0"
                         Maximum="100"
                         Margin="5"
-                        
+                        MouseMove="VolumeSlider_MouseMove"
+                        MouseLeftButtonUp="VolumeSlider_MouseLeftButtonUp"
                         />
 
                 <!--SPEAKER BUTTON-->
@@ -185,8 +183,8 @@
                     IsMoveToPointEnabled="True"
                     SmallChange="0.2"
                     Value="{Binding Position}"
-                    Thumb.DragStarted="PositionSlider_DragStarted"
                     MouseMove="PositionSlider_MouseMove"
+                    MouseLeftButtonUp="PositionSlider_MouseLeftButtonUp"
                     />
 
             <!-- PopUp with time value-->

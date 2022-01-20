@@ -8,17 +8,16 @@ namespace AudioPlayerMVVMandNAudio
      * 
     TO DO:
             +DONE Drag and drop to reorder items in playlist
-        *Slider drag and move
+            +DONE Volume slider and position slider drag and move
         *Volume slider not linear but expotential
         *Playlist import to file implementation
-        *Buttons images
+        *Options buttons images
         *New transport buttons
+        *Fix code duplication in views code behind
 
     GUI look:
             +DONE Not to resize playlist - fixed values, min values etc.
-        *!Transport buttons remake - again
         *!Current playing icon remake
-        *!Options buttons remake - again
         *Resizing/minimizing controls with button clicks - view model for manipulating 
         *Loop playback image
         *Random playback image

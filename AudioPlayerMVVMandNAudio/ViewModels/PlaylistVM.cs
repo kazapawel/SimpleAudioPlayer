@@ -140,7 +140,7 @@ namespace AudioPlayerMVVMandNAudio
         /// <summary>
         /// 
         /// </summary>
-        public ICommand DropFilesCommand { get; set; }
+        public ICommand AddFilesCommand { get; set; }
 
         /// <summary>
         /// 
@@ -156,28 +156,22 @@ namespace AudioPlayerMVVMandNAudio
         /// </summary>
         public PlaylistVM()
         {
-            //model
+            //Model
             model = new Playlist();
 
-            //playlist for binding
+            //Playlist for binding
             SongsListObservable = new ObservableCollection<AudioFileVM>();
 
-            //load data from model to observable collection
+            //Load data from model to observable collection
             foreach (var song in model.SongsList)
                 SongsListObservable.Add(new AudioFileVM(song));
 
-            ////loads first track from playlist to buffer
-            //if (!model.IsEmpty)
-            //    BufferTrack = SongsListObservable[0];
-
-            //commands
+            //Commands
             LoadTrackCommand = new RelayCommand(LoadTrack);
             RemoveTracksFromPlaylistCommand = new RelayCommand(RemoveTracksFromPlaylist);
             ClearPlaylistCommand = new RelayCommand(ClearPlaylist);
-            DropFilesCommand = new DropFilesCommand(this);
+            AddFilesCommand = new AddFilesCommand(this);
             MoveItemCommand = new MoveItemCommand(this);
-
-            //SongsListObservable.CollectionChanged += RefreshModel;
         }
 
         #endregion
@@ -338,15 +332,7 @@ namespace AudioPlayerMVVMandNAudio
             //    model.RemoveTrack()
             //}
 
-            //Removes tracks from observable collection -> method 2 => new collection.
-            SongsListObservable = new ObservableCollection<AudioFileVM>(clean);
-
-            //CollectionChanged does not work for new-ing collection...?
-            OnPropertyChanged(nameof(SongsListObservable));
-
-            //Raise property changed on read only property
-            OnPropertyChanged(nameof(Items));
-
+            ClearObservableCollection(clean);
         }
 
         /// <summary>
@@ -355,11 +341,21 @@ namespace AudioPlayerMVVMandNAudio
         /// <param name="o"></param>
         private void ClearPlaylist(object o)
         {
-            //Makes new observable collection
-            SongsListObservable = new ObservableCollection<AudioFileVM>();
-
             //Makes new model collection 
             model.ClearPlaylist();
+
+            ClearObservableCollection(null);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="collection"></param>
+        private void ClearObservableCollection(IEnumerable<AudioFileVM> collection)
+        {
+            //Makes new observable collection
+            SongsListObservable = collection != null ? new ObservableCollection<AudioFileVM>(collection) 
+                                                     : new ObservableCollection<AudioFileVM>();
 
             //CollectionChanged does not work for new-ing collection...?
             OnPropertyChanged(nameof(SongsListObservable));
@@ -389,38 +385,6 @@ namespace AudioPlayerMVVMandNAudio
 
         #endregion
 
-
-
-        //private void RefreshModel(object sender, NotifyCollectionChangedEventArgs e)
-        //{
-        //    switch (e.Action)
-        //    {
-        //        //Adding to observable collection
-        //        case NotifyCollectionChangedAction.Add:
-
-        //            //New, last added VM item
-        //            var newToDoVm = (ToDoViewModel)e.NewItems[0];
-
-        //            //Creates new model object from new VM
-        //            if (newToDoVm != null)
-        //                //model.AddTodo(new ToDo(newToDoVm.Title, newToDoVm.FinishDate, newToDoVm.Priority));
-        //                model.AddTodo(newToDoVm.GetModel());
-        //            OnPropertyChanged(nameof(ItemsCount));
-        //            break;
-
-        //        //Removing from observable collection
-        //        case NotifyCollectionChangedAction.Remove:
-
-        //            //
-        //            var removedToDoVm = (ToDoViewModel)e.OldItems[0];
-        //            //
-        //            if (removedToDoVm != null)
-        //                model.RemoveTodo(removedToDoVm.GetModel());
-        //            OnPropertyChanged(nameof(ItemsCount));
-
-        //            break;
-        //    }
-        //}
     }
 
     #endregion

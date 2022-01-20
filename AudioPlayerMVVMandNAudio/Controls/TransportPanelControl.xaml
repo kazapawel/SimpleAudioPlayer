@@ -4,11 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:AudioPlayerMVVMandNAudio"
-             mc:Ignorable="d"
-             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
-             xmlns:b="MyBehaviorAssembly;assembly=MyBehaviorAssembly">
-    <Grid AllowDrop="True"
-          >
+             mc:Ignorable="d">
+    <Grid AllowDrop="True">
         <Grid.RowDefinitions>
 
             <!-- Transport buttons and volume slider -->
@@ -156,8 +153,8 @@
         
         <!--#region POSITION TIME SLIDER -->
         <!-- POSITION/TIME PANEL -->
-        <Grid Grid.Row="1"
-              Margin="5,0,5,5">
+        <Grid Grid.Row="1" Margin="5,0,5,5">
+            
             <Grid.ColumnDefinitions>
 
                 <!-- Actual time -->
@@ -188,6 +185,8 @@
                     IsMoveToPointEnabled="True"
                     SmallChange="0.2"
                     Value="{Binding Position}"
+                    Thumb.DragStarted="PositionSlider_DragStarted"
+                    MouseMove="PositionSlider_MouseMove"
                     />
 
             <!-- PopUp with time value-->

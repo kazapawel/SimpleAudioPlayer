@@ -1,14 +1,15 @@
 ﻿
 namespace AudioPlayerMVVMandNAudio
 {
-    public class DropFilesCommand : CommandBase
+    public class AddFilesCommand : CommandBase
     {
         private readonly PlaylistVM playlistVM;
 
-        public DropFilesCommand(PlaylistVM vm)
+        public AddFilesCommand(PlaylistVM vm)
         {
             playlistVM = vm;
         }
+
         public override void Execute(object parameter)
         {
             playlistVM.AddTracksToPlaylist(playlistVM.IncomingFiles);

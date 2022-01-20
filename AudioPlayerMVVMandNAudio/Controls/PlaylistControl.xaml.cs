@@ -15,7 +15,6 @@ namespace AudioPlayerMVVMandNAudio
     {
         #region DEPENDENCY PROPERTIES
 
-
         /// <summary>
         /// 
         /// </summary>
@@ -55,14 +54,14 @@ namespace AudioPlayerMVVMandNAudio
         /// <summary>
         /// 
         /// </summary>
-        public ICommand DropFilesCommand
+        public ICommand AddFilesCommand
         {
-            get { return (ICommand)GetValue(DropFilesCommandProperty); }
-            set { SetValue(DropFilesCommandProperty, value); }
+            get { return (ICommand)GetValue(AddFilesCommandProperty); }
+            set { SetValue(AddFilesCommandProperty, value); }
         }
        
-        public static readonly DependencyProperty DropFilesCommandProperty =
-            DependencyProperty.Register("DropFilesCommand", typeof(ICommand), typeof(PlaylistControl), new PropertyMetadata(null));
+        public static readonly DependencyProperty AddFilesCommandProperty =
+            DependencyProperty.Register("AddFilesCommand", typeof(ICommand), typeof(PlaylistControl), new PropertyMetadata(null));
 
 
         /// <summary>
@@ -100,13 +99,14 @@ namespace AudioPlayerMVVMandNAudio
         /// <param name="e"></param>
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-            var dialog = new OpenFileDialog();
+            var dialog = new OpenFileDialog
+            {
+                //Enables selection of multiple files
+                Multiselect = true,
 
-            //Enables selection of multiple files
-            dialog.Multiselect = true;
-
-            //Sets filter for files that can be chosen
-            dialog.Filter = "Audio files |*.mp3;*.wav";
+                //Sets filter for files that can be chosen
+                Filter = "Audio files |*.mp3;*.wav"
+            };
 
             //If user selects files and presses OK
             if (dialog.ShowDialog() == true)
@@ -114,7 +114,6 @@ namespace AudioPlayerMVVMandNAudio
                 //Gets names of all selected files
                 AddFiles(dialog.FileNames);
             }
-
         }
 
         /// <summary>
@@ -126,25 +125,22 @@ namespace AudioPlayerMVVMandNAudio
         {
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
-                if (DropFilesCommand?.CanExecute(null) ?? false)
+                if (AddFilesCommand?.CanExecute(null) ?? false)
                 {
-                    IncomingFiles = GetFiles((IEnumerable<string>)e.Data.GetData(DataFormats.FileDrop));
-                    DropFilesCommand?.Execute(null);
+                    AddFiles(GetFiles((IEnumerable<string>)e.Data.GetData(DataFormats.FileDrop)));
                 }
             }
         }
 
         /// <summary>
-        /// Sends paths to view model.
+        /// Executes add files command. 
         /// </summary>
         /// <param name="files"></param>
         private void AddFiles(IEnumerable<string> files)
         {
-            //var playlist = this.DataContext as PlaylistVM;
-            //playlist.AddTracksToPlaylist(files);
+            IncomingFiles = files;
+            AddFilesCommand?.Execute(null);
         }
-
-
 
         #endregion
 
@@ -176,6 +172,7 @@ namespace AudioPlayerMVVMandNAudio
                 MoveItemCommand?.Execute(null);
             }
         }
+
         #endregion
 
         #region PRIVATE HELPER METHODS

@@ -80,7 +80,7 @@
         <Border Grid.Row="1">
 
             <!-- Transport panel -->
-            <local:TransportPanelControl DataContext="{Binding AudioPlayerVM}"
+            <local:TransportPanelControl DataContext="{Binding TransportPanelVM}"
                                          x:Name="transportPanelControl"/>
 
         </Border>
@@ -93,7 +93,7 @@
                                x:Name="playlistControl"
                                VerticalAlignment="Stretch"
                                IncomingFiles="{Binding IncomingFiles}"
-                               DropFilesCommand="{Binding DropFilesCommand}"
+                               AddFilesCommand="{Binding AddFilesCommand}"
                                MoveItemCommand="{Binding MoveItemCommand}"
                                TargetItem="{Binding TargetItem}"
                                MovedItem="{Binding MovedItem}"

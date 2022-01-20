@@ -42,7 +42,6 @@ C:\Users\k\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerMVVMandNAudio\obj\De
 C:\Users\k\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerMVVMandNAudio\obj\Debug\net5.0-windows\Controls\TransportPanelControl.baml
 C:\Users\k\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerMVVMandNAudio\obj\Debug\net5.0-windows\Styles\CheckboxStyles.baml
 C:\Users\k\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerMVVMandNAudio\obj\Debug\net5.0-windows\AudioPlayerMVVMandNAudio.csproj.AssemblyReference.cache
-C:\Users\k\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerMVVMandNAudio\bin\Debug\net5.0-windows\Microsoft.Xaml.Behaviors.dll
 C:\Users\k\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerMVVMandNAudio\bin\Debug\net5.0-windows\TagLibSharp.dll
 C:\Users\k\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerMVVMandNAudio\obj\Debug\net5.0-windows\Styles\SliderStyles.baml
 C:\Users\k\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerMVVMandNAudio\obj\Debug\net5.0-windows\Styles\ScrollbarStyles.baml

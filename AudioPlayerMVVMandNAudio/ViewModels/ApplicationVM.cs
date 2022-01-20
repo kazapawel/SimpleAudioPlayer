@@ -7,16 +7,18 @@ namespace AudioPlayerMVVMandNAudio
     /*
      * 
     TO DO:
-        *Drag and drop to reorder items in playlist
-        *Slider drag and move in XAML if possbile
-        *Volume slider nopt linear but expotential
+            +DONE Drag and drop to reorder items in playlist
+        *Slider drag and move
+        *Volume slider not linear but expotential
+        *Playlist import to file implementation
+        *Buttons images
+        *New transport buttons
 
     GUI look:
             +DONE Not to resize playlist - fixed values, min values etc.
         *!Transport buttons remake - again
         *!Current playing icon remake
         *!Options buttons remake - again
-        *!Playlist item style
         *Resizing/minimizing controls with button clicks - view model for manipulating 
         *Loop playback image
         *Random playback image
@@ -25,15 +27,11 @@ namespace AudioPlayerMVVMandNAudio
         *Logo
     
     GUI logic:
-        *Display itme time with correct format: 0m:0s ex:  04:03
-        *!Slider drag and move in XAML if possbile
-        *!Drag and drop to reorder items in playlist
+        *Display time time with correct format: 0m:0s ex:  04:03
             +DONE Time display - not to display hours but total minutes
-        *Main Window view viewmodel etc.
         *Keyboard keys functionality (ex: space - play/pause etc)
         *Remeber player settings after restart - file and viewmodel
         *Track options right click
-        *Volume slider nopt linear but expotential
         
     PLAYER logic
             +DONE Implement AudioInfo again
@@ -50,7 +48,6 @@ namespace AudioPlayerMVVMandNAudio
         *Playlist loading/saving - when (On program close)
         *Playmode randome
         *Playmode loop
-        *Volume
         *Filter OpenFileDialog files
             +DONE Drag and drop directories into playlist       
             +DONE Drag and drop files also on player, not only playlist
@@ -71,7 +68,7 @@ namespace AudioPlayerMVVMandNAudio
         /// <summary>
         /// View model for audio player functionality
         /// </summary>
-        public AudioPlayerVM AudioPlayerVM { get; set; }
+        public TransportPanelVM TransportPanelVM { get; set; }
 
         /// <summary>
         /// View model for playlist
@@ -91,23 +88,23 @@ namespace AudioPlayerMVVMandNAudio
         public ApplicationVM()
         {
             PlaylistVM = new PlaylistVM();
-            AudioPlayerVM = new AudioPlayerVM();
+            TransportPanelVM = new TransportPanelVM();
             AudioInfoVM = new AudioInfoVM();
 
-            //Subscribes PLAYLIST to AudioPlayerVM events:
-            Audio‌PlayerVM.AudioStartEvent += PlaylistVM.OnAudioStart;
-            AudioPlayerVM.NextTrackRequestEvent += PlaylistVM.OnNextTrackRequest;
-            AudioPlayerVM.PreviousTrackRequestEvent += PlaylistVM.OnPreviousTrackRequest;
-            AudioPlayerVM.StopAudioBeforeEndEvent += PlaylistVM.OnAudioStoppedBeforeEnd;
+            //Subscribes PLAYLIST to TransportPanelVM events:
+            TransportPanelVM.AudioStartEvent += PlaylistVM.OnAudioStart;
+            TransportPanelVM.NextTrackRequestEvent += PlaylistVM.OnNextTrackRequest;
+            TransportPanelVM.PreviousTrackRequestEvent += PlaylistVM.OnPreviousTrackRequest;
+            TransportPanelVM.StopAudioBeforeEndEvent += PlaylistVM.OnAudioStoppedBeforeEnd;
 
-            //Subscribes AUDIO PLAYER to PlaylistVM events:
-            PlaylistVM.LoadAudioFileEvent += AudioPlayerVM.OnAudioFileLoaded;
-            PlaylistVM.PlaylistEndedEvent += AudioPlayerVM.OnPlaylistEnded;
-            PlaylistVM.PlaylistClearedEvent += AudioPlayerVM.OnPlaylistCleared;
+            //Subscribes TRANSPORT to PlaylistVM events:
+            PlaylistVM.LoadAudioFileEvent += TransportPanelVM.OnAudioFileLoaded;
+            PlaylistVM.PlaylistEndedEvent += TransportPanelVM.OnPlaylistEnded;
+            PlaylistVM.PlaylistClearedEvent += TransportPanelVM.OnPlaylistCleared;
 
-            //Subscribes AUDIO INFO to AudioPlayerVM event
-            AudioPlayerVM.StopAudioBeforeEndEvent += AudioInfoVM.OnAudioStoppedBeforeEnd;
-            AudioPlayerVM.AudioStartEvent += AudioInfoVM.OnAudioFileStart;
+            //Subscribes AUDIO INFO to TransportPanelVM event
+            TransportPanelVM.StopAudioBeforeEndEvent += AudioInfoVM.OnAudioStoppedBeforeEnd;
+            TransportPanelVM.AudioStartEvent += AudioInfoVM.OnAudioFileStart;
         }
     }
 }

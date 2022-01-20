@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="AudioPlayerMVVMandNAudio.PlaylistItem"
+﻿<UserControl x:Class="AudioPlayerMVVMandNAudio.PlaylistItemControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -9,8 +9,7 @@
 
     <UserControl.InputBindings>
         <MouseBinding MouseAction="LeftDoubleClick" 
-                      Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}, Path=DataContext.LoadTrackCommand}"
-                      />
+                      Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}, Path=DataContext.LoadTrackCommand}"/>
     </UserControl.InputBindings>
 
     <Border BorderThickness="0"

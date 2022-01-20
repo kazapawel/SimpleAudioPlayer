@@ -1,12 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "1lzWEn62xPTFMVdDQTD2l5O7Ky4AgYeNpcsNq9R8eYf5le8PnjQ4YFt3GN7Me71mGs1ixmAkocGi4pL+HUGtmw==",
+  "dgSpecHash": "7zOnQ+U+tfdCte+koy5qnfYgeU7CKOSFT1NYQqzoafKHRzBfc9o8dZahQgJ9a5bo0zTMgk+NxwY5xxlrXhlFvw==",
   "success": true,
   "projectFilePath": "C:\\Users\\k\\source\\repos\\AudioPlayerMVVMandNAudio\\AudioPlayerMVVMandNAudio\\AudioPlayerMVVMandNAudio.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\k\\.nuget\\packages\\microsoft.netcore.platforms\\3.1.0\\microsoft.netcore.platforms.3.1.0.nupkg.sha512",
     "C:\\Users\\k\\.nuget\\packages\\microsoft.win32.registry\\4.7.0\\microsoft.win32.registry.4.7.0.nupkg.sha512",
-    "C:\\Users\\k\\.nuget\\packages\\microsoft.xaml.behaviors.wpf\\1.1.31\\microsoft.xaml.behaviors.wpf.1.1.31.nupkg.sha512",
     "C:\\Users\\k\\.nuget\\packages\\naudio\\2.0.1\\naudio.2.0.1.nupkg.sha512",
     "C:\\Users\\k\\.nuget\\packages\\naudio.asio\\2.0.0\\naudio.asio.2.0.0.nupkg.sha512",
     "C:\\Users\\k\\.nuget\\packages\\naudio.core\\2.0.0\\naudio.core.2.0.0.nupkg.sha512",

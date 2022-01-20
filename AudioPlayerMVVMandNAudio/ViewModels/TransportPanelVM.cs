@@ -8,7 +8,7 @@ namespace AudioPlayerMVVMandNAudio
     /// <summary>
     /// View model class for audio player and transport control.
     /// </summary>
-    public class AudioPlayerVM : BaseViewModel
+    public class TransportPanelVM : BaseViewModel
     {
         #region PRIVATE MEMBERS
 
@@ -178,7 +178,7 @@ namespace AudioPlayerMVVMandNAudio
         /// <summary>
         /// Default constructor.
         /// </summary>
-        public AudioPlayerVM()
+        public TransportPanelVM()
         {
             //Commands:
             PlayAudioCommand = new RelayCommand(PlayAudio);

@@ -11,12 +11,14 @@ namespace AudioPlayerMVVMandNAudio
             +DONE Drag and drop to reorder items in playlist
             +DONE Volume slider and position slider drag and move
         *Volume slider not linear but expotential
-        *Playlist import to file implementation
+            +DONE Playlist import to text file implementation
+        *Make move item in observable better :)
+        *Import playlist to JSON
         *Options buttons images
         *New transport buttons
         +DONE Fix selected/buffer track problem
         *Fix code duplication in views code behind
-        *Application logic: dop not raise nexttrackrequest and stoppedbeforeend sim.
+        *Application logic: do not raise nexttrackrequest and stoppedbeforend sim.
         *Buffer track as audioinfoVM
 
     GUI look:

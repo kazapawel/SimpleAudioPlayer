@@ -3,7 +3,7 @@
 namespace AudioPlayerNAudio
 {
     /// <summary>
-    /// Audio engine is resposible for all audio operations. 
+    /// Audio player is responsible for all audio operations. 
     /// </summary>
     public interface IAudioFilePlayer<T>
     {

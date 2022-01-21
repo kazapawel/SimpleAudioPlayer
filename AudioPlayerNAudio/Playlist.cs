@@ -19,12 +19,12 @@ namespace AudioPlayerNAudio
         public List<AudioFile> SongsList { get; set; }
 
         /// <summary>
-        /// Returns true if there is no tracks in playlist
+        /// Returns true if there is no tracks in playlist.
         /// </summary>
         public bool IsEmpty => SongsList.Count == 0;
 
         /// <summary>
-        /// 
+        /// This playlist's path.
         /// </summary>
         public string PlaylistPath { get; set; }
 
@@ -37,14 +37,8 @@ namespace AudioPlayerNAudio
         /// </summary>
         public Playlist()
         {
-            PlaylistPath = Path.Combine(Environment.CurrentDirectory,"defaultplaylist.txt");
-
-            SongsList = new List<AudioFile>();
-
-            LoadPlaylistFromFile();
-
-            //Dummy data
-            //LoadDummyData();
+            PlaylistPath = Path.Combine(Environment.CurrentDirectory, "default.txt");
+            SongsList = LoadFromTextFile(PlaylistPath);
         }
 
         #endregion
@@ -55,47 +49,35 @@ namespace AudioPlayerNAudio
         /// Adds a track to songs list.
         /// </summary>
         /// <param name="track"></param>
-        public void AddTrack(AudioFile track)
-        {
-            SongsList.Add(track);
-            SavePlaylistToFile();
-        }
+        public void AddTrack(AudioFile track) => SongsList.Add(track);
 
         /// <summary>
         /// Removes track from songs list.
         /// </summary>
         /// <param name="track"></param>
-        public void RemoveTrack(AudioFile track)
-        {
-            SongsList.Remove(track);
-            SavePlaylistToFile();
-        }
+        public void RemoveTrack(AudioFile track) => SongsList.Remove(track);
 
         /// <summary>
         /// 
         /// </summary>
-        public void ClearPlaylist()
-        {
-            SongsList = new List<AudioFile>();
-            SavePlaylistToFile();
-        }
+        public void ClearPlaylist() => SongsList = new List<AudioFile>();
 
-        private void LoadPlaylistFromFile()
-        {
-            if(File.Exists(PlaylistPath))
-            {
-                var paths = File.ReadAllLines(PlaylistPath);
-                foreach(var p in paths)
-                {
-                    SongsList.Add(new AudioFile(p));
-                }
-            }
-        }
+        /// <summary>
+        /// 
+        /// </summary>
+        public void SavePlaylist() => SaveTextFile();
 
-        private void SavePlaylistToFile()
-        {
-            File.WriteAllLines(PlaylistPath, SongsList.Select(x => x.PathOfFile));
-        }
+        /// <summary>
+        /// 
+        /// </summary>
+        private void SaveTextFile() => TextFileSaver.ExportToFile(PlaylistPath, SongsList.Select(x => x.PathOfFile));
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        private List<AudioFile> LoadFromTextFile(string path) => TextFileSaver.ImportFromFile(path)?.Select(x => new AudioFile(x)).ToList();
 
         #endregion
 

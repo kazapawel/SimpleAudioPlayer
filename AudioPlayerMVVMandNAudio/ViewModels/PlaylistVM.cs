@@ -393,14 +393,12 @@ namespace AudioPlayerMVVMandNAudio
             }
         }
 
-
-
         #endregion
 
-        public void OnClosed()
-        {
-            
-        }
+        /// <summary>
+        /// 
+        /// </summary>
+        public void OnClosed() => model.SavePlaylist();
     }
 
     #endregion

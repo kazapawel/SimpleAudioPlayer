@@ -97,28 +97,6 @@ namespace AudioPlayerNAudio
             File.WriteAllLines(PlaylistPath, SongsList.Select(x => x.PathOfFile));
         }
 
-        private void LoadDummyData()
-        {
-            
-            SongsList.Add(new AudioFile(@"D:\sample po procesach.wav"));
-            SongsList.Add(new AudioFile(@"D:\gitarasolo2.wav"));
-            SongsList.Add(new AudioFile(@"D:\VOX czysty.wav"));
-            SongsList.Add(new AudioFile(@"D:\Cry.mp3"));
-            SongsList.Add(new AudioFile(@"D:\Cry.mp3"));
-            SongsList.Add(new AudioFile(@"D:\Cry.mp3"));
-            SongsList.Add(new AudioFile(@"D:\Cry.mp3"));
-            SongsList.Add(new AudioFile(@"D:\Cry.mp3"));
-        }
-        private void LoadMoreDummyData()
-        {
-            SongsList.Add(new AudioFile(@"C:\monster.mp3"));
-            SongsList.Add(new AudioFile(@"C:\breath of life.mp3"));
-            SongsList.Add(new AudioFile(@"C:\feed me.mp3"));
-            SongsList.Add(new AudioFile(@"C:\breath of life.mp3"));
-
-
-        }
-
         #endregion
 
         

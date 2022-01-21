@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows;
+using System.Windows.Input;
 
 namespace AudioPlayerMVVMandNAudio
 {
@@ -8,6 +9,7 @@ namespace AudioPlayerMVVMandNAudio
     /// </summary>
     public partial class MainWindow : Window
     {
+        
         /// <summary>
         /// Occurs when files are drop into control.
         /// </summary>
@@ -23,6 +25,7 @@ namespace AudioPlayerMVVMandNAudio
 
             //Redirects drop event to playlist control so user can drop files anywhere on the application window.
             WindowFilesDropEvent += playlistControl.PlaylistListbox_Drop;
+            Closing += playlistControl.OnWindowClosing;
         }
 
         /// <summary>

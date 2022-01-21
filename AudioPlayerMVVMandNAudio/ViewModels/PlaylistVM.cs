@@ -9,7 +9,7 @@ using System.IO;
 
 namespace AudioPlayerMVVMandNAudio
 {
-    public class PlaylistVM : BaseViewModel
+    public class PlaylistVM : BaseViewModel, ICloseWindow
     {
         #region PRIVATE MEMBERS
 
@@ -147,6 +147,8 @@ namespace AudioPlayerMVVMandNAudio
         /// </summary>
         public ICommand MoveItemCommand { get; set; }
 
+        public ICommand CloseWindowCommand { get; set; }
+
         #endregion
 
         #region CONSTRUCTORS
@@ -172,6 +174,7 @@ namespace AudioPlayerMVVMandNAudio
             ClearPlaylistCommand = new RelayCommand(ClearPlaylist);
             AddFilesCommand = new AddFilesCommand(this);
             MoveItemCommand = new MoveItemCommand(this);
+            CloseWindowCommand = new CloseWindowCommand(this);
         }
 
         #endregion
@@ -220,22 +223,28 @@ namespace AudioPlayerMVVMandNAudio
             //if(BufferTrack!=null)
             //    BufferTrack.IsAudioFilePlaying = false;
 
-            //Gets index of next  track
-            var index = SongsListObservable.IndexOf(SelectedTrack) + 1;
+            //Gets index of next track
+            var newIndex = SongsListObservable.IndexOf(BufferTrack) + 1;
 
-            //Checks if can select next track on playlist
-            if (index < SongsListObservable.Count)
+            //Checks if index is in range
+            if (newIndex < SongsListObservable.Count)
             {
                 //Changes track selection
-                SelectedTrack = SongsListObservable[index];
+                BufferTrack = SongsListObservable[newIndex];
 
                 //Loads track
-                LoadTrack(null);
+                //LoadTrack(null);
+                LoadAudioFileEvent?.Invoke(this, new AudioFileVMEventArgs(BufferTrack));
             }
 
             //If playlist reaches an end - raises an event
             else
+            {
+                if (BufferTrack != null)
+                    BufferTrack.IsAudioFilePlaying = false;
                 PlaylistEndedEvent?.Invoke(this, new AudioFileVMEventArgs(bufferTrack));
+            }
+                
         }
 
         /// <summary>
@@ -249,20 +258,21 @@ namespace AudioPlayerMVVMandNAudio
             //if(BufferTrack != null)
             //    BufferTrack.IsAudioFilePlaying = false;
 
-            //Gets index of currently selected track
-            var index = SongsListObservable.IndexOf(SelectedTrack);
+            //Gets index of currently playing track
+            var index = SongsListObservable.IndexOf(BufferTrack);
 
-            //Sets new index of buffer track, if you press previous track on first trakc it will start over.
+            //Sets new index of buffer track, if you press previous track on first track it will start over.
             index += index > 0 ? -1 : 0;
 
             //If there are songs in playlist
             if (index > -1)
             {
                 //Changes track selection
-                SelectedTrack = SongsListObservable[index];
+                BufferTrack = SongsListObservable[index];
 
                 //Loads track
-                LoadTrack(null);
+                //LoadTrack(null);
+                LoadAudioFileEvent?.Invoke(this, new AudioFileVMEventArgs(BufferTrack));
             }
         }
 
@@ -383,8 +393,14 @@ namespace AudioPlayerMVVMandNAudio
             }
         }
 
+
+
         #endregion
 
+        public void OnClosed()
+        {
+            
+        }
     }
 
     #endregion

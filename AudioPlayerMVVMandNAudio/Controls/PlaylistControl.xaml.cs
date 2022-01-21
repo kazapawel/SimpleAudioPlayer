@@ -15,6 +15,17 @@ namespace AudioPlayerMVVMandNAudio
     {
         #region DEPENDENCY PROPERTIES
 
+
+        public ICommand CloseWindowCommand
+        {
+            get { return (ICommand)GetValue(CloseWindowCommandProperty); }
+            set { SetValue(CloseWindowCommandProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for CloseWindowCommand.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty CloseWindowCommandProperty =
+            DependencyProperty.Register("CloseWindowCommand", typeof(ICommand), typeof(PlaylistControl), new PropertyMetadata(null));
+
         /// <summary>
         /// 
         /// </summary>
@@ -144,7 +155,7 @@ namespace AudioPlayerMVVMandNAudio
 
         #endregion
 
-        #region PLAYLIST ITEM DRAG AND DROP
+        #region PLAYLIST ITEMS REARANGE WITH DRAG AND DROP
 
         /// <summary>
         /// 
@@ -174,6 +185,11 @@ namespace AudioPlayerMVVMandNAudio
         }
 
         #endregion
+
+        public void OnWindowClosing(object sender,System.ComponentModel.CancelEventArgs e)
+        {
+            CloseWindowCommand?.Execute(null);
+        }
 
         #region PRIVATE HELPER METHODS
 

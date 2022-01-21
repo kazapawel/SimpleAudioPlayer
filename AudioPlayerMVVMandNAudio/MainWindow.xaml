@@ -97,6 +97,7 @@
                                MoveItemCommand="{Binding MoveItemCommand}"
                                TargetItem="{Binding TargetItem}"
                                MovedItem="{Binding MovedItem}"
+                               CloseWindowCommand="{Binding CloseWindowCommand}"
                                />
         <!--#endregion-->
 

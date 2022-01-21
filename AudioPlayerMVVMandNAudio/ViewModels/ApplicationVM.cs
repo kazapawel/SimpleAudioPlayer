@@ -1,6 +1,7 @@
 ﻿using AudioPlayerNAudio;
 using System;
 using System.Collections.ObjectModel;
+using System.Windows.Input;
 
 namespace AudioPlayerMVVMandNAudio
 {
@@ -13,7 +14,10 @@ namespace AudioPlayerMVVMandNAudio
         *Playlist import to file implementation
         *Options buttons images
         *New transport buttons
+        +DONE Fix selected/buffer track problem
         *Fix code duplication in views code behind
+        *Application logic: dop not raise nexttrackrequest and stoppedbeforeend sim.
+        *Buffer track as audioinfoVM
 
     GUI look:
             +DONE Not to resize playlist - fixed values, min values etc.
@@ -81,6 +85,8 @@ namespace AudioPlayerMVVMandNAudio
 
         #endregion
 
+        public ICommand CloseWindowCommand { get; set; } 
+
         /// <summary>
         /// Default constructor.
         /// </summary>
@@ -89,6 +95,7 @@ namespace AudioPlayerMVVMandNAudio
             PlaylistVM = new PlaylistVM();
             TransportPanelVM = new TransportPanelVM();
             AudioInfoVM = new AudioInfoVM();
+            
 
             //Subscribes PLAYLIST to TransportPanelVM events:
             TransportPanelVM.AudioStartEvent += PlaylistVM.OnAudioStart;
@@ -101,9 +108,12 @@ namespace AudioPlayerMVVMandNAudio
             PlaylistVM.PlaylistEndedEvent += TransportPanelVM.OnPlaylistEnded;
             PlaylistVM.PlaylistClearedEvent += TransportPanelVM.OnPlaylistCleared;
 
-            //Subscribes AUDIO INFO to TransportPanelVM event
+            //Subscribes AUDIO INFO to TransportPanelVM events:
             TransportPanelVM.StopAudioBeforeEndEvent += AudioInfoVM.OnAudioStoppedBeforeEnd;
             TransportPanelVM.AudioStartEvent += AudioInfoVM.OnAudioFileStart;
+
+            //Subscribes AUDIO INFO to PlaylistVM events:
+            PlaylistVM.PlaylistEndedEvent += AudioInfoVM.OnPlaylistEnded;
         }
     }
 }

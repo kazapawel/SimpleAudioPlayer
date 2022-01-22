@@ -392,7 +392,6 @@ namespace AudioPlayerMVVMandNAudio
         /// <param name="e"></param>
         public void OnPlaylistEnded(object sender, EventArgs e)
         {
-
                 //audioFilePlayer = null;
                 Path = null;
         }

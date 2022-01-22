@@ -12,12 +12,13 @@ namespace AudioPlayerMVVMandNAudio
             +DONE Volume slider and position slider drag and move
         *Volume slider not linear but expotential
             +DONE Playlist import to text file implementation
-        *Make move item in observable better :)
+            +DONE Make move item in observable better :)
         *Import playlist to JSON
+        *!!Poistion slider move to end bug
         *Options buttons images
         *New transport buttons
-        +DONE Fix selected/buffer track problem
-        *Fix code duplication in views code behind
+            +DONE Fix selected/buffer track problem
+            +DONE Fix code duplication in views code behind
         *Application logic: do not raise nexttrackrequest and stoppedbeforend sim.
         *Buffer track as audioinfoVM
 

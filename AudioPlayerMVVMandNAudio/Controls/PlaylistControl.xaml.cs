@@ -15,14 +15,12 @@ namespace AudioPlayerMVVMandNAudio
     {
         #region DEPENDENCY PROPERTIES
 
-
         public ICommand CloseWindowCommand
         {
             get { return (ICommand)GetValue(CloseWindowCommandProperty); }
             set { SetValue(CloseWindowCommandProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for CloseWindowCommand.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty CloseWindowCommandProperty =
             DependencyProperty.Register("CloseWindowCommand", typeof(ICommand), typeof(PlaylistControl), new PropertyMetadata(null));
 
@@ -128,7 +126,7 @@ namespace AudioPlayerMVVMandNAudio
         }
 
         /// <summary>
-        /// 
+        /// Occurs when files are drop into playlist from outside ex: desktop.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -158,7 +156,7 @@ namespace AudioPlayerMVVMandNAudio
         #region PLAYLIST ITEMS REARANGE WITH DRAG AND DROP
 
         /// <summary>
-        /// 
+        /// If mouse left button is pressed starts drag and drop.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -170,6 +168,11 @@ namespace AudioPlayerMVVMandNAudio
             }
         }
 
+        /// <summary>
+        /// Invokes MoveItemCommand when playlistitem is drag over antoher playlist item.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Item_DragOver(object sender, DragEventArgs e)
         {
             if (MoveItemCommand?.CanExecute(null) ?? false)
@@ -186,6 +189,11 @@ namespace AudioPlayerMVVMandNAudio
 
         #endregion
 
+        /// <summary>
+        /// Invokes CloseWindowCommand.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void OnWindowClosing(object sender,System.ComponentModel.CancelEventArgs e)
         {
             CloseWindowCommand?.Execute(null);

@@ -355,6 +355,8 @@ namespace AudioPlayerMVVMandNAudio
             model.ClearPlaylist();
 
             ClearObservableCollection(null);
+
+            PlaylistClearedEvent?.Invoke(this, null);
         }
 
         /// <summary>
@@ -375,22 +377,17 @@ namespace AudioPlayerMVVMandNAudio
         }
 
         /// <summary>
-        /// 
+        /// Switches two items.
         /// </summary>
         /// <param name="target"></param>
         /// <param name="moved"></param>
         public void MoveItem(AudioFileVM target, AudioFileVM moved)
         {
-            if (moved == target)
-                return;
+            //Without this there is no highlight in list
+            if (moved == target) return;
 
-            var oldIndex = SongsListObservable.IndexOf(moved);
-            var nextIndex = SongsListObservable.IndexOf(target);
-
-            if (oldIndex != -1 && nextIndex != -1)
-            {
-                SongsListObservable.Move(oldIndex, nextIndex);
-            }
+            //Switch items
+            SongsListObservable.Move(SongsListObservable.IndexOf(moved), SongsListObservable.IndexOf(target));
         }
 
         #endregion

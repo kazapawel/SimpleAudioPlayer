@@ -37,74 +37,43 @@ namespace AudioPlayerMVVMandNAudio
             volumeSlider = this.FindName("VolumeSlider") as Slider;
         }
 
-        #region VOLUME SLIDER DRAG
+        private void VolumeSlider_MouseMove(object sender, MouseEventArgs e) => SliderMouseMove(sender as Slider, e);
+
+        private void VolumeSlider_MouseLeftButtonUp(object sender, MouseButtonEventArgs e) => SliderMouseLeftButtonUp(sender as Slider);
+
+        private void PositionSlider_MouseMove(object sender, MouseEventArgs e) => SliderMouseMove(sender as Slider, e);
+
+        private void PositionSlider_MouseLeftButtonUp(object sender, MouseButtonEventArgs e) => SliderMouseLeftButtonUp(sender as Slider);
+
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="sender"></param>
+        /// <param name="slider"></param>
         /// <param name="e"></param>
-        private void VolumeSlider_MouseMove(object sender, MouseEventArgs e)
+        private void SliderMouseMove(Slider slider, MouseEventArgs e)
         {
             //Gets track from slider template
-            volumeTrack = volumeSlider.Template.FindName("PART_Track", volumeSlider) as Track;
+            var track = slider.Template.FindName("PART_Track", slider) as Track;
 
-            if (e.LeftButton == MouseButtonState.Pressed && volumeTrack != null)
+            if (e.LeftButton == MouseButtonState.Pressed && slider != null)
             {
                 //Captures mouse to prevent mouse movement overlaping
-                volumeTrack.CaptureMouse();
+                slider.CaptureMouse();
 
-                //Sets track's value
-                volumeSlider.Value = volumeTrack.ValueFromPoint(e.GetPosition(volumeTrack));
+                //Sets slider's value based on mouse/track position
+                slider.Value = track.ValueFromPoint(e.GetPosition(track));
             }
         }
-
-        /// <summary>
-        /// Releases mouse capture 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void VolumeSlider_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-        {
-            if(volumeTrack!=null)
-                volumeTrack.ReleaseMouseCapture();
-        }
-
-        #endregion
-
-        #region POSITION SLIDER DRAG 
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void PositionSlider_MouseMove(object sender, MouseEventArgs e)
+        /// <param name="slider"></param>
+        private void SliderMouseLeftButtonUp(Slider slider)
         {
-            //Gets track from slider template
-            positionTrack = positionSlider.Template.FindName("PART_Track", positionSlider) as Track;
-
-            if (e.LeftButton == MouseButtonState.Pressed && positionTrack != null)
-            {
-                //Captures mouse to prevent mouse movement overlaping
-                positionTrack.CaptureMouse();
-
-                //Sets track's value
-                positionSlider.Value = positionTrack.ValueFromPoint(e.GetPosition(positionTrack));
-            }
+            if (slider != null)
+                slider.ReleaseMouseCapture();
         }
-
-        /// <summary>
-        /// Releases mouse capture
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void PositionSlider_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-        {
-            if (positionTrack != null)
-                positionTrack.ReleaseMouseCapture();
-        }
-
-        #endregion
     }
 }

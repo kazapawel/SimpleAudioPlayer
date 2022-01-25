@@ -16,6 +16,7 @@ namespace AudioPlayerMVVMandNAudio
         *Import playlist to JSON
         *Poistion slider move to end bug
         *Position slider refresh value after drag end
+        *Time popup fix
         *Options buttons images
         *New transport buttons
             +DONE Fix selected/buffer track problem

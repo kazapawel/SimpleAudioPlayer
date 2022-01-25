@@ -109,42 +109,40 @@
                            />
                 
                 <!-- Add item button -->
-                <Button Grid.Column="2"                     
-                        Height="17"
-                        Content="Add"
-                        Margin="2,2,2,0" VerticalAlignment="Top"
+                <Button Grid.Column="2"
+                        Style="{StaticResource ImageButtonSmall}"
+                        Tag="pack://application:,,,/Images/addfile.png"
+                        
                         Click="AddButton_Click"
                         />
 
                 <!-- Remove items button -->
-                <Button Grid.Column="3"                     
-                        Height="17"
-                        Content="Rmv"
-                        Margin="2"
+                <Button Grid.Column="3" 
+                        Style="{StaticResource ImageButtonSmall}"
+                        Tag="pack://application:,,,/Images/removefile.png"
+                        
                         CommandParameter="{Binding ElementName=PlaylistListbox, Path=SelectedItems}"
                         Command="{Binding RemoveTracksFromPlaylistCommand}"
                         />
 
                 <!-- Load playlist button-->
-                <Button Grid.Column="4"                     
-                        Height="17"
-                        Content="LOAD"
-                        Margin="2"
+                <Button Grid.Column="4"
+                        Style="{StaticResource ImageButtonSmall}"
+                        Tag="pack://application:,,,/Images/addlist.png"
                         />
 
                 <!-- Save playlist button-->
-                <Button Grid.Column="5"                     
-                        Height="17"
-                        Content="SAVE"
-                        Margin="2"
-                        HorizontalAlignment="Right"
+                <Button Grid.Column="5"
+                        Style="{StaticResource ImageButtonSmall}"
+                        Tag="pack://application:,,,/Images/addlist.png"
+                        
                         />
 
                 <!-- Clear playlist button-->
-                <Button Grid.Column="6"                     
-                        Height="17"
-                        Content="CLR"
-                        Margin="2"
+                <Button Grid.Column="6"
+                        Style="{StaticResource ImageButtonSmall}"
+                        Tag="pack://application:,,,/Images/clear.png"
+                        
                         Command="{Binding ClearPlaylistCommand}"
                         />
 

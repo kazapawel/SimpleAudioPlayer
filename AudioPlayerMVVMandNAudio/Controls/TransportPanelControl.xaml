@@ -24,6 +24,7 @@
         "pack://application:,,,/Images/simple white icons/simple stop white.png"
         "pack://application:,,,/Images/simple white icons/simple play white.png"
          "pack://application:,,,/Images/simple white icons/simple pause white.png" 
+        {Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:TransportPanelControl}}, Path=SliderValueAfterDrag, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
         -->
         <!--#region TRANSPORT PANEL  -->
         <Grid Grid.Row="0">
@@ -38,22 +39,38 @@
             </Grid.ColumnDefinitions>
 
             <!--#region TRANSPORT BUTTONS-->
-            <StackPanel Grid.Column="0" 
-                        Orientation="Horizontal"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Center"
-                        Margin="2,5,0,0">
+            <Grid Grid.Column="0"
+                  Margin="5,5,0,5">
+
+                <Grid.ColumnDefinitions>
+                    
+                    <!-- Previous track button-->
+                    <ColumnDefinition Width="auto"/>
+                    
+                    <!-- Play/pause button -->
+                    <ColumnDefinition Width="auto"/>
+                    
+                    <!-- Next track button -->
+                    <ColumnDefinition Width="auto"/>
+                    
+                    <!-- Stop button -->
+                    <ColumnDefinition Width="auto"/>
+                    
+                </Grid.ColumnDefinitions>
 
                 <!-- PREVIOUS TRACK button -->
-                <Button Style="{StaticResource ImageButton}" 
-                        Width="20"
-                        Height="20"
+                <Button Grid.Column="0"
+                        Style="{StaticResource ImageButton}" 
+                        Height="24"
+                        Width="24"
+                        
                         Tag="pack://application:,,,/Images/previous.png"                   
                         Command="{Binding PreviousTrackRequestCommand}"
                         />
 
                 <!-- PLAY / PAUSE button -->
-                <Grid>
+                <Grid Grid.Column="1">
+                    
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="auto"/>
                     </Grid.ColumnDefinitions>
@@ -63,8 +80,8 @@
                             x:Name="playbutton"
                             Style="{StaticResource ImageButton}" 
                             Tag="pack://application:,,,/Images/play.png"
-                            Width="22"
-                            Height="25"
+                            Width="24"
+                            Height="24"
                             Command="{Binding PlayAudioCommand}"
                             Visibility="{Binding IsPlaying, Converter={StaticResource InvertBoolToVisibilityConverter}}"
                             />
@@ -74,8 +91,8 @@
                             x:Name="pausebutton"
                             Style="{StaticResource ImageButton}" 
                             Tag="pack://application:,,,/Images/pausebutton.png"
-                            Width="22"
-                            Height="25"
+                            Width="24"
+                            Height="24"
                             Command="{Binding PauseAudioCommand}"
                             Visibility="{Binding IsPlaying, Converter={StaticResource BoolToVisibilityConverter}}"
                             />
@@ -83,22 +100,24 @@
                 </Grid>
 
                 <!-- NEXT TRACK button-->
-                <Button Style="{StaticResource ImageButton}" 
-                        Width="20"
-                        Height="20"
-                    Tag="pack://application:,,,/Images/next.png"                
-                    Command="{Binding NextTrackRequestCommand}"
-                    />
+                <Button Grid.Column="2"
+                        Style="{StaticResource ImageButton}" 
+                        Width="24"
+                        Height="24"
+                        Tag="pack://application:,,,/Images/next.png"                
+                        Command="{Binding NextTrackRequestCommand}"
+                        />
 
                 <!-- STOP button-->
-                <Button  Style="{StaticResource ImageButton}" 
-                     Tag="pack://application:,,,/Images/stop.png"
-                     Width="17"
-                         Height="12"
-                     Command="{Binding StopAudioCommand}"
-                     />
+                <Button Grid.Column="3" 
+                        Style="{StaticResource ImageButton}" 
+                        Tag="pack://application:,,,/Images/stopsmall.png"
+                        Width="24"
+                        Height="24"
+                        Command="{Binding StopAudioCommand}"
+                        />
 
-            </StackPanel>
+            </Grid>
             <!--#endregion-->
 
             <!--#region VOLUME SLIDER -->
@@ -125,7 +144,7 @@
                         TickFrequency="10"
                         Minimum="0"
                         Maximum="100"
-                        Margin="10,9,5,0"
+                        Margin="10,8,10,0"
                         MouseMove="VolumeSlider_MouseMove"
                         MouseLeftButtonUp="VolumeSlider_MouseLeftButtonUp"
                         />
@@ -136,7 +155,7 @@
                           Width="17"
                           Height="17"
                           IsChecked="{Binding Muted}"
-                          Margin="5,8,5,5"                    
+                          Margin="5,8,8,5"                    
                           />
 
             </Grid>
@@ -179,7 +198,7 @@
                     Maximum="100"
                     IsMoveToPointEnabled="True"
                     SmallChange="0.2"
-                    Value="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:TransportPanelControl}}, Path=SliderValueAfterDrag, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                    Value="{Binding Position, Mode=TwoWay}"
                     MouseMove="PositionSlider_MouseMove"
                     MouseLeftButtonUp="PositionSlider_MouseLeftButtonUp"
                     />

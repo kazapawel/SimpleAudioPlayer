@@ -118,6 +118,18 @@ namespace AudioPlayerMVVMandNAudio
             }
         }
 
+        public double Position2
+        {
+            get => audioFilePlayer != null ? (double)(audioFilePlayer.StreamPosition) / (audioFilePlayer.StreamLength / 100) : 0;
+            set
+            {
+                if (audioFilePlayer != null)
+                    audioFilePlayer.StreamPosition = (long)value * (audioFilePlayer.StreamLength / 100);
+                OnPropertyChanged(nameof(TimeCurrent));
+                OnPropertyChanged(nameof(Position2));
+            }
+        }
+
         /// <summary>
         /// String representation of current time of audio which is playing.
         /// </summary>
@@ -465,6 +477,7 @@ namespace AudioPlayerMVVMandNAudio
         private void UpdatePosition()
         {
             OnPropertyChanged(nameof(Position));
+            OnPropertyChanged(nameof(Position2));
         }
 
         #endregion

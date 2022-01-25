@@ -10,8 +10,11 @@
     <None Remove="Fonts\Source_Code_Pro\static\SourceCodePro-Medium.ttf" />
     <None Remove="Fonts\Source_Code_Pro\static\SourceCodePro-MediumItalic.ttf" />
     <None Remove="Fonts\Source_Code_Pro\static\SourceCodePro-Regular.ttf" />
+    <None Remove="Images\addfile.png" />
+    <None Remove="Images\addlist.png" />
     <None Remove="Images\audio mute.png" />
     <None Remove="Images\audio unmute.png" />
+    <None Remove="Images\clear.png" />
     <None Remove="Images\next.png" />
     <None Remove="Images\pause.png" />
     <None Remove="Images\pausebutton.png" />
@@ -19,12 +22,14 @@
     <None Remove="Images\play.png" />
     <None Remove="Images\playbutton.png" />
     <None Remove="Images\previous.png" />
+    <None Remove="Images\removefile.png" />
     <None Remove="Images\simple white icons\simple end white.png" />
     <None Remove="Images\simple white icons\simple front white.png" />
     <None Remove="Images\simple white icons\simple pause white.png" />
     <None Remove="Images\simple white icons\simple play white.png" />
     <None Remove="Images\simple white icons\simple stop white.png" />
     <None Remove="Images\stop.png" />
+    <None Remove="Images\stopsmall.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -39,8 +44,11 @@
     <Resource Include="Fonts\Source_Code_Pro\static\SourceCodePro-Medium.ttf" />
     <Resource Include="Fonts\Source_Code_Pro\static\SourceCodePro-MediumItalic.ttf" />
     <Resource Include="Fonts\Source_Code_Pro\static\SourceCodePro-Regular.ttf" />
+    <Resource Include="Images\addfile.png" />
+    <Resource Include="Images\addlist.png" />
     <Resource Include="Images\audio mute.png" />
     <Resource Include="Images\audio unmute.png" />
+    <Resource Include="Images\clear.png" />
     <Resource Include="Images\next.png" />
     <Resource Include="Images\pause.png" />
     <Resource Include="Images\pausebutton.png" />
@@ -48,12 +56,14 @@
     <Resource Include="Images\play.png" />
     <Resource Include="Images\playbutton.png" />
     <Resource Include="Images\previous.png" />
+    <Resource Include="Images\removefile.png" />
     <Resource Include="Images\simple white icons\simple end white.png" />
     <Resource Include="Images\simple white icons\simple front white.png" />
     <Resource Include="Images\simple white icons\simple pause white.png" />
     <Resource Include="Images\simple white icons\simple play white.png" />
     <Resource Include="Images\simple white icons\simple stop white.png" />
     <Resource Include="Images\stop.png" />
+    <Resource Include="Images\stopsmall.png" />
   </ItemGroup>
 
   <ItemGroup>

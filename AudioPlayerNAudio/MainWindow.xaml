@@ -94,7 +94,7 @@
             <!-- Transport panel -->
             <local:TransportPanelControl DataContext="{Binding TransportPanelVM}"
                                          x:Name="transportPanelControl"
-                                         />
+                                         SliderValueAfterDrag="{Binding Position}"/>
 
         </Border>
 

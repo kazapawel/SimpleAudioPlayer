@@ -55,9 +55,10 @@ namespace AudioPlayerMVVMandNAudio
         {
             var slider = sender as Slider;
             SliderMouseLeftButtonUp(slider);
-            SliderValueAfterDrag = slider.Value;
+            //SliderValueAfterDrag = slider.Value;
+            //slider.GetBindingExpression(Slider.ValueProperty).UpdateSource();
+            //var expression = BindingOperations.GetBindingExpression(PositionSlider, Slider.ValueProperty);
         }
-
 
         /// <summary>
         /// 

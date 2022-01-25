@@ -1,5 +1,7 @@
-﻿using System.Windows.Controls;
+﻿using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using System.Windows.Data;
 using System.Windows.Input;
 
 namespace AudioPlayerMVVMandNAudio
@@ -9,13 +11,21 @@ namespace AudioPlayerMVVMandNAudio
     /// </summary>
     public partial class TransportPanelControl : UserControl
     {
-        #region PRIVATE FIELDS
+        #region DEPENDENCY PROPERTIES
 
-        private Track positionTrack;
-        private Slider positionSlider;
 
-        private Track volumeTrack;
-        private Slider volumeSlider;
+
+        public double SliderValueAfterDrag
+        {
+            get { return (double)GetValue(SliderValueAfterDragProperty); }
+            set { SetValue(SliderValueAfterDragProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for SliderValueAfterDrag.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty SliderValueAfterDragProperty =
+            DependencyProperty.Register("SliderValueAfterDrag", typeof(double), typeof(TransportPanelControl), new FrameworkPropertyMetadata(null));
+
+
 
         #endregion
 
@@ -33,8 +43,6 @@ namespace AudioPlayerMVVMandNAudio
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
-            positionSlider = this.FindName("PositionSlider") as Slider;
-            volumeSlider = this.FindName("VolumeSlider") as Slider;
         }
 
         private void VolumeSlider_MouseMove(object sender, MouseEventArgs e) => SliderMouseMove(sender as Slider, e);
@@ -43,7 +51,12 @@ namespace AudioPlayerMVVMandNAudio
 
         private void PositionSlider_MouseMove(object sender, MouseEventArgs e) => SliderMouseMove(sender as Slider, e);
 
-        private void PositionSlider_MouseLeftButtonUp(object sender, MouseButtonEventArgs e) => SliderMouseLeftButtonUp(sender as Slider);
+        private void PositionSlider_MouseLeftButtonUp(object sender, MouseButtonEventArgs e) 
+        {
+            var slider = sender as Slider;
+            SliderMouseLeftButtonUp(slider);
+            SliderValueAfterDrag = slider.Value;
+        }
 
 
         /// <summary>

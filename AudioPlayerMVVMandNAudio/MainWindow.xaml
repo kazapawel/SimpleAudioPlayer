@@ -13,7 +13,8 @@
         Height="450"
         FontFamily="{StaticResource SourceCodeProMediumItalic}"
         AllowDrop="True"
-        Drop="Window_Drop">
+        Drop="Window_Drop"
+        Icon="pack://application:,,,/Images/pigsad.png">
 
     <Window.DataContext>
         <local:ApplicationVM/>
@@ -44,6 +45,8 @@
             <Grid>
                 <Grid.ColumnDefinitions>
 
+                    <!-- Image -->
+                    <ColumnDefinition Width="auto"/>
                     <!-- Header -->
                     <ColumnDefinition Width="*"/>
 
@@ -55,20 +58,29 @@
 
                 </Grid.ColumnDefinitions>
 
+
+                <Button Grid.Column="0"
+                        Style="{StaticResource ImageButton}"
+                        Width="21"
+                        Height="21"
+                        Margin="5,0,0,0"
+                        Tag="pack://application:,,,/Images/pigsad.png"
+                        />
+                
                 <!-- Minimize button-->
-                <Button Grid.Column="1"
+                <Button Grid.Column="2"
                         Width="30"
                         Style="{StaticResource SystemIconButtonTextbox}"
                         Tag="-"
                         Click="MinimizeButton_Click"
-                            />
+                        />
 
-                <Button Grid.Column="2"
+                <Button Grid.Column="3"
                         Width="30"
                         Style="{StaticResource SystemIconButtonTextbox}"
                         Tag="x"
                         Click="CloseButton_Click"
-                            />
+                        />
 
             </Grid>
         </Border>
@@ -81,7 +93,8 @@
 
             <!-- Transport panel -->
             <local:TransportPanelControl DataContext="{Binding TransportPanelVM}"
-                                         x:Name="transportPanelControl"/>
+                                         x:Name="transportPanelControl"
+                                         SliderValueAfterDrag="{Binding Position, Mode=TwoWay}"/>
 
         </Border>
 

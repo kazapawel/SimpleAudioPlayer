@@ -14,7 +14,8 @@ namespace AudioPlayerMVVMandNAudio
             +DONE Playlist import to text file implementation
             +DONE Make move item in observable better :)
         *Import playlist to JSON
-        *!!Poistion slider move to end bug
+        *Poistion slider move to end bug
+        *Position slider refresh value after drag end
         *Options buttons images
         *New transport buttons
             +DONE Fix selected/buffer track problem
@@ -24,7 +25,6 @@ namespace AudioPlayerMVVMandNAudio
 
     GUI look:
             +DONE Not to resize playlist - fixed values, min values etc.
-        *!Current playing icon remake
         *Resizing/minimizing controls with button clicks - view model for manipulating 
         *Loop playback image
         *Random playback image
@@ -33,7 +33,7 @@ namespace AudioPlayerMVVMandNAudio
         *Logo
     
     GUI logic:
-        *Display time time with correct format: 0m:0s ex:  04:03
+            +DONE Display time with correct format: 0m:0s ex:  04:03
             +DONE Time display - not to display hours but total minutes
         *Keyboard keys functionality (ex: space - play/pause etc)
         *Remeber player settings after restart - file and viewmodel
@@ -58,8 +58,7 @@ namespace AudioPlayerMVVMandNAudio
             +DONE Drag and drop directories into playlist       
             +DONE Drag and drop files also on player, not only playlist
         **Playlist functionality: save playlist,
-        **Playlist functionality: laod playlist,
-        **Playlist functionality: drag and move tracks in playlist
+        **Playlist functionality: load playlist,
      
     PROJECT:
         *Better comments     
@@ -88,7 +87,7 @@ namespace AudioPlayerMVVMandNAudio
 
         #endregion
 
-        public ICommand CloseWindowCommand { get; set; } 
+        public ICommand CloseWindowCommand { get; set; }
 
         /// <summary>
         /// Default constructor.
@@ -98,7 +97,6 @@ namespace AudioPlayerMVVMandNAudio
             PlaylistVM = new PlaylistVM();
             TransportPanelVM = new TransportPanelVM();
             AudioInfoVM = new AudioInfoVM();
-            
 
             //Subscribes PLAYLIST to TransportPanelVM events:
             TransportPanelVM.AudioStartEvent += PlaylistVM.OnAudioStart;

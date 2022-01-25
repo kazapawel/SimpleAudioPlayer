@@ -14,7 +14,10 @@
     <None Remove="Images\audio unmute.png" />
     <None Remove="Images\next.png" />
     <None Remove="Images\pause.png" />
+    <None Remove="Images\pausebutton.png" />
+    <None Remove="Images\pigsad.png" />
     <None Remove="Images\play.png" />
+    <None Remove="Images\playbutton.png" />
     <None Remove="Images\previous.png" />
     <None Remove="Images\simple white icons\simple end white.png" />
     <None Remove="Images\simple white icons\simple front white.png" />
@@ -40,7 +43,10 @@
     <Resource Include="Images\audio unmute.png" />
     <Resource Include="Images\next.png" />
     <Resource Include="Images\pause.png" />
+    <Resource Include="Images\pausebutton.png" />
+    <Resource Include="Images\pigsad.png" />
     <Resource Include="Images\play.png" />
+    <Resource Include="Images\playbutton.png" />
     <Resource Include="Images\previous.png" />
     <Resource Include="Images\simple white icons\simple end white.png" />
     <Resource Include="Images\simple white icons\simple front white.png" />

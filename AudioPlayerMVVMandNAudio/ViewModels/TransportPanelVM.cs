@@ -114,24 +114,19 @@ namespace AudioPlayerMVVMandNAudio
                 if(audioFilePlayer != null)
                     audioFilePlayer.StreamPosition = (long)value * (audioFilePlayer.StreamLength / 100);
                 OnPropertyChanged(nameof(TimeCurrent));
+                OnPropertyChanged(nameof(Position));
             }
-                
         }
 
         /// <summary>
         /// String representation of current time of audio which is playing.
         /// </summary>
-        public string TimeCurrent => audioFilePlayer != null ? audioFilePlayer.TimeCurrent.ToString(@"mm\:ss") : "--:--";
+        public string TimeCurrent => audioFilePlayer != null ? audioFilePlayer.TimeCurrent.ToString(@"h\:mm\:ss") : " --:-- ";
 
         /// <summary>
         /// String representation of total time of audio which is playing
         /// </summary>
-        public string TimeTotal => audioFilePlayer != null ? audioFilePlayer.TimeTotal.ToString(@"mm\:ss") : "--:--";
-
-        ///// <summary>
-        ///// String representation of remaining time of audio which is playing.
-        ///// </summary>
-        //public string TimeRemaining => audioFilePlayer != null ? (audioFilePlayer.TotalTime - audioFilePlayer.CurrentTime).ToString(@"mm\:ss") : "--:--";//audioPlayer.IsAudioFileLoaded ? (audioPlayer.TotalTime - audioPlayer.CurrentTime).ToString(@"mm\:ss") : "--:--";
+        public string TimeTotal => audioFilePlayer != null ? audioFilePlayer.TimeTotal.ToString(@"h\:mm\:ss") : " --:-- ";
 
         #endregion
 

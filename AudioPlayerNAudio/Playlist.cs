@@ -65,7 +65,11 @@ namespace AudioPlayerNAudio
         /// <summary>
         /// 
         /// </summary>
-        public void SavePlaylist() => SaveTextFile();
+        public void SavePlaylist() => SaveTextFile();//System.UnauthorizedAccessException: 'Access to the path 'D:\' is denied.'
+
+        #endregion
+
+        #region PRIVATE FILE SAVING/LOADING METHODS
 
         /// <summary>
         /// 
@@ -81,7 +85,7 @@ namespace AudioPlayerNAudio
 
         #endregion
 
-        
+
 
     }
 }

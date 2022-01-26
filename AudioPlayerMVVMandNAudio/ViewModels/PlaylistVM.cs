@@ -312,11 +312,11 @@ namespace AudioPlayerMVVMandNAudio
             {
                 var track = new AudioFile(trackPath);
                 model.AddTrack(track);
-                SongsListObservable.Add(new AudioFileVM(track));        
-            }
+                SongsListObservable.Add(new AudioFileVM(track));
 
-            //Raises property changed on read only property
-            OnPropertyChanged(nameof(Items));
+                //Raises property changed on read only property
+                OnPropertyChanged(nameof(Items));
+            }
         }
 
         /// <summary>
@@ -383,11 +383,9 @@ namespace AudioPlayerMVVMandNAudio
         /// <param name="moved"></param>
         public void MoveItem(AudioFileVM target, AudioFileVM moved)
         {
-            //Without this there is no highlight in list
-            if (moved == target) return;
-
-            //Switch items
-            SongsListObservable.Move(SongsListObservable.IndexOf(moved), SongsListObservable.IndexOf(target));
+            //Without checking this there is no highlight in listbox
+            if (moved != target)
+                SongsListObservable.Move(SongsListObservable.IndexOf(moved), SongsListObservable.IndexOf(target));
         }
 
         #endregion

@@ -15,6 +15,9 @@ namespace AudioPlayerNAudio
         /// </summary>
         private readonly File tags;
 
+        private readonly string errorMessage;
+        private readonly string exceptionName;
+
         #endregion
 
         #region PUBLIC PROPERTIES
@@ -37,7 +40,7 @@ namespace AudioPlayerNAudio
         /// <summary>
         /// Gets first artist from performers list or description it there are no performers.
         /// </summary>
-        public string Artist => tags is null ? string.Empty : tags.Tag.Performers.Length > 0 ? tags.Tag.Performers[0] : string.Empty;
+        public string Artist { get => tags is null ? exceptionName : tags.Tag.Performers.Length > 0 ? tags.Tag.Performers[0] : string.Empty; private set{} }
 
         /// <summary>
         /// Gets audio's file album title.
@@ -49,7 +52,7 @@ namespace AudioPlayerNAudio
         /// </summary>
         public TimeSpan Duration => tags is null ? new TimeSpan(0) : tags.Properties.Duration;
 
-        public string Description => tags is null ? string.Empty : tags.Properties.Description;
+        public string Description => tags is null ? errorMessage : tags.Properties.Description;
         public int AudioChannels => tags is null ? 0 : tags.Properties.AudioChannels;
         public int AudioSampleRate => tags is null ? 0 : tags.Properties.AudioSampleRate;
         public int BitsPerSample => tags is null ? 0 : tags.Properties.BitsPerSample == 0 ? tags.Properties.AudioBitrate : tags.Properties.BitsPerSample;
@@ -69,22 +72,21 @@ namespace AudioPlayerNAudio
 
             //File's name
             Name = System.IO.Path.GetFileName(path);
-
+            
             //Creates TagLib instance
             try
             {
                 tags = File.Create(path);
             }
-
-            //TagLib.CorruptFileException: 'MPEG audio header not found.
-            catch (Exception e)//(CorruptFileException e)
+            catch (Exception e)
             {
                 //So user can see info about file corruption
-               
-                Name = e.Message;
+                errorMessage = e.Message;
+                exceptionName = e.GetType().FullName;
             }
 
             /*
+             * TagLib.CorruptFileException: 'MPEG audio header not found.
              * TagLib.UnsupportedFormatException: 
              * 'E:\Muza\breakbit\Booty Luv - Shine (Destroyers & Aggresivnes Rmx).mp3.sfk (taglib/sfk)'
              */

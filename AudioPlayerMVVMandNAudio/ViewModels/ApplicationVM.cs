@@ -18,11 +18,11 @@ namespace AudioPlayerMVVMandNAudio
         *Position slider refresh value after drag end
         *Time popup fix
         *Options buttons images
-        *New transport buttons
+            +DONE New transport buttons
             +DONE Fix selected/buffer track problem
             +DONE Fix code duplication in views code behind
         *Application logic: do not raise nexttrackrequest and stoppedbeforend sim.
-        *Buffer track as audioinfoVM
+        *Buffer track as audioinfoVM - new app logic
 
     GUI look:
             +DONE Not to resize playlist - fixed values, min values etc.
@@ -52,12 +52,13 @@ namespace AudioPlayerMVVMandNAudio
             +DONE "Clear playlist" event so infoVM and player can clear
         *Exceptions error logger
         *Validation rules for files selected
-        *Playlist loading/saving - when (On program close)
+            +DONE Playlist loading/saving - when (On program close)
         *Playmode randome
         *Playmode loop
         *Filter OpenFileDialog files
             +DONE Drag and drop directories into playlist       
             +DONE Drag and drop files also on player, not only playlist
+        *Make red font when file is corrupted and icon when u cant play file
         **Playlist functionality: save playlist,
         **Playlist functionality: load playlist,
      

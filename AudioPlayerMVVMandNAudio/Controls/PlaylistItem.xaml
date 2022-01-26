@@ -56,7 +56,7 @@
                 <!-- Artist-->
                 <TextBlock HorizontalAlignment="Left"
                            Style="{StaticResource GrayTextblock}"
-                           Margin="2,0,15,0"
+                           Margin="2,0,15,1"
                            FontSize="11"
                            Text="{Binding Artist}"
                            TextTrimming="CharacterEllipsis"

@@ -42,6 +42,9 @@
     <Page Update="Styles\Fonts.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Styles\ImageStyles.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Styles\ListboxStyles.xaml">
       <SubType>Designer</SubType>
     </Page>

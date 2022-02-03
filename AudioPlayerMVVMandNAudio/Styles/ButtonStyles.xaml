@@ -6,15 +6,16 @@
     <Style TargetType="{x:Type Button}" x:Key="ImageButton">
         <Setter Property="HorizontalAlignment" Value="Center"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Background" Value="#767CFA"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
 
                     <Border x:Name="buttonBorder"
-                            Background="Transparent"
-                            BorderThickness="0"
-                            BorderBrush="Red"
+                            Background="Magenta"
                             
+                            BorderThickness="0"
+                            BorderBrush="Red"                          
                             Padding="0">
 
                         <Image x:Name="buttonImage"
@@ -39,13 +40,14 @@
 
                     <!-- Triggers -->
                     <ControlTemplate.Triggers>
-                        
-                        
+                                               
                          <!--Mouse hover animation-->
                         <EventTrigger RoutedEvent="MouseEnter">
                             <BeginStoryboard>
                                 <Storyboard>
                                     <DoubleAnimation Storyboard.TargetName="buttonImage" Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:0:0.1"/>
+                                    <DoubleAnimation Storyboard.TargetName="ImageScale" Storyboard.TargetProperty="(ScaleTransform.ScaleX)" To="1.1" Duration="0:0:0:0.05" />
+                                    <DoubleAnimation Storyboard.TargetName="ImageScale" Storyboard.TargetProperty="(ScaleTransform.ScaleY)" To="1.1" Duration="0:0:0:0.05" />
                                 </Storyboard>
                             </BeginStoryboard>
                         </EventTrigger>
@@ -55,6 +57,9 @@
                             <BeginStoryboard>
                                 <Storyboard>
                                     <DoubleAnimation Storyboard.TargetName="buttonImage" Storyboard.TargetProperty="Opacity" To="0.8" Duration="0:0:0:0.1"/>
+                                    <DoubleAnimation Storyboard.TargetName="ImageScale" Storyboard.TargetProperty="(ScaleTransform.ScaleX)" To="1" Duration="0:0:0:0.1" />
+                                    <DoubleAnimation Storyboard.TargetName="ImageScale" Storyboard.TargetProperty="(ScaleTransform.ScaleY)" To="1" Duration="0:0:0:0.1" />
+                                    <DoubleAnimation Storyboard.TargetName="ImageRotate" Storyboard.TargetProperty="(RotateTransform.Angle)" To="0" Duration="0:0:0:0.1"/>
 
                                 </Storyboard>
                             </BeginStoryboard>
@@ -64,8 +69,8 @@
                         <EventTrigger RoutedEvent="PreviewMouseDown">
                             <BeginStoryboard>
                                 <Storyboard>
-                                    <DoubleAnimation Storyboard.TargetName="ImageScale" Storyboard.TargetProperty="(ScaleTransform.ScaleX)" To="1.1" Duration="0:0:0:0.05" />
-                                    <DoubleAnimation Storyboard.TargetName="ImageScale" Storyboard.TargetProperty="(ScaleTransform.ScaleY)" To="1.1" Duration="0:0:0:0.1" />
+                                    <DoubleAnimation Storyboard.TargetName="ImageScale" Storyboard.TargetProperty="(ScaleTransform.ScaleX)" To="1.2" Duration="0:0:0:0.05" />
+                                    <DoubleAnimation Storyboard.TargetName="ImageScale" Storyboard.TargetProperty="(ScaleTransform.ScaleY)" To="1.2" Duration="0:0:0:0.1" />
                                    
                                 </Storyboard>
                             </BeginStoryboard>
@@ -80,13 +85,30 @@
                                 </Storyboard>
                             </BeginStoryboard>
                         </EventTrigger>
+
+                        <!-- Mouse over background opacity -->
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" 
+                                    TargetName="buttonBorder" 
+                                    Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Background}"/>
+                            <Setter Property="Opacity" Value="1"/>
+                        </Trigger>
+                        
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
+            
+            
         </Setter>
+
+        <!--<Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="Red"/>
+            </Trigger>
+        </Style.Triggers>-->
     </Style>
 
-    <!-- Image button -->
+    <!-- Image button small -->
     <Style TargetType="{x:Type Button}" x:Key="ImageButtonSmall">
         <Setter Property="HorizontalAlignment" Value="Center"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
@@ -302,7 +324,6 @@
             </Setter.Value>
         </Setter>
     </Style>
-
 
     <!-- Base, empty button style without content presenter -->
     <Style TargetType="{x:Type Button}" x:Key="BaseEmptyButtonStyle">

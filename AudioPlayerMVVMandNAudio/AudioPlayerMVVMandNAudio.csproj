@@ -16,19 +16,14 @@
     <None Remove="Images\audio unmute.png" />
     <None Remove="Images\clear.png" />
     <None Remove="Images\next.png" />
-    <None Remove="Images\pause.png" />
     <None Remove="Images\pausebutton.png" />
     <None Remove="Images\pigsad.png" />
     <None Remove="Images\play.png" />
-    <None Remove="Images\playbutton.png" />
+    <None Remove="Images\Playlist\note1.png" />
+    <None Remove="Images\Playlist\note2.png" />
+    <None Remove="Images\Playlist\notegreen.png" />
     <None Remove="Images\previous.png" />
     <None Remove="Images\removefile.png" />
-    <None Remove="Images\simple white icons\simple end white.png" />
-    <None Remove="Images\simple white icons\simple front white.png" />
-    <None Remove="Images\simple white icons\simple pause white.png" />
-    <None Remove="Images\simple white icons\simple play white.png" />
-    <None Remove="Images\simple white icons\simple stop white.png" />
-    <None Remove="Images\stop.png" />
     <None Remove="Images\stopsmall.png" />
   </ItemGroup>
 
@@ -44,30 +39,21 @@
     <Resource Include="Fonts\Source_Code_Pro\static\SourceCodePro-Medium.ttf" />
     <Resource Include="Fonts\Source_Code_Pro\static\SourceCodePro-MediumItalic.ttf" />
     <Resource Include="Fonts\Source_Code_Pro\static\SourceCodePro-Regular.ttf" />
-    <Resource Include="Images\addfile.png" />
-    <Resource Include="Images\addlist.png" />
-    <Resource Include="Images\audio mute.png" />
-    <Resource Include="Images\audio unmute.png" />
-    <Resource Include="Images\clear.png" />
-    <Resource Include="Images\next.png" />
-    <Resource Include="Images\pause.png" />
-    <Resource Include="Images\pausebutton.png" />
+    <Resource Include="Images\Playlist\addfile.png" />
+    <Resource Include="Images\Playlist\addlist.png" />
+    <Resource Include="Images\Playlist\note1.png" />
+    <Resource Include="Images\Playlist\note2.png" />
+    <Resource Include="Images\Playlist\notegreen.png" />
+    <Resource Include="Images\Volume\audio mute.png" />
+    <Resource Include="Images\Volume\audio unmute.png" />
+    <Resource Include="Images\Playlist\clear.png" />
+    <Resource Include="Images\Transport\next.png" />
+    <Resource Include="Images\Transport\pausebutton.png" />
     <Resource Include="Images\pigsad.png" />
-    <Resource Include="Images\play.png" />
-    <Resource Include="Images\playbutton.png" />
-    <Resource Include="Images\previous.png" />
-    <Resource Include="Images\removefile.png" />
-    <Resource Include="Images\simple white icons\simple end white.png" />
-    <Resource Include="Images\simple white icons\simple front white.png" />
-    <Resource Include="Images\simple white icons\simple pause white.png" />
-    <Resource Include="Images\simple white icons\simple play white.png" />
-    <Resource Include="Images\simple white icons\simple stop white.png" />
-    <Resource Include="Images\stop.png" />
-    <Resource Include="Images\stopsmall.png" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Images\SimpleImages\" />
+    <Resource Include="Images\Transport\play.png" />
+    <Resource Include="Images\Transport\previous.png" />
+    <Resource Include="Images\Playlist\removefile.png" />
+    <Resource Include="Images\Transport\stopsmall.png" />
   </ItemGroup>
 
 </Project>

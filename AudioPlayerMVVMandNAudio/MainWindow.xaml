@@ -8,7 +8,7 @@
         Title="MainWindow"         
         Style="{StaticResource MainWindowStyle2}"
         MinWidth="320"
-        MinHeight="175"
+        MinHeight="173"
         Width="320"
         Height="450"
         FontFamily="{StaticResource SourceCodeProMediumItalic}"

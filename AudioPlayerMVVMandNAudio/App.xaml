@@ -34,6 +34,9 @@
                 <!-- Scrollbar styles -->
                 <ResourceDictionary Source="Styles/ScrollbarStyles.xaml"/>
 
+                <!-- Image styles -->
+                <ResourceDictionary Source="Styles/ImageStyles.xaml"/>
+
             </ResourceDictionary.MergedDictionaries>
 
             <!-- Converters -->

@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:AudioPlayerMVVMandNAudio"
              mc:Ignorable="d">
+    
     <Grid AllowDrop="True">
         <Grid.RowDefinitions>
 
@@ -13,19 +14,9 @@
 
             <!-- Time slider -->
             <RowDefinition Height="*"/>
-            
-            <!-- TEST  asdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdf-->
-            <RowDefinition Height="*"/>
 
         </Grid.RowDefinitions>
-
-        <!--     "pack://application:,,,/Images/simple white icons/simple front white.png"
-        pack://application:,,,/Images/simple white icons/simple end white.png"
-        "pack://application:,,,/Images/simple white icons/simple stop white.png"
-        "pack://application:,,,/Images/simple white icons/simple play white.png"
-         "pack://application:,,,/Images/simple white icons/simple pause white.png" 
-        {Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:TransportPanelControl}}, Path=SliderValueAfterDrag, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-        -->
+        
         <!--#region TRANSPORT PANEL  -->
         <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
@@ -63,8 +54,7 @@
                         Style="{StaticResource ImageButton}" 
                         Height="24"
                         Width="24"
-                        
-                        Tag="pack://application:,,,/Images/previous.png"                   
+                        Tag="pack://application:,,,/Images/Transport/previous.png"                   
                         Command="{Binding PreviousTrackRequestCommand}"
                         />
 
@@ -79,7 +69,7 @@
                     <Button Grid.Column="0"
                             x:Name="playbutton"
                             Style="{StaticResource ImageButton}" 
-                            Tag="pack://application:,,,/Images/play.png"
+                            Tag="pack://application:,,,/Images/Transport/play.png"
                             Width="24"
                             Height="24"
                             Command="{Binding PlayAudioCommand}"
@@ -90,7 +80,7 @@
                     <Button Grid.Column="0"
                             x:Name="pausebutton"
                             Style="{StaticResource ImageButton}" 
-                            Tag="pack://application:,,,/Images/pausebutton.png"
+                            Tag="pack://application:,,,/Images/Transport/pausebutton.png"
                             Width="24"
                             Height="24"
                             Command="{Binding PauseAudioCommand}"
@@ -104,14 +94,14 @@
                         Style="{StaticResource ImageButton}" 
                         Width="24"
                         Height="24"
-                        Tag="pack://application:,,,/Images/next.png"                
+                        Tag="pack://application:,,,/Images/Transport/next.png"                
                         Command="{Binding NextTrackRequestCommand}"
                         />
 
                 <!-- STOP button-->
                 <Button Grid.Column="3" 
                         Style="{StaticResource ImageButton}" 
-                        Tag="pack://application:,,,/Images/stopsmall.png"
+                        Tag="pack://application:,,,/Images/Transport/stopsmall.png"
                         Width="24"
                         Height="24"
                         Command="{Binding StopAudioCommand}"
@@ -144,18 +134,16 @@
                         TickFrequency="10"
                         Minimum="0"
                         Maximum="100"
-                        Margin="10,8,10,0"
+                        Margin="10,7,10,0"
                         MouseMove="VolumeSlider_MouseMove"
                         MouseLeftButtonUp="VolumeSlider_MouseLeftButtonUp"
                         />
 
                 <!--SPEAKER BUTTON-->
                 <CheckBox Grid.Column="1"
-                          Style="{StaticResource MuteAudioCheckbox}"
-                          Width="17"
-                          Height="17"
+                          Style="{StaticResource MuteAudioCheckbox}"         
                           IsChecked="{Binding Muted}"
-                          Margin="5,8,8,5"                    
+                          Margin="5,5,8,5"
                           />
 
             </Grid>
@@ -182,7 +170,7 @@
 
             </Grid.ColumnDefinitions>
 
-            <!-- Actual time textblock -->
+            <!-- ACTUAL TIME textblock -->
             <TextBlock Grid.Column="0"
                        Style="{StaticResource TimeTextblock}" 
                        Text="{Binding TimeCurrent}"    
@@ -203,12 +191,14 @@
                     MouseLeftButtonUp="PositionSlider_MouseLeftButtonUp"
                     />
 
-            <!-- PopUp with time value-->
+            <!-- POPUP with time value-->
             <Popup Name="TimeValuePopup"
-                       
-                       StaysOpen="True"
-                       PlacementTarget="{Binding ElementName=PositionSlider}"
-                       PlacementRectangle="150,0,0,0">
+                   Placement="Relative"
+                   VerticalOffset="20"
+                   HorizontalOffset="10"
+                   StaysOpen="True"
+                   PlacementTarget="{Binding ElementName=PositionSlider}">
+                
                 <Grid Background="Red">
                     <TextBlock Text="{Binding TimeCurrent}"/>
                 </Grid>
@@ -223,11 +213,9 @@
                         </Style.Triggers>
                     </Style>
                 </Popup.Style>
-
-
             </Popup>
 
-            <!-- Remaining time textblock -->
+            <!-- TOTAL TIME textblock -->
             <TextBlock Grid.Column="2" 
                        Style="{StaticResource TimeTextblock}" 
                        Text="{Binding TimeTotal}"                           

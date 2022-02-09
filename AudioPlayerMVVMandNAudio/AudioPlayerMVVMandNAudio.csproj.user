@@ -13,7 +13,7 @@
     <Compile Update="Controls\PlaylistItem.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Controls\TransportPanelControl.xaml.cs">
+    <Compile Update="Controls\AudioPlayerControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -24,7 +24,7 @@
     <Page Update="Controls\PlaylistItem.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Controls\TransportPanelControl.xaml">
+    <Page Update="Controls\AudioPlayerControl.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="MainWindow.xaml">

@@ -15,6 +15,9 @@ namespace AudioPlayerMVVMandNAudio
     {
         #region DEPENDENCY PROPERTIES
 
+        /// <summary>
+        /// 
+        /// </summary>
         public ICommand CloseWindowCommand
         {
             get { return (ICommand)GetValue(CloseWindowCommandProperty); }
@@ -175,6 +178,10 @@ namespace AudioPlayerMVVMandNAudio
         /// <param name="e"></param>
         private void Item_DragOver(object sender, DragEventArgs e)
         {
+            //THIS MAKES DROP ON LISTBOX ITEM POSSILE... WTF I DON'T KNOW HOW IT WORKS 
+            if (e.Data.GetDataPresent(DataFormats.FileDrop)) { }
+
+            else
             if (MoveItemCommand?.CanExecute(null) ?? false)
             {
                 if (sender is FrameworkElement element)
@@ -188,6 +195,8 @@ namespace AudioPlayerMVVMandNAudio
         }
 
         #endregion
+
+
 
         /// <summary>
         /// Invokes CloseWindowCommand.
@@ -243,5 +252,7 @@ namespace AudioPlayerMVVMandNAudio
         }
 
         #endregion
+
+        
     }
 }

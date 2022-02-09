@@ -9,11 +9,9 @@ namespace AudioPlayerMVVMandNAudio
     /// <summary>
     /// Interaction logic for TransportPanelControl.xaml
     /// </summary>
-    public partial class TransportPanelControl : UserControl
+    public partial class AudioPlayerControl : UserControl
     {
         #region DEPENDENCY PROPERTIES
-
-
 
         public double SliderValueAfterDrag
         {
@@ -21,18 +19,15 @@ namespace AudioPlayerMVVMandNAudio
             set { SetValue(SliderValueAfterDragProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for SliderValueAfterDrag.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty SliderValueAfterDragProperty =
-            DependencyProperty.Register("SliderValueAfterDrag", typeof(double), typeof(TransportPanelControl), new FrameworkPropertyMetadata(null));
-
-
+            DependencyProperty.Register("SliderValueAfterDrag", typeof(double), typeof(AudioPlayerControl), new FrameworkPropertyMetadata(null));
 
         #endregion
 
         /// <summary>
         /// Dedfault constructor
         /// </summary>
-        public TransportPanelControl()
+        public AudioPlayerControl()
         {
             InitializeComponent();
         }
@@ -44,6 +39,8 @@ namespace AudioPlayerMVVMandNAudio
         {
             base.OnApplyTemplate();
         }
+
+        #region SLIDERS 
 
         private void VolumeSlider_MouseMove(object sender, MouseEventArgs e) => SliderMouseMove(sender as Slider, e);
 
@@ -89,5 +86,7 @@ namespace AudioPlayerMVVMandNAudio
             if (slider != null)
                 slider.ReleaseMouseCapture();
         }
+
+        #endregion
     }
 }

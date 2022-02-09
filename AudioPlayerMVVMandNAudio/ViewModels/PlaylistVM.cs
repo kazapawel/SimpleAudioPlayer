@@ -108,16 +108,6 @@ namespace AudioPlayerMVVMandNAudio
         /// </summary>
         public event EventHandler<AudioFileVMEventArgs> LoadAudioFileEvent;
 
-        /// <summary>
-        /// Occurs when playlist reaches an end and there is no track to play.
-        /// </summary>
-        public event EventHandler<AudioFileVMEventArgs> PlaylistEndedEvent;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public event EventHandler<EventArgs> PlaylistClearedEvent;
-
         #endregion
 
         #region COMMANDS
@@ -147,7 +137,13 @@ namespace AudioPlayerMVVMandNAudio
         /// </summary>
         public ICommand MoveItemCommand { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public ICommand CloseWindowCommand { get; set; }
+
+        public ICommand NextTrackCommand { get; set; }
+        public ICommand PreviousTrackCommand { get; set; }
 
         #endregion
 
@@ -169,12 +165,16 @@ namespace AudioPlayerMVVMandNAudio
                 SongsListObservable.Add(new AudioFileVM(song));
 
             //Commands
-            LoadTrackCommand = new RelayCommand(LoadTrack);
+            LoadTrackCommand = new RelayCommand(LoadTrackToBuffer);
             RemoveTracksFromPlaylistCommand = new RelayCommand(RemoveTracksFromPlaylist);
             ClearPlaylistCommand = new RelayCommand(ClearPlaylist);
+
             AddFilesCommand = new AddFilesCommand(this);
             MoveItemCommand = new MoveItemCommand(this);
             CloseWindowCommand = new CloseWindowCommand(this);
+
+            NextTrackCommand = new RelayCommand(NextTrack);
+            PreviousTrackCommand = new RelayCommand(PreviousTrack);
         }
 
         #endregion
@@ -185,12 +185,8 @@ namespace AudioPlayerMVVMandNAudio
         /// Raises an LoadAudioFileEvent and sends selected track as argumentjksdhfkjasdhfjksdhfjksdfkljsdljkfh
         /// </summary>
         /// <param name="o"></param>
-        private void LoadTrack(object o)
+        private void LoadTrackToBuffer(object o)
         {
-            //Changes state of current audiofile bool flag
-            if (BufferTrack !=null)
-                BufferTrack.IsAudioFilePlaying = false;
-
             //Selected track becomes buffer track
             BufferTrack = SelectedTrack;
 
@@ -198,18 +194,16 @@ namespace AudioPlayerMVVMandNAudio
             LoadAudioFileEvent?.Invoke(this, new AudioFileVMEventArgs(BufferTrack));
         }
 
-        #region SUBSCRIPTIONS METHODS
-
-        /// <summary>
-        /// Changes buffer track state flag when audio starts playing. 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        public void OnAudioStart(object sender, EventArgs e)
+        private void NextTrack(object o)
         {
-            //Sets buffer track state - this has to chagne when playback starts
-            if(BufferTrack != null)
-                BufferTrack.IsAudioFilePlaying = true;
+            NextTrackSet();
+            LoadTrackToBuffer(null);
+        }
+
+        private void PreviousTrack(object o)
+        {
+            PreviousTrackSet();
+            LoadTrackToBuffer(null);
         }
 
         /// <summary>
@@ -217,33 +211,15 @@ namespace AudioPlayerMVVMandNAudio
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        public void OnNextTrackRequest(object sender, EventArgs e)
+        private void NextTrackSet()
         {
-            //Changes state of current audiofile bool flag
-            if (BufferTrack != null)
-                BufferTrack.IsAudioFilePlaying = false;
-
             //Gets index of next track
             var newIndex = SongsListObservable.IndexOf(BufferTrack) + 1;
 
             //Checks if index is in range
             if (newIndex < SongsListObservable.Count)
-            {
                 //Changes track selection
-                BufferTrack = SongsListObservable[newIndex];
-
-                //Loads track
-                //LoadTrack(null);
-                LoadAudioFileEvent?.Invoke(this, new AudioFileVMEventArgs(BufferTrack));
-            }
-
-            //If playlist reaches an end - raises an event
-            else
-            {
-                if (BufferTrack != null)
-                    BufferTrack.IsAudioFilePlaying = false;
-                PlaylistEndedEvent?.Invoke(this, new AudioFileVMEventArgs(bufferTrack));
-            }
+                SelectedTrack = SongsListObservable[newIndex];
         }
 
         /// <summary>
@@ -251,52 +227,19 @@ namespace AudioPlayerMVVMandNAudio
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        public void OnPreviousTrackRequest(object sender, EventArgs e)
+        private void PreviousTrackSet()
         {
-            ////Change state of current audio file playing bool flag
-            //if(BufferTrack != null)
-            //    BufferTrack.IsAudioFilePlaying = false;
-
             //Gets index of currently playing track
             var index = SongsListObservable.IndexOf(BufferTrack);
 
-            //Sets new index of buffer track, if you press previous track on first track it will start over.
+            //Sets new index of selected track, if you press previous track on first track it will start over.
             index += index > 0 ? -1 : 0;
 
             //If there are songs in playlist
             if (index > -1)
-            {
                 //Changes track selection
-                BufferTrack = SongsListObservable[index];
-
-                //Loads track
-                //LoadTrack(null);
-                LoadAudioFileEvent?.Invoke(this, new AudioFileVMEventArgs(BufferTrack));
-            }
+                SelectedTrack = SongsListObservable[index];
         }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        public void OnAudioStoppedBeforeEnd(object sender, EventArgs e)
-        {
-            if(BufferTrack !=null)
-                BufferTrack.IsAudioFilePlaying = false;
-
-            //If playlist was cleared during audio play
-            if (SongsListObservable.Count == 0)
-            {             
-                //Clears buffer track
-                BufferTrack = null;
-
-                //Raises event about playlist cleared
-                PlaylistClearedEvent?.Invoke(this, new AudioFileVMEventArgs(BufferTrack));
-            }
-        }
-
-        #endregion
 
         #region PLAYLIST CRUD METHODS
 
@@ -350,12 +293,11 @@ namespace AudioPlayerMVVMandNAudio
         /// <param name="o"></param>
         private void ClearPlaylist(object o)
         {
-            //Makes new model collection 
             model.ClearPlaylist();
 
             ClearObservableCollection(null);
 
-            PlaylistClearedEvent?.Invoke(this, null);
+            //PlaylistClearedEvent?.Invoke(this, null);
         }
 
         /// <summary>
@@ -365,7 +307,7 @@ namespace AudioPlayerMVVMandNAudio
         private void ClearObservableCollection(IEnumerable<AudioFileVM> collection)
         {
             //Makes new observable collection
-            SongsListObservable = collection != null ? new ObservableCollection<AudioFileVM>(collection) 
+            SongsListObservable = collection != null ? new ObservableCollection<AudioFileVM>(collection)
                                                      : new ObservableCollection<AudioFileVM>();
 
             //CollectionChanged does not work for new-ing collection...?

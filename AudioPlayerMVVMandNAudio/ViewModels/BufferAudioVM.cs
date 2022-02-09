@@ -4,7 +4,7 @@ using System;
 
 namespace AudioPlayerMVVMandNAudio
 {
-    public class AudioInfoVM : BaseViewModel
+    public class BufferAudioVM : BaseViewModel
     {
         #region PRIVATE MEMBERS
 
@@ -43,7 +43,7 @@ namespace AudioPlayerMVVMandNAudio
         /// <summary>
         /// Default empty constructor.
         /// </summary>
-        public AudioInfoVM() { }
+        public BufferAudioVM() { }
 
         #endregion
 

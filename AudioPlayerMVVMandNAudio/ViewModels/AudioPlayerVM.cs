@@ -1,14 +1,14 @@
 ﻿using AudioPlayerNAudio;
-using System.Windows.Threading;
 using System;
 using System.Collections.Generic;
+using System.Windows.Threading;
 
 namespace AudioPlayerMVVMandNAudio
 {
     /// <summary>
     /// View model class for audio player and transport control.
     /// </summary>
-    public class TransportPanelVM : BaseViewModel
+    public class AudioPlayerVM : BaseViewModel
     {
         #region PRIVATE MEMBERS
 
@@ -118,18 +118,6 @@ namespace AudioPlayerMVVMandNAudio
             }
         }
 
-        public double Position2
-        {
-            get => audioFilePlayer != null ? (double)(audioFilePlayer.StreamPosition) / (audioFilePlayer.StreamLength / 100) : 0;
-            set
-            {
-                if (audioFilePlayer != null)
-                    audioFilePlayer.StreamPosition = (long)value * (audioFilePlayer.StreamLength / 100);
-                OnPropertyChanged(nameof(TimeCurrent));
-                OnPropertyChanged(nameof(Position2));
-            }
-        }
-
         /// <summary>
         /// String representation of current time of audio which is playing.
         /// </summary>
@@ -150,16 +138,6 @@ namespace AudioPlayerMVVMandNAudio
         public event EventHandler StopAudioBeforeEndEvent;
 
         /// <summary>
-        /// Occurs when next track is requested.
-        /// </summary>
-        public event EventHandler NextTrackRequestEvent;
-
-        /// <summary>
-        /// Occurs when previous track is requested.
-        /// </summary>
-        public event EventHandler PreviousTrackRequestEvent;
-
-        /// <summary>
         /// Occurs when audio player starts playback.
         /// </summary>
         public event EventHandler<FilePathEventArgs> AudioStartEvent;
@@ -168,15 +146,10 @@ namespace AudioPlayerMVVMandNAudio
 
         #region COMMANDS
 
-        public RelayCommand PlayAudioCommand { get; set; }
+        public RelayCommand PlayPauseAudioCommand { get; set; }
 
         public RelayCommand StopAudioCommand { get; set; }
 
-        public RelayCommand PauseAudioCommand { get; set; }
-
-        public RelayCommand NextTrackRequestCommand { get; set; }
-
-        public RelayCommand PreviousTrackRequestCommand { get; set; }
 
         #endregion
 
@@ -185,14 +158,11 @@ namespace AudioPlayerMVVMandNAudio
         /// <summary>
         /// Default constructor.
         /// </summary>
-        public TransportPanelVM()
+        public AudioPlayerVM()
         {
             //Commands:
-            PlayAudioCommand = new RelayCommand(PlayAudio);
+            PlayPauseAudioCommand = new RelayCommand(PlayPauseAudio);
             StopAudioCommand = new RelayCommand(StopAudio);
-            PauseAudioCommand = new RelayCommand(PauseAudio);
-            NextTrackRequestCommand = new RelayCommand(NextTrackRequest);
-            PreviousTrackRequestCommand = new RelayCommand(PreviousTrackRequest);
 
             //Sets start volume
             Volume = 50;
@@ -205,13 +175,30 @@ namespace AudioPlayerMVVMandNAudio
 
         #region METHODS
 
-        #region TRANSPORT METHODS
+        #region PLAYBACK METHODS
 
         /// <summary>
         /// Creates new AudioFilePlayer and plays chosen audio file.
         /// </summary>
         /// <param name="o"></param>
-        private void PlayAudio(object o)
+        private void PlayPauseAudio(object o)
+        {
+        }
+
+        /// <summary>
+        /// Stops current audio playback before audio reaching it's end.
+        /// </summary>
+        /// <param name="o"></param>
+        private void StopAudio(object o)
+        {
+            Stop();
+        }
+
+        #endregion
+
+        #region AUDIO ENGINE METHODS
+
+        private void Play()
         {
             //Works only if there is a path ready for loading into audio player
             if (Path != null)
@@ -239,7 +226,7 @@ namespace AudioPlayerMVVMandNAudio
                         //Ends method = no audio playback
                         return;
                     }
-                    
+
                     //Sets audioplayer model volume based on user volume settings(ex: volume fader)
                     SetAudioPlayerVolume();
 
@@ -272,14 +259,10 @@ namespace AudioPlayerMVVMandNAudio
             }
         }
 
-        /// <summary>
-        /// Stops current audio playback before audio reaching it's end.
-        /// </summary>
-        /// <param name="o"></param>
-        private void StopAudio(object o)
+        private void Stop()
         {
             //If audio is playing
-            if(audioFilePlayer != null)
+            if (audioFilePlayer != null)
             {
                 //Stops audio file player
                 audioFilePlayer?.StopAudio();
@@ -295,9 +278,6 @@ namespace AudioPlayerMVVMandNAudio
 
                 //Changes state of player
                 IsPlaying = false;
-
-                //Raises stop audio before end event
-                StopAudioBeforeEndEvent?.Invoke(this, new EventArgs());
 
                 //
                 OnPropertyChanged(nameof(TimeTotal));
@@ -323,38 +303,12 @@ namespace AudioPlayerMVVMandNAudio
             IsPlaying = false;
         }
 
-        /// <summary>
-        /// Stops current audio playback and requests next track.
-        /// </summary>
-        /// <param name="o"></param>
-        private void NextTrackRequest(object o)
-        {
-            //Stops audio first
-            StopAudio(null);
-
-            //Raises an event
-            NextTrackRequestEvent?.Invoke(this, new EventArgs());
-        }
-
-        /// <summary>
-        /// Stops current audio playback and requests previous track.
-        /// </summary>
-        /// <param name="o"></param>
-        private void PreviousTrackRequest(object o)
-        {
-            //Stops audio
-            StopAudio(null);
-
-            //
-            PreviousTrackRequestEvent?.Invoke(this, new EventArgs());
-        }
-
         #endregion
 
         #region SUBSCRIPTIONS METHODS
 
         /// <summary>
-        /// If audio file has ended, clears model and requests another track to load.
+        /// If audio file has ended, clears model.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -365,9 +319,6 @@ namespace AudioPlayerMVVMandNAudio
 
             //Changes state of the player
             IsPlaying = false;
-
-            //Requests next track
-            NextTrackRequestEvent?.Invoke(this, new EventArgs());
         }
 
         /// <summary>
@@ -378,9 +329,9 @@ namespace AudioPlayerMVVMandNAudio
         public void OnAudioFileLoaded(object sender, AudioFileVMEventArgs e)
         {
             //If audio is playing stops it
-            if(audioFilePlayer != null)
+            if (audioFilePlayer != null)
             {
-                StopAudio(null);
+                Stop();
             }
 
             //EXCEPTION - where to check if file exists - model?
@@ -389,28 +340,7 @@ namespace AudioPlayerMVVMandNAudio
             Path = e.AudioFileVM.Path;
 
             //Plays new track
-            PlayAudio(null);
-        }
-
-        /// <summary>
-        /// Clears audio file player.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        public void OnPlaylistEnded(object sender, EventArgs e)
-        {
-                //audioFilePlayer = null;
-                Path = null;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        public void OnPlaylistCleared(object sender, EventArgs e)
-        {
-            Path = null;
+            Play();
         }
 
         #endregion
@@ -422,8 +352,6 @@ namespace AudioPlayerMVVMandNAudio
         /// </summary>
         private void SetAudioPlayerVolume()
         {
-            //var a = DbToPercent(Volume);
-            //var b = DbToP(Volume);
             if (audioFilePlayer != null)
             {
                 var volume = (float)(storedVolume/100);
@@ -477,7 +405,6 @@ namespace AudioPlayerMVVMandNAudio
         private void UpdatePosition()
         {
             OnPropertyChanged(nameof(Position));
-            OnPropertyChanged(nameof(Position2));
         }
 
         #endregion

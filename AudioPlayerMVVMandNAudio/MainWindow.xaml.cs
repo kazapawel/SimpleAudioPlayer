@@ -29,6 +29,8 @@ namespace AudioPlayerMVVMandNAudio
             Closing += playlistControl.OnWindowClosing;
         }
 
+        #region WINDOW OPERATIONS 
+
         /// <summary>
         /// Close window event handler
         /// </summary>
@@ -58,6 +60,8 @@ namespace AudioPlayerMVVMandNAudio
         {
             this.WindowState = this.WindowState == WindowState.Minimized ? WindowState.Normal : WindowState.Minimized;
         }
+
+        #endregion
 
         /// <summary>
         /// When files are dropped from oputside the window, windows raises en event and sends dropped data to subscribers.

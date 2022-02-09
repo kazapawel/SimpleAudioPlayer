@@ -11,11 +11,10 @@
         <MouseBinding MouseAction="LeftDoubleClick" 
                       Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}, Path=DataContext.LoadTrackCommand}"/>
     </UserControl.InputBindings>
+
     <Border Background="Transparent"
             AllowDrop="True">
-        
-    
-    <Grid>
+        <Grid>
         <Grid.ColumnDefinitions>
 
             <!-- Play/pause selection image-->

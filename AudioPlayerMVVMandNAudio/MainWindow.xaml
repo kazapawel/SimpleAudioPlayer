@@ -26,6 +26,9 @@
             <!-- Title bar-->
             <RowDefinition Height="30"/>
 
+            <!-- Transport buttons -->
+            <RowDefinition Height="auto"/>
+            
             <!-- Transport panel -->
             <RowDefinition Height="auto"/>
 
@@ -86,22 +89,104 @@
         </Border>
 
         <!--#endregion-->
+        
+        <!--#region TRANSPORT BUTTONS -->
+        <Grid Grid.Row="1"
+              Margin="5,5,0,5">
 
-        <!--#region TRANSPORT PANEL -->
+            <Grid.ColumnDefinitions>
+
+                <!-- Previous track button-->
+                <ColumnDefinition Width="auto"/>
+
+                <!-- Play/pause button -->
+                <ColumnDefinition Width="auto"/>
+
+                <!-- Next track button -->
+                <ColumnDefinition Width="auto"/>
+
+                <!-- Stop button -->
+                <ColumnDefinition Width="auto"/>
+
+            </Grid.ColumnDefinitions>
+
+            <!-- PREVIOUS TRACK button -->
+            <Button Grid.Column="0"
+                    Style="{StaticResource ImageButton}" 
+                    Height="24"
+                    Width="24"
+                    Tag="pack://application:,,,/Images/Transport/previous.png"                   
+                    Command="{Binding ElementName=playlistControl, Path=DataContext.PreviousTrackCommand}"
+                    />
+
+            <!-- PLAY / PAUSE button -->
+            <Grid Grid.Column="1">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- PLAY -->
+                <Button Grid.Column="0"
+                        x:Name="playButton"
+                        Style="{StaticResource ImageButton}"
+                        Tag="pack://application:,,,/Images/Transport/play.png"
+                        Width="24"
+                        Height="24"
+                        Command="{Binding ElementName=audioPlayerControl, Path=DataContext.PlayPauseCommand}"
+                        Visibility="{Binding IsPlaying, Converter={StaticResource InvertBoolToVisibilityConverter}}"
+                        />
+
+                <!-- PAUSE -->
+                <!--<Button Grid.Column="0"
+                            x:Name="pausebutton"
+                            Style="{StaticResource ImageButton}" 
+                            Tag="pack://application:,,,/Images/Transport/pausebutton.png"
+                            Width="24"
+                            Height="24"
+                            Command="{Binding PauseAudioCommand}"
+                            Visibility="{Binding IsPlaying, Converter={StaticResource BoolToVisibilityConverter}}"
+                            />-->
+
+            </Grid>
+
+            <!-- NEXT TRACK button-->
+            <Button Grid.Column="2"
+                    x:Name="nextTrackButton"
+                    Style="{StaticResource ImageButton}" 
+                    Width="24"
+                    Height="24"
+                    Tag="pack://application:,,,/Images/Transport/next.png"                
+                    Command="{Binding ElementName=playlistControl, Path=DataContext.NextTrackCommand}"
+                    />
+
+            <!-- STOP button-->
+            <Button Grid.Column="3"
+                    x:Name="stopButton"
+                    Style="{StaticResource ImageButton}" 
+                    Tag="pack://application:,,,/Images/Transport/stopsmall.png"
+                    Width="24"
+                    Height="24"
+                    Command="{Binding ElementName=audioPlayerControl, Path=DataContext.StopAudioCommand}"
+                    />
+
+        </Grid>
+        <!--#endregion-->
+
+        <!--#region AUDIO PLAYER -->
         <!--  -->
-        <Border Grid.Row="1">
+        <Border Grid.Row="2">
 
-            <!-- Transport panel -->
-            <local:TransportPanelControl DataContext="{Binding TransportPanelVM}"
-                                         x:Name="transportPanelControl"
-                                         />
+            <!-- AUDIO PLAYER CONTROL -->
+            <local:AudioPlayerControl DataContext="{Binding AudioPlayerVM}"
+                                      x:Name="audioPlayerControl"/>
 
         </Border>
 
         <!--#endregion-->
 
         <!--#region PLAYLIST -->
-        <local:PlaylistControl Grid.Row="2"
+        <local:PlaylistControl Grid.Row="3"
                                DataContext="{Binding PlaylistVM}"
                                x:Name="playlistControl"
                                VerticalAlignment="Stretch"
@@ -115,8 +200,8 @@
         <!--#endregion-->
 
         <!--#region INFO -->
-        <StackPanel Grid.Row="3"
-                    DataContext="{Binding AudioInfoVM}">
+        <StackPanel Grid.Row="4"
+                   >
 
             <!-- AUDIO TRACK Info-->
             <Border 

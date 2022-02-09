@@ -1,11 +1,10 @@
-﻿<UserControl x:Class="AudioPlayerMVVMandNAudio.TransportPanelControl"
+﻿<UserControl x:Class="AudioPlayerMVVMandNAudio.AudioPlayerControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:AudioPlayerMVVMandNAudio"
              mc:Ignorable="d">
-    
     <Grid AllowDrop="True">
         <Grid.RowDefinitions>
 
@@ -29,86 +28,7 @@
 
             </Grid.ColumnDefinitions>
 
-            <!--#region TRANSPORT BUTTONS-->
-            <Grid Grid.Column="0"
-                  Margin="5,5,0,5">
-
-                <Grid.ColumnDefinitions>
-                    
-                    <!-- Previous track button-->
-                    <ColumnDefinition Width="auto"/>
-                    
-                    <!-- Play/pause button -->
-                    <ColumnDefinition Width="auto"/>
-                    
-                    <!-- Next track button -->
-                    <ColumnDefinition Width="auto"/>
-                    
-                    <!-- Stop button -->
-                    <ColumnDefinition Width="auto"/>
-                    
-                </Grid.ColumnDefinitions>
-
-                <!-- PREVIOUS TRACK button -->
-                <Button Grid.Column="0"
-                        Style="{StaticResource ImageButton}" 
-                        Height="24"
-                        Width="24"
-                        Tag="pack://application:,,,/Images/Transport/previous.png"                   
-                        Command="{Binding PreviousTrackRequestCommand}"
-                        />
-
-                <!-- PLAY / PAUSE button -->
-                <Grid Grid.Column="1">
-                    
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="auto"/>
-                    </Grid.ColumnDefinitions>
-
-                    <!-- PLAY -->
-                    <Button Grid.Column="0"
-                            x:Name="playbutton"
-                            Style="{StaticResource ImageButton}" 
-                            Tag="pack://application:,,,/Images/Transport/play.png"
-                            Width="24"
-                            Height="24"
-                            Command="{Binding PlayAudioCommand}"
-                            Visibility="{Binding IsPlaying, Converter={StaticResource InvertBoolToVisibilityConverter}}"
-                            />
-
-                    <!-- PAUSE -->
-                    <Button Grid.Column="0"
-                            x:Name="pausebutton"
-                            Style="{StaticResource ImageButton}" 
-                            Tag="pack://application:,,,/Images/Transport/pausebutton.png"
-                            Width="24"
-                            Height="24"
-                            Command="{Binding PauseAudioCommand}"
-                            Visibility="{Binding IsPlaying, Converter={StaticResource BoolToVisibilityConverter}}"
-                            />
-
-                </Grid>
-
-                <!-- NEXT TRACK button-->
-                <Button Grid.Column="2"
-                        Style="{StaticResource ImageButton}" 
-                        Width="24"
-                        Height="24"
-                        Tag="pack://application:,,,/Images/Transport/next.png"                
-                        Command="{Binding NextTrackRequestCommand}"
-                        />
-
-                <!-- STOP button-->
-                <Button Grid.Column="3" 
-                        Style="{StaticResource ImageButton}" 
-                        Tag="pack://application:,,,/Images/Transport/stopsmall.png"
-                        Width="24"
-                        Height="24"
-                        Command="{Binding StopAudioCommand}"
-                        />
-
-            </Grid>
-            <!--#endregion-->
+            
 
             <!--#region VOLUME SLIDER -->
             <!--VOLUME SLIDER-->

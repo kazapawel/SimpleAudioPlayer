@@ -13,5 +13,10 @@ namespace AudioPlayerMVVMandNAudio
         {
             playlistVM.MoveItem(playlistVM.TargetItem, playlistVM.MovedItem);
         }
+
+        public override bool CanExecute(object parameter)
+        {
+            return true;
+        }
     }
 }

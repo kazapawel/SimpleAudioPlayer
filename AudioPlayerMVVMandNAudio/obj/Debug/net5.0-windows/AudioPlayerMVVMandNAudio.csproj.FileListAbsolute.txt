@@ -38,8 +38,6 @@ C:\Users\k\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerMVVMandNAudio\bin\De
 C:\Users\k\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerMVVMandNAudio\obj\Debug\net5.0-windows\AudioPlayerMVVMandNAudio.csproj.CopyComplete
 C:\Users\k\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerMVVMandNAudio\obj\Debug\net5.0-windows\Controls\PlaylistItem.g.cs
 C:\Users\k\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerMVVMandNAudio\obj\Debug\net5.0-windows\Controls\PlaylistItem.baml
-C:\Users\k\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerMVVMandNAudio\obj\Debug\net5.0-windows\Controls\TransportPanelControl.g.cs
-C:\Users\k\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerMVVMandNAudio\obj\Debug\net5.0-windows\Controls\TransportPanelControl.baml
 C:\Users\k\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerMVVMandNAudio\obj\Debug\net5.0-windows\Styles\CheckboxStyles.baml
 C:\Users\k\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerMVVMandNAudio\obj\Debug\net5.0-windows\AudioPlayerMVVMandNAudio.csproj.AssemblyReference.cache
 C:\Users\k\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerMVVMandNAudio\bin\Debug\net5.0-windows\TagLibSharp.dll
@@ -49,3 +47,5 @@ C:\Users\k\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerMVVMandNAudio\obj\De
 C:\Users\k\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerMVVMandNAudio\obj\Debug\net5.0-windows\Controls\PlaylistControl.baml
 C:\Users\k\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerMVVMandNAudio\obj\Debug\net5.0-windows\Styles\Fonts.baml
 C:\Users\k\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerMVVMandNAudio\obj\Debug\net5.0-windows\Styles\ImageStyles.baml
+C:\Users\k\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerMVVMandNAudio\obj\Debug\net5.0-windows\Controls\AudioPlayerControl.g.cs
+C:\Users\k\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerMVVMandNAudio\obj\Debug\net5.0-windows\Controls\AudioPlayerControl.baml

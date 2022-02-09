@@ -8,7 +8,7 @@ namespace AudioPlayerMVVMandNAudio
     /*
      * 
     TO DO:
-        *Allow drop on playlistitem
+            +DONE Allow drop on playlistitem
         *Volume slider - make it expotential, not linear
         *Position slider - update value after drag ends
         *Time popup - display value of dragged slider
@@ -45,7 +45,7 @@ namespace AudioPlayerMVVMandNAudio
         /// <summary>
         /// View model for audio player functionality
         /// </summary>
-        public TransportPanelVM TransportPanelVM { get; set; }
+        public AudioPlayerVM AudioPlayerVM { get; set; }
 
         /// <summary>
         /// View model for playlist
@@ -55,7 +55,7 @@ namespace AudioPlayerMVVMandNAudio
         /// <summary>
         /// Info about current track
         /// </summary>
-        public AudioInfoVM AudioInfoVM { get; set; }
+        public BufferAudioVM BufferAudioVM { get; set; }
 
         #endregion
 
@@ -67,26 +67,26 @@ namespace AudioPlayerMVVMandNAudio
         public ApplicationVM()
         {
             PlaylistVM = new PlaylistVM();
-            TransportPanelVM = new TransportPanelVM();
-            AudioInfoVM = new AudioInfoVM();
+            AudioPlayerVM = new AudioPlayerVM();
+            BufferAudioVM = new BufferAudioVM();
 
             //Subscribes PLAYLIST to TransportPanelVM events:
-            TransportPanelVM.AudioStartEvent += PlaylistVM.OnAudioStart;
-            TransportPanelVM.NextTrackRequestEvent += PlaylistVM.OnNextTrackRequest;
-            TransportPanelVM.PreviousTrackRequestEvent += PlaylistVM.OnPreviousTrackRequest;
-            TransportPanelVM.StopAudioBeforeEndEvent += PlaylistVM.OnAudioStoppedBeforeEnd;
+            //TransportPanelVM.AudioStartEvent += PlaylistVM.OnAudioStart;
+            //TransportPanelVM.NextTrackRequestEvent += PlaylistVM.OnNextTrackRequest;
+            //TransportPanelVM.PreviousTrackRequestEvent += PlaylistVM.OnPreviousTrackRequest;
+            //TransportPanelVM.StopAudioBeforeEndEvent += PlaylistVM.OnAudioStoppedBeforeEnd;
 
-            //Subscribes TRANSPORT to PlaylistVM events:
-            PlaylistVM.LoadAudioFileEvent += TransportPanelVM.OnAudioFileLoaded;
-            PlaylistVM.PlaylistEndedEvent += TransportPanelVM.OnPlaylistEnded;
-            PlaylistVM.PlaylistClearedEvent += TransportPanelVM.OnPlaylistCleared;
+            //Subscribes AUDIOPLAYER to PlaylistVM events:
+            PlaylistVM.LoadAudioFileEvent += AudioPlayerVM.OnAudioFileLoaded;
+            //PlaylistVM.PlaylistEndedEvent += TransportPanelVM.OnPlaylistEnded;
+            //PlaylistVM.PlaylistClearedEvent += TransportPanelVM.OnPlaylistCleared;
 
             //Subscribes AUDIO INFO to TransportPanelVM events:
-            TransportPanelVM.StopAudioBeforeEndEvent += AudioInfoVM.OnAudioStoppedBeforeEnd;
-            TransportPanelVM.AudioStartEvent += AudioInfoVM.OnAudioFileStart;
+            //TransportPanelVM.StopAudioBeforeEndEvent += BufferAudioVM.OnAudioStoppedBeforeEnd;
+            //TransportPanelVM.AudioStartEvent += BufferAudioVM.OnAudioFileStart;
 
             //Subscribes AUDIO INFO to PlaylistVM events:
-            PlaylistVM.PlaylistEndedEvent += AudioInfoVM.OnPlaylistEnded;
+            //PlaylistVM.PlaylistEndedEvent += BufferAudioVM.OnPlaylistEnded;
         }
     }
 }

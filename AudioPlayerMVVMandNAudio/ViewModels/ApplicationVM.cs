@@ -68,25 +68,9 @@ namespace AudioPlayerMVVMandNAudio
         {
             PlaylistVM = new PlaylistVM();
             AudioPlayerVM = new AudioPlayerVM();
-            BufferAudioVM = new BufferAudioVM();
-
-            //Subscribes PLAYLIST to TransportPanelVM events:
-            //TransportPanelVM.AudioStartEvent += PlaylistVM.OnAudioStart;
-            //TransportPanelVM.NextTrackRequestEvent += PlaylistVM.OnNextTrackRequest;
-            //TransportPanelVM.PreviousTrackRequestEvent += PlaylistVM.OnPreviousTrackRequest;
-            //TransportPanelVM.StopAudioBeforeEndEvent += PlaylistVM.OnAudioStoppedBeforeEnd;
 
             //Subscribes AUDIOPLAYER to PlaylistVM events:
-            PlaylistVM.LoadAudioFileEvent += AudioPlayerVM.OnAudioFileLoaded;
-            //PlaylistVM.PlaylistEndedEvent += TransportPanelVM.OnPlaylistEnded;
-            //PlaylistVM.PlaylistClearedEvent += TransportPanelVM.OnPlaylistCleared;
-
-            //Subscribes AUDIO INFO to TransportPanelVM events:
-            //TransportPanelVM.StopAudioBeforeEndEvent += BufferAudioVM.OnAudioStoppedBeforeEnd;
-            //TransportPanelVM.AudioStartEvent += BufferAudioVM.OnAudioFileStart;
-
-            //Subscribes AUDIO INFO to PlaylistVM events:
-            //PlaylistVM.PlaylistEndedEvent += BufferAudioVM.OnPlaylistEnded;
+            PlaylistVM.LoadSelectedAudioFileEvent += AudioPlayerVM.OnSelectedAudioFileLoaded;
         }
     }
 }

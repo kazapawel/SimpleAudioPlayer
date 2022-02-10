@@ -27,6 +27,7 @@ namespace AudioPlayerMVVMandNAudio
 
             //When window is closed playlist is saved to file
             Closing += playlistControl.OnWindowClosing;
+
         }
 
         #region WINDOW OPERATIONS 

@@ -38,7 +38,7 @@ namespace AudioPlayerMVVMandNAudio
         public ObservableCollection<AudioFileVM> SongsListObservable { get; set; }
 
         /// <summary>
-        /// Track which is load into buffer.
+        /// Track loaded into buffer.
         /// </summary>
         public AudioFileVM BufferTrack
         {
@@ -57,7 +57,7 @@ namespace AudioPlayerMVVMandNAudio
         }
 
         /// <summary>
-        /// Track that is highlighted
+        /// Track highlighted in playlist.
         /// </summary>
         public AudioFileVM SelectedTrack
         {
@@ -104,9 +104,14 @@ namespace AudioPlayerMVVMandNAudio
         #region EVENTS
 
         /// <summary>
-        /// Occurs when selected file is loaded to "buffer"
+        /// Occurs when selected file is loaded into "buffer"
         /// </summary>
-        public event EventHandler<AudioFileVMEventArgs> LoadAudioFileEvent;
+        public event EventHandler<AudioFileVMEventArgs> LoadSelectedAudioFileEvent;
+
+        /// <summary>
+        /// Occurs when first file from playlist is loaded into buffer.
+        /// </summary>
+        public event EventHandler<AudioFileVMEventArgs> LoadFirstAudioFileEvent;
 
         #endregion
 
@@ -115,7 +120,7 @@ namespace AudioPlayerMVVMandNAudio
         /// <summary>
         /// Loads selected track, in a responsone for double mouse click.
         /// </summary>
-        public ICommand LoadTrackCommand { get; set; }
+        public ICommand LoadSelectedTrackCommand { get; set; }
 
         /// <summary>
         /// Removes track from playlist.
@@ -164,8 +169,11 @@ namespace AudioPlayerMVVMandNAudio
             foreach (var song in model.SongsList)
                 SongsListObservable.Add(new AudioFileVM(song));
 
+            //First track from playlist becomes buffer track
+            LoadFirstTrackIntoBuffer();
+
             //Commands
-            LoadTrackCommand = new RelayCommand(LoadTrackToBuffer);
+            LoadSelectedTrackCommand = new RelayCommand(LoadSelectedTrackToBuffer);
             RemoveTracksFromPlaylistCommand = new RelayCommand(RemoveTracksFromPlaylist);
             ClearPlaylistCommand = new RelayCommand(ClearPlaylist);
 
@@ -182,28 +190,28 @@ namespace AudioPlayerMVVMandNAudio
         #region METHODS
 
         /// <summary>
-        /// Raises an LoadAudioFileEvent and sends selected track as argumentjksdhfkjasdhfjksdhfjksdfkljsdljkfh
+        /// Raises an LoadAudioFileEvent and sends selected track as argument
         /// </summary>
         /// <param name="o"></param>
-        private void LoadTrackToBuffer(object o)
+        private void LoadSelectedTrackToBuffer(object o)
         {
             //Selected track becomes buffer track
             BufferTrack = SelectedTrack;
 
             //Raises en event about new file in buffer
-            LoadAudioFileEvent?.Invoke(this, new AudioFileVMEventArgs(BufferTrack));
+            LoadSelectedAudioFileEvent?.Invoke(this, new AudioFileVMEventArgs(BufferTrack));
         }
 
         private void NextTrack(object o)
         {
             NextTrackSet();
-            LoadTrackToBuffer(null);
+            LoadSelectedTrackToBuffer(null);
         }
 
         private void PreviousTrack(object o)
         {
             PreviousTrackSet();
-            LoadTrackToBuffer(null);
+            LoadSelectedTrackToBuffer(null);
         }
 
         /// <summary>
@@ -239,6 +247,14 @@ namespace AudioPlayerMVVMandNAudio
             if (index > -1)
                 //Changes track selection
                 SelectedTrack = SongsListObservable[index];
+        }
+
+        private void LoadFirstTrackIntoBuffer()
+        {
+            if (BufferTrack is null && SongsListObservable.Count != 0)
+                BufferTrack = SongsListObservable[0];
+
+            LoadFirstAudioFileEvent?.Invoke(this, new AudioFileVMEventArgs(BufferTrack));
         }
 
         #region PLAYLIST CRUD METHODS

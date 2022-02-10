@@ -42,6 +42,7 @@
             <!-- Converters -->
             <local:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
             <local:InvertBoolToVisibilityConverter x:Key="InvertBoolToVisibilityConverter"/>
+            <local:BoolToImageConverter x:Key="BoolToImageConverter"/>
 
         </ResourceDictionary>
     </Application.Resources>

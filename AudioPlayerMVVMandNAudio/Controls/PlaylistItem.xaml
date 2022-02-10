@@ -9,7 +9,7 @@
 
     <UserControl.InputBindings>
         <MouseBinding MouseAction="LeftDoubleClick" 
-                      Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}, Path=DataContext.LoadTrackCommand}"/>
+                      Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}, Path=DataContext.LoadSelectedTrackCommand}"/>
     </UserControl.InputBindings>
 
     <Border Background="Transparent"

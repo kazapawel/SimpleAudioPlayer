@@ -116,7 +116,7 @@
                     Height="24"
                     Width="24"
                     Tag="pack://application:,,,/Images/Transport/previous.png"                   
-                    Command="{Binding ElementName=playlistControl, Path=DataContext.PreviousTrackCommand}"
+                    Command="{Binding PlaylistVM.PreviousTrackCommand}"
                     />
 
             <!-- PLAY / PAUSE button -->
@@ -130,11 +130,11 @@
                 <Button Grid.Column="0"
                         x:Name="playButton"
                         Style="{StaticResource ImageButton}"
-                        Tag="pack://application:,,,/Images/Transport/play.png"
+                        Tag="{Binding AudioPlayerVM.IsPlaying, Converter={StaticResource BoolToImageConverter }}"
                         Width="24"
                         Height="24"
-                        Command="{Binding ElementName=audioPlayerControl, Path=DataContext.PlayPauseCommand}"
-                        Visibility="{Binding IsPlaying, Converter={StaticResource InvertBoolToVisibilityConverter}}"
+                        Command="{Binding AudioPlayerVM.PlayPauseAudioCommand}"
+                        
                         />
 
                 <!-- PAUSE -->
@@ -156,8 +156,8 @@
                     Style="{StaticResource ImageButton}" 
                     Width="24"
                     Height="24"
-                    Tag="pack://application:,,,/Images/Transport/next.png"                
-                    Command="{Binding ElementName=playlistControl, Path=DataContext.NextTrackCommand}"
+                    Tag="pack://application:,,,/Images/Transport/next.png"
+                    Command="{Binding PlaylistVM.NextTrackCommand}"
                     />
 
             <!-- STOP button-->
@@ -167,7 +167,7 @@
                     Tag="pack://application:,,,/Images/Transport/stopsmall.png"
                     Width="24"
                     Height="24"
-                    Command="{Binding ElementName=audioPlayerControl, Path=DataContext.StopAudioCommand}"
+                    Command="{Binding AudioPlayerVM.StopAudioCommand}"
                     />
 
         </Grid>
@@ -221,21 +221,21 @@
                     <!-- Title -->
                     <TextBlock Grid.Column="0" 
                                Style="{StaticResource TrackInfoTextblock}" 
-                               Text="{Binding AudioFileVM.TrackTitle}"
+                               Text="{Binding AudioPlayerVM.BufferTrack.TrackTitle}"
                                Foreground="{StaticResource ForegroundSimpleOrangeBrush}"
                                />
 
                     <!-- Artist -->
                     <TextBlock Grid.Column="1"
                                Style="{StaticResource TrackInfoTextblock}" 
-                               Text="{Binding AudioFileVM.Artist}"
+                               Text="{Binding AudioPlayerVM.BufferTrack.Artist}"
                                Foreground="{StaticResource ForegroundSimpleLightGreenBrush}"
                                />
 
                     <!-- Album -->
                     <TextBlock Grid.Column="2"
                                Style="{StaticResource TrackInfoTextblock}" 
-                               Text="{Binding AudioFileVM.Album}"
+                               Text="{Binding AudioPlayerVM.BufferTrack.Album}"
                                Foreground="{StaticResource ForegroundSimpleDarkGreenBrush}"
                        />
 
@@ -264,7 +264,7 @@
                     <!-- File properties -->
                     <TextBlock Grid.Column="3"
                                Style="{StaticResource TrackInfoTextblock}" 
-                               Text="{Binding AudioFileVM.FileProperties}"
+                               Text="{Binding AudioPlayerVM.BufferTrack.FileProperties}"
                                Width="500"
                                TextTrimming="CharacterEllipsis"
                                />

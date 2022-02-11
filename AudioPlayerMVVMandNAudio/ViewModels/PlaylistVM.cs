@@ -228,6 +228,8 @@ namespace AudioPlayerMVVMandNAudio
             if (newIndex < SongsListObservable.Count)
                 //Changes track selection
                 SelectedTrack = SongsListObservable[newIndex];
+            else
+                SelectedTrack = null;
         }
 
         /// <summary>

@@ -18,15 +18,7 @@ namespace AudioPlayerMVVMandNAudio
         /// </summary>
         private Playlist model;
 
-        /// <summary>
-        /// Audio track in buffer
-        /// </summary>
-        private AudioFileVM bufferTrack;
-
-        /// <summary>
-        /// Audio track selected in playlist
-        /// </summary>
-        private AudioFileVM selectedTrack;
+        private Random random;
 
         #endregion
 
@@ -40,37 +32,15 @@ namespace AudioPlayerMVVMandNAudio
         /// <summary>
         /// Track loaded into buffer.
         /// </summary>
-        public AudioFileVM BufferTrack
-        {
-            get
-            {
-                return bufferTrack;
-            }
-            set
-            {
-                if (bufferTrack != value)
-                {
-                    bufferTrack = value;
-                    OnPropertyChanged(nameof(BufferTrack));
-                }
-            }
-        }
+        public AudioFileVM BufferTrack { get; set; }
 
         /// <summary>
         /// Track highlighted in playlist.
         /// </summary>
-        public AudioFileVM SelectedTrack
-        {
-            get => selectedTrack;
-            set
-            {
-                if (selectedTrack != value)
-                {
-                    selectedTrack = value;
-                    OnPropertyChanged(nameof(SelectedTrack));
-                }
-            }
-        }
+        public AudioFileVM SelectedTrack { get; set; }
+
+        public bool LoopOn { get; set; }
+        public bool ShuffleOn { get; set; }
 
         /// <summary>
         /// Gets number of items in playlist.
@@ -107,11 +77,6 @@ namespace AudioPlayerMVVMandNAudio
         /// Occurs when selected file is loaded into "buffer"
         /// </summary>
         public event EventHandler<AudioFileVMEventArgs> LoadSelectedAudioFileEvent;
-
-        /// <summary>
-        /// Occurs when first file from playlist is loaded into buffer.
-        /// </summary>
-        public event EventHandler<AudioFileVMEventArgs> LoadFirstAudioFileEvent;
 
         #endregion
 
@@ -161,6 +126,7 @@ namespace AudioPlayerMVVMandNAudio
         {
             //Model
             model = new Playlist();
+            random = new Random();
 
             //Playlist for binding
             SongsListObservable = new ObservableCollection<AudioFileVM>();
@@ -222,14 +188,18 @@ namespace AudioPlayerMVVMandNAudio
         private void NextTrackSet()
         {
             //Gets index of next track
-            var newIndex = SongsListObservable.IndexOf(BufferTrack) + 1;
+            var newIndex = ShuffleOn ? random.Next(SongsListObservable.Count) : SongsListObservable.IndexOf(BufferTrack) + 1;
 
-            //Checks if index is in range
+            //Checks if track is not last one
             if (newIndex < SongsListObservable.Count)
                 //Changes track selection
                 SelectedTrack = SongsListObservable[newIndex];
+            //If playlist reaches an end
             else
-                SelectedTrack = null;
+            {
+                if (LoopOn)
+                    SelectedTrack = SongsListObservable[0];
+            }
         }
 
         /// <summary>
@@ -255,8 +225,6 @@ namespace AudioPlayerMVVMandNAudio
         {
             if (BufferTrack is null && SongsListObservable.Count != 0)
                 BufferTrack = SongsListObservable[0];
-
-            LoadFirstAudioFileEvent?.Invoke(this, new AudioFileVMEventArgs(BufferTrack));
         }
 
         #region PLAYLIST CRUD METHODS
@@ -349,10 +317,24 @@ namespace AudioPlayerMVVMandNAudio
 
         #endregion
 
+        #region SUBSCRIBTION METHODS
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public void OnAudioHasEnded(object sender, EventArgs e)
+        {
+            NextTrack(null);
+        }
+
         /// <summary>
         /// 
         /// </summary>
         public void OnClosed() => model.SavePlaylist();
+
+        #endregion
     }
 
     #endregion

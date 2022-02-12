@@ -90,28 +90,44 @@
 
         <!--#endregion-->
         
-        <!--#region TRANSPORT BUTTONS -->
-        <Grid Grid.Row="1"
-              Margin="5,5,0,5">
-
+        <!--#region TRANSPORT BUTTONS / OPTIONS BUTTONS / VOLUME SLIDER -->
+        <Grid Grid.Row="1">
+            
             <Grid.ColumnDefinitions>
-
-                <!-- Previous track button-->
+                
+                <!-- Transport buttons -->
                 <ColumnDefinition Width="auto"/>
-
-                <!-- Play/pause button -->
+                
+                <!-- Options buttons-->
                 <ColumnDefinition Width="auto"/>
-
-                <!-- Next track button -->
-                <ColumnDefinition Width="auto"/>
-
-                <!-- Stop button -->
-                <ColumnDefinition Width="auto"/>
-
+                
+                <!-- Volume slider -->
+                <ColumnDefinition Width="*"/>
+                
             </Grid.ColumnDefinitions>
 
-            <!-- PREVIOUS TRACK button -->
-            <Button Grid.Column="0"
+            <!-- TRANSPORT BUTTONS -->
+            <Grid Grid.Column="0"
+              Margin="5,5,0,5">
+
+                <Grid.ColumnDefinitions>
+
+                    <!-- Previous track button-->
+                    <ColumnDefinition Width="auto"/>
+
+                    <!-- Play/pause button -->
+                    <ColumnDefinition Width="auto"/>
+
+                    <!-- Next track button -->
+                    <ColumnDefinition Width="auto"/>
+
+                    <!-- Stop button -->
+                    <ColumnDefinition Width="auto"/>
+
+                </Grid.ColumnDefinitions>
+
+                <!-- PREVIOUS TRACK button -->
+                <Button Grid.Column="0"
                     Style="{StaticResource ImageButton}" 
                     Height="24"
                     Width="24"
@@ -119,39 +135,18 @@
                     Command="{Binding PlaylistVM.PreviousTrackCommand}"
                     />
 
-            <!-- PLAY / PAUSE button -->
-            <Grid Grid.Column="1">
-
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto"/>
-                </Grid.ColumnDefinitions>
-
                 <!-- PLAY -->
-                <Button Grid.Column="0"
+                <Button Grid.Column="1"
                         x:Name="playButton"
                         Style="{StaticResource ImageButton}"
                         Tag="{Binding AudioPlayerVM.IsPlaying, Converter={StaticResource BoolToImageConverter }}"
                         Width="24"
                         Height="24"
                         Command="{Binding AudioPlayerVM.PlayPauseAudioCommand}"
-                        
                         />
 
-                <!-- PAUSE -->
-                <!--<Button Grid.Column="0"
-                            x:Name="pausebutton"
-                            Style="{StaticResource ImageButton}" 
-                            Tag="pack://application:,,,/Images/Transport/pausebutton.png"
-                            Width="24"
-                            Height="24"
-                            Command="{Binding PauseAudioCommand}"
-                            Visibility="{Binding IsPlaying, Converter={StaticResource BoolToVisibilityConverter}}"
-                            />-->
-
-            </Grid>
-
-            <!-- NEXT TRACK button-->
-            <Button Grid.Column="2"
+                <!-- NEXT TRACK button-->
+                <Button Grid.Column="2"
                     x:Name="nextTrackButton"
                     Style="{StaticResource ImageButton}" 
                     Width="24"
@@ -160,8 +155,8 @@
                     Command="{Binding PlaylistVM.NextTrackCommand}"
                     />
 
-            <!-- STOP button-->
-            <Button Grid.Column="3"
+                <!-- STOP button-->
+                <Button Grid.Column="3"
                     x:Name="stopButton"
                     Style="{StaticResource ImageButton}" 
                     Tag="pack://application:,,,/Images/Transport/stopsmall.png"
@@ -170,7 +165,44 @@
                     Command="{Binding AudioPlayerVM.StopAudioCommand}"
                     />
 
+            </Grid>
+            
+            <!-- OPTIONS BUTTONS -->
+            <Grid Grid.Column="1">
+                
+                <Grid.ColumnDefinitions>
+                    
+                    <!-- Loop button -->
+                    <ColumnDefinition Width="auto"/>
+                    
+                    <!-- Shuffle button -->
+                    <ColumnDefinition Width="auto"/>
+                    
+                </Grid.ColumnDefinitions>
+
+                <CheckBox Grid.Column="0"
+                          x:Name="loopButton"
+                          IsChecked="{Binding PlaylistVM.LoopOn, Mode=OneWayToSource}"
+                          Width="20"
+                          Height="20"
+                          Margin="2"
+                          HorizontalAlignment="Center"
+                          VerticalAlignment="Center"
+                          />
+                <CheckBox Grid.Column="1"
+                          x:Name="shuffleButton"
+                          Background="Red"
+                          IsChecked="{Binding PlaylistVM.ShuffleOn, Mode=OneWayToSource}"
+                          Width="20"
+                          Height="20"
+                          Margin="2"
+                          HorizontalAlignment="Center"
+                          VerticalAlignment="Center"
+                          />
+            </Grid>
         </Grid>
+        
+        
         <!--#endregion-->
 
         <!--#region AUDIO PLAYER -->

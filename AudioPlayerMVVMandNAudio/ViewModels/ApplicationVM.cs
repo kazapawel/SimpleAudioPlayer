@@ -52,14 +52,7 @@ namespace AudioPlayerMVVMandNAudio
         /// </summary>
         public PlaylistVM PlaylistVM { get; set; }
 
-        /// <summary>
-        /// Info about current track
-        /// </summary>
-        public BufferAudioVM BufferAudioVM { get; set; }
-
         #endregion
-
-        public ICommand CloseWindowCommand { get; set; }
 
         /// <summary>
         /// Default constructor.
@@ -71,6 +64,9 @@ namespace AudioPlayerMVVMandNAudio
 
             //Subscribes AUDIOPLAYER to PlaylistVM events:
             PlaylistVM.LoadSelectedAudioFileEvent += AudioPlayerVM.OnSelectedAudioFileLoaded;
+
+            //Subscribes PLAYLIST to AudioPlayerVM events:
+            AudioPlayerVM.AudioHasEndedEvent += PlaylistVM.OnAudioHasEnded;
         }
     }
 }

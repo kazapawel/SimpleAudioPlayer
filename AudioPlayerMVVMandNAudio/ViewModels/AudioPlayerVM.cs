@@ -127,7 +127,11 @@ namespace AudioPlayerMVVMandNAudio
             set
             {
                 if(audioFilePlayer != null)
+                {
                     audioFilePlayer.StreamPosition = (long)value * (audioFilePlayer.StreamLength / 100);
+                    OnPropertyChanged(nameof(TimeCurrent));
+                }
+                    
             }
         }
 
@@ -144,6 +148,8 @@ namespace AudioPlayerMVVMandNAudio
         #endregion
 
         #region EVENTS
+
+        public event EventHandler AudioHasEndedEvent;
 
         #endregion
 
@@ -185,8 +191,7 @@ namespace AudioPlayerMVVMandNAudio
         #endregion
 
         #region METHODS
-
-        
+  
         #region PLAYBACK METHODS  if/else approach
         /*
         /// <summary>
@@ -248,8 +253,7 @@ namespace AudioPlayerMVVMandNAudio
         */
         #endregion
         
-        #region STATE METHODS state machine approach
-        
+        #region STATE METHODS state machine approach        
         private void PlayPauseAudio(object o)
         {
             State.Play();
@@ -259,7 +263,6 @@ namespace AudioPlayerMVVMandNAudio
         {
             State.Stop();
         }
-        
         
         #endregion
 
@@ -344,6 +347,9 @@ namespace AudioPlayerMVVMandNAudio
 
             //Sets this player state
             IsPlaying = false;
+
+            //Notify subscribers about playback end
+            AudioHasEndedEvent?.Invoke(this, null);
         }
 
         #endregion

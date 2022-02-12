@@ -63,7 +63,6 @@ namespace AudioPlayerNAudio
         /// </summary>
         public long StreamLength => audioFileReader != null ? audioFileReader.Length : 0;
 
-
         #endregion
 
         #region EVENTS

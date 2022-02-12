@@ -19,20 +19,18 @@ namespace AudioPlayerMVVMandNAudio
             vM.AudioEnginePause();
 
             //Change pause state property 
-            vM.IsPlaying = false;
+            vM.OnPropertyChanged(nameof(vM.IsPlaying));
         }
         public void Play()
         {
             vM.State = new PlayState(vM);
             vM.State.EnterState();
         }
-
         public void Stop()
         {
             vM.State = new StopState(vM);
             vM.State.EnterState();
         }
-
         public void Pause()
         {
             //Do nothing

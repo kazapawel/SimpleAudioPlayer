@@ -64,6 +64,7 @@ namespace AudioPlayerMVVMandNAudio
 
             //Subscribes AUDIOPLAYER to PlaylistVM events:
             PlaylistVM.LoadSelectedAudioFileEvent += AudioPlayerVM.OnSelectedAudioFileLoaded;
+            PlaylistVM.PlaylistHasEndedEvent += AudioPlayerVM.OnPlaylistEnded;
 
             //Subscribes PLAYLIST to AudioPlayerVM events:
             AudioPlayerVM.AudioHasEndedEvent += PlaylistVM.OnAudioHasEnded;

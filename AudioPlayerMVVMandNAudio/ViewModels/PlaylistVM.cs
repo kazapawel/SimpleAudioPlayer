@@ -78,6 +78,8 @@ namespace AudioPlayerMVVMandNAudio
         /// </summary>
         public event EventHandler<AudioFileVMEventArgs> LoadSelectedAudioFileEvent;
 
+        public event EventHandler PlaylistHasEndedEvent;
+
         #endregion
 
         #region COMMANDS
@@ -136,7 +138,7 @@ namespace AudioPlayerMVVMandNAudio
                 SongsListObservable.Add(new AudioFileVM(song));
 
             //First track from playlist becomes buffer track
-            LoadFirstTrackIntoBuffer();
+            //LoadFirstTrackIntoBuffer();
 
             //Commands
             LoadSelectedTrackCommand = new RelayCommand(LoadSelectedTrackToBuffer);
@@ -170,13 +172,21 @@ namespace AudioPlayerMVVMandNAudio
 
         private void NextTrack(object o)
         {
-            NextTrackSet();
+            if (ShuffleOn)
+                RandomTrackSet();
+            else
+                NextTrackSet();
+
             LoadSelectedTrackToBuffer(null);
         }
 
         private void PreviousTrack(object o)
         {
-            PreviousTrackSet();
+            if (ShuffleOn)
+                RandomTrackSet();
+            else
+                PreviousTrackSet();
+
             LoadSelectedTrackToBuffer(null);
         }
 
@@ -188,19 +198,23 @@ namespace AudioPlayerMVVMandNAudio
         private void NextTrackSet()
         {
             //Gets index of next track
-            var newIndex = ShuffleOn ? random.Next(SongsListObservable.Count) : SongsListObservable.IndexOf(BufferTrack) + 1;
+            var newIndex = SongsListObservable.IndexOf(BufferTrack) + 1;
+
+            //if(LoopOn) //count - (count-index-1)
 
             //Checks if track is not last one
             if (newIndex < SongsListObservable.Count)
                 //Changes track selection
                 SelectedTrack = SongsListObservable[newIndex];
+
             //If playlist reaches an end
             else
             {
+                //If loop is on then goes to first track in playlist
                 if (LoopOn)
                     SelectedTrack = SongsListObservable[0];
             }
-        }
+        }      
 
         /// <summary>
         /// Sets previous track in playlist as selected track.
@@ -209,7 +223,7 @@ namespace AudioPlayerMVVMandNAudio
         /// <param name="e"></param>
         private void PreviousTrackSet()
         {
-            //Gets index of currently playing track
+            //Gets index of current buffer track
             var index = SongsListObservable.IndexOf(BufferTrack);
 
             //Sets new index of selected track, if you press previous track on first track it will start over.
@@ -221,10 +235,12 @@ namespace AudioPlayerMVVMandNAudio
                 SelectedTrack = SongsListObservable[index];
         }
 
-        private void LoadFirstTrackIntoBuffer()
+        /// <summary>
+        /// 
+        /// </summary>
+        private void RandomTrackSet()
         {
-            if (BufferTrack is null && SongsListObservable.Count != 0)
-                BufferTrack = SongsListObservable[0];
+            SelectedTrack = SongsListObservable[random.Next(SongsListObservable.Count)];
         }
 
         #region PLAYLIST CRUD METHODS

@@ -46,7 +46,7 @@ namespace AudioPlayerMVVMandNAudio
         #region PUBLIC PROPERTIES
 
         /// <summary>
-        /// Audio player buffer - track which is currently loaded and ready for play
+        /// Audio player buffer - track which is currently loaded.
         /// </summary>
         public AudioFileVM BufferTrack
         {
@@ -97,21 +97,7 @@ namespace AudioPlayerMVVMandNAudio
         /// <summary>
         /// Returns true if audio is playing. This is a flag to swap between play and pause image in gui.
         /// </summary>
-        public bool IsPlaying
-        {
-            get
-            {
-                return isPlaying;
-            }
-    set
-            {
-                if(isPlaying!=value)
-                {
-                    isPlaying = value;
-                    OnPropertyChanged(nameof(IsPlaying));
-}
-            }
-        }
+        public bool IsPlaying => State is PlayState;
 
         /// <summary>
         /// 
@@ -254,6 +240,7 @@ namespace AudioPlayerMVVMandNAudio
         #endregion
         
         #region STATE METHODS state machine approach        
+
         private void PlayPauseAudio(object o)
         {
             State.Play();
@@ -290,8 +277,6 @@ namespace AudioPlayerMVVMandNAudio
                     //Resets audioFilePlayer
                     audioFilePlayer = null;
 
-                    //Changes state of player
-                    IsPlaying = false;    //Ends method = no audio playback
                     return;
                 }
 
@@ -346,7 +331,7 @@ namespace AudioPlayerMVVMandNAudio
             audioFilePlayer = null;
 
             //Sets this player state
-            IsPlaying = false;
+            OnPropertyChanged(nameof(IsPlaying));
 
             //Notify subscribers about playback end
             AudioHasEndedEvent?.Invoke(this, null);
@@ -409,6 +394,8 @@ namespace AudioPlayerMVVMandNAudio
 
         #endregion
 
+        public void RaiseAudioHasEndedEvent() => AudioHasEndedEvent?.Invoke(this, null);
+
         #region SUBSCRIPTIONS METHODS
 
         /// <summary>
@@ -426,6 +413,11 @@ namespace AudioPlayerMVVMandNAudio
 
             //Plays new track
             PlayPauseAudio(null);
+        }
+
+        public void OnPlaylistEnded(object sender, EventArgs e)
+        {
+            StopAudio(null);
         }
 
         #endregion

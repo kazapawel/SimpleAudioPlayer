@@ -22,7 +22,7 @@ namespace AudioPlayerMVVMandNAudio
                 vM.BufferTrack.IsAudioFilePlaying = false;
 
             vM.AudioEngineStop();
-            vM.IsPlaying = false;
+            vM.OnPropertyChanged(nameof(vM.IsPlaying));
             vM.StopTimer();
         }
         public void Play()
@@ -34,7 +34,6 @@ namespace AudioPlayerMVVMandNAudio
         {
             //Do nothing
         }
-
         public void Pause()
         {
             //Do nothing

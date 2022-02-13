@@ -112,7 +112,7 @@ namespace AudioPlayerMVVMandNAudio
         /// <summary>
         /// 
         /// </summary>
-        public ICommand CloseWindowCommand { get; set; }
+        public ICommand OnWindowClosingCommand { get; set; }
 
         public ICommand NextTrackCommand { get; set; }
         public ICommand PreviousTrackCommand { get; set; }
@@ -147,7 +147,7 @@ namespace AudioPlayerMVVMandNAudio
 
             AddFilesCommand = new AddFilesCommand(this);
             MoveItemCommand = new MoveItemCommand(this);
-            CloseWindowCommand = new CloseWindowCommand(this);
+            OnWindowClosingCommand = new CloseWindowCommand(this);
 
             NextTrackCommand = new RelayCommand(NextTrack);
             PreviousTrackCommand = new RelayCommand(PreviousTrack);
@@ -342,13 +342,19 @@ namespace AudioPlayerMVVMandNAudio
         /// <param name="e"></param>
         public void OnAudioHasEnded(object sender, EventArgs e)
         {
-            NextTrack(null);
+            //Checks if playlist has ended 
+            if (!LoopOn && SongsListObservable.IndexOf(BufferTrack) + 1 == SongsListObservable.Count)
+                PlaylistHasEndedEvent?.Invoke(this, null);
+
+            //If not, plays next track
+            else
+                NextTrack(null);
         }
 
         /// <summary>
-        /// 
+        /// Saves playlist to file.
         /// </summary>
-        public void OnClosed() => model.SavePlaylist();
+        public void OnWindowClosing() => model.SavePlaylist();
 
         #endregion
     }

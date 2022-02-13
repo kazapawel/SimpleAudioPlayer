@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace AudioPlayerMVVMandNAudio
 {
-    public interface IState
+    public interface IAudioPlayerState
     {
         void EnterState();
-        void Play();
-        void Stop();
-        void Pause();
+        void PlayTrack();
+        void StopTrack();
     }
 }

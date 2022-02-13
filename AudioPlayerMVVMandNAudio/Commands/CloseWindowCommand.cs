@@ -17,7 +17,7 @@ namespace AudioPlayerMVVMandNAudio
 
         public override void Execute(object parameter)
         {
-            viewModel.OnClosed();
+            viewModel.OnWindowClosing();
         }
     }
 }

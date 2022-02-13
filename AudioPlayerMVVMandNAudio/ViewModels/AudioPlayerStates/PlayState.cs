@@ -1,56 +1,47 @@
 ﻿namespace AudioPlayerMVVMandNAudio
 {
-    public class PlayState : IState
+    public class PlayState : IAudioPlayerState
     {
-        /// <summary>
-        /// Audio Player Vm reference
-        /// </summary>
-        private AudioPlayerVM vM;
+        private readonly AudioPlayerVM vM;
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        /// <param name="vm"></param>
         public PlayState(AudioPlayerVM vm)
         {
             vM = vm;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
+
         public void EnterState()
         {
+            //Plays audio only when there is a buffer track
             if (vM.BufferTrack != null && vM.BufferTrack.Path != null)
             {
                 //Plays audio
                 vM.AudioEnginePlay();
 
-                //Timer
+                //Starts timer for readonly properties
                 vM.StartTimer();
 
                 //Changes state of buffer track
                 vM.BufferTrack.IsAudioFilePlaying = true;
 
-                //Changes player's state flag
+                //Refresh readonly property
                 vM.OnPropertyChanged(nameof(vM.IsPlaying));
             }
+            //Else raises an event. This situation should happend only once - after application start, when buffer is empty.
             else
-                vM.RaiseAudioHasEndedEvent();
+                vM.RaiseOnAudioHasEndedEvent();
         }
-        public void Play()
+
+        public void PlayTrack()
         {
             vM.State = new PauseState(vM);
             vM.State.EnterState();
         }
-        public void Stop()
+
+        public void StopTrack()
         {
             vM.State = new StopState(vM);
             vM.State.EnterState();
-        }
-        public void Pause()
-        {
-            //DoNothing
         }
     }
 }

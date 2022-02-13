@@ -8,6 +8,6 @@ namespace AudioPlayerMVVMandNAudio
 {
     public interface ICloseWindow
     {
-        void OnClosed();
+        void OnWindowClosing();
     }
 }

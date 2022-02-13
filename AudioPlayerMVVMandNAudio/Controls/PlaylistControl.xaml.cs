@@ -18,14 +18,14 @@ namespace AudioPlayerMVVMandNAudio
         /// <summary>
         /// 
         /// </summary>
-        public ICommand CloseWindowCommand
+        public ICommand OnWindowClosingCommand
         {
-            get { return (ICommand)GetValue(CloseWindowCommandProperty); }
-            set { SetValue(CloseWindowCommandProperty, value); }
+            get { return (ICommand)GetValue(OnWindowClosingCommandProperty); }
+            set { SetValue(OnWindowClosingCommandProperty, value); }
         }
 
-        public static readonly DependencyProperty CloseWindowCommandProperty =
-            DependencyProperty.Register("CloseWindowCommand", typeof(ICommand), typeof(PlaylistControl), new PropertyMetadata(null));
+        public static readonly DependencyProperty OnWindowClosingCommandProperty =
+            DependencyProperty.Register("OnWindowClosingCommand", typeof(ICommand), typeof(PlaylistControl), new PropertyMetadata(null));
 
         /// <summary>
         /// 
@@ -205,7 +205,7 @@ namespace AudioPlayerMVVMandNAudio
         /// <param name="e"></param>
         public void OnWindowClosing(object sender,System.ComponentModel.CancelEventArgs e)
         {
-            CloseWindowCommand?.Execute(null);
+            OnWindowClosingCommand?.Execute(null);
         }
 
         #region PRIVATE HELPER METHODS

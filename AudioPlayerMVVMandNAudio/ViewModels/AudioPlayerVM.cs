@@ -32,12 +32,7 @@ namespace AudioPlayerMVVMandNAudio
         /// </summary>
         private double storedVolume;
 
-        /// <summary>
-        /// 
-        /// </summary>
-        private bool isPlaying;
-
-        internal IState State;
+        internal IAudioPlayerState State;
 
         private AudioFileVM bufferTrack;
 
@@ -177,7 +172,7 @@ namespace AudioPlayerMVVMandNAudio
         #endregion
 
         #region METHODS
-  
+
         #region PLAYBACK METHODS  if/else approach
         /*
         /// <summary>
@@ -238,17 +233,17 @@ namespace AudioPlayerMVVMandNAudio
         }
         */
         #endregion
-        
+
         #region STATE METHODS state machine approach        
 
         private void PlayPauseAudio(object o)
         {
-            State.Play();
+            State.PlayTrack();
         }
 
         private void StopAudio(object o)
         {
-            State.Stop();
+            State.StopTrack();
         }
         
         #endregion
@@ -337,6 +332,8 @@ namespace AudioPlayerMVVMandNAudio
             AudioHasEndedEvent?.Invoke(this, null);
         }
 
+        public void RaiseOnAudioHasEndedEvent() => AudioHasEndedEvent?.Invoke(this, null);
+
         #endregion
 
         #region TIMER METHODS
@@ -393,8 +390,6 @@ namespace AudioPlayerMVVMandNAudio
         }
 
         #endregion
-
-        public void RaiseAudioHasEndedEvent() => AudioHasEndedEvent?.Invoke(this, null);
 
         #region SUBSCRIPTIONS METHODS
 

@@ -1,9 +1,8 @@
-﻿
-namespace AudioPlayerMVVMandNAudio
+﻿namespace AudioPlayerMVVMandNAudio
 {
-    public class PauseState : IState
+    public class PauseState : IAudioPlayerState
     {
-        private AudioPlayerVM vM;
+        private readonly AudioPlayerVM vM;
 
         public PauseState(AudioPlayerVM vm)
         {
@@ -12,28 +11,24 @@ namespace AudioPlayerMVVMandNAudio
 
         public void EnterState()
         {
-            //Stops timer
-            //timer?.Stop();
-            vM.StopTimer();
             //Pauses audio
             vM.AudioEnginePause();
+
+            //Stops timer
+            vM.StopTimer();
 
             //Change pause state property 
             vM.OnPropertyChanged(nameof(vM.IsPlaying));
         }
-        public void Play()
+        public void PlayTrack()
         {
             vM.State = new PlayState(vM);
             vM.State.EnterState();
         }
-        public void Stop()
+        public void StopTrack()
         {
             vM.State = new StopState(vM);
             vM.State.EnterState();
-        }
-        public void Pause()
-        {
-            //Do nothing
         }
     }
 }

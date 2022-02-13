@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AudioPlayerMVVMandNAudio
+﻿namespace AudioPlayerMVVMandNAudio
 {
-    public class StopState : IState
+    public class StopState : IAudioPlayerState
     {
-        private AudioPlayerVM vM;
+        private readonly AudioPlayerVM vM;
 
         public StopState(AudioPlayerVM vm)
         {
@@ -17,24 +11,27 @@ namespace AudioPlayerMVVMandNAudio
 
         public void EnterState()
         {
+            //Stops audio
+            vM.AudioEngineStop();
+
+            //Stops timer
+            vM.StopTimer();
+
             //Sets buffer state
             if (vM.BufferTrack != null)
                 vM.BufferTrack.IsAudioFilePlaying = false;
 
-            vM.AudioEngineStop();
-            vM.OnPropertyChanged(nameof(vM.IsPlaying));
-            vM.StopTimer();
+            //Refresh readonly property
+            vM.OnPropertyChanged(nameof(vM.IsPlaying));         
         }
-        public void Play()
+
+        public void PlayTrack()
         {
             vM.State = new PlayState(vM);
             vM.State.EnterState();
         }
-        public void Stop()
-        {
-            //Do nothing
-        }
-        public void Pause()
+
+        public void StopTrack()
         {
             //Do nothing
         }

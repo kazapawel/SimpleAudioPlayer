@@ -93,7 +93,7 @@
             <!-- ACTUAL TIME textblock -->
             <TextBlock Grid.Column="0"
                        Style="{StaticResource TimeTextblock}" 
-                       Text="{Binding TimeCurrent}"    
+                       Text="{Binding TimeCurrent, Mode=OneWay}"    
                        />
 
             <!-- Time and position slider-->
@@ -111,34 +111,10 @@
                     MouseLeftButtonUp="PositionSlider_MouseLeftButtonUp"
                     />
 
-            <!-- POPUP with time value-->
-            <Popup Name="TimeValuePopup"
-                   Placement="Relative"
-                   VerticalOffset="20"
-                   HorizontalOffset="10"
-                   StaysOpen="True"
-                   PlacementTarget="{Binding ElementName=PositionSlider}">
-                
-                <Grid Background="Red">
-                    <TextBlock Text="{Binding TimeCurrent}"/>
-                </Grid>
-
-                <Popup.Style>
-                    <Style TargetType="Popup">
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding Path=IsMouseOver, ElementName=PositionSlider}" Value="True">
-                                <Setter Property="IsOpen" Value="True"/>
-                            </DataTrigger>
-
-                        </Style.Triggers>
-                    </Style>
-                </Popup.Style>
-            </Popup>
-
             <!-- TOTAL TIME textblock -->
             <TextBlock Grid.Column="2" 
                        Style="{StaticResource TimeTextblock}" 
-                       Text="{Binding TimeTotal}"                           
+                       Text="{Binding TimeTotal, Mode=OneWay}"                           
                        />
         </Grid>
         <!--#endregion-->

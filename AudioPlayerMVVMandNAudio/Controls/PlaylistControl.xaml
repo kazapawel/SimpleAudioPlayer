@@ -24,7 +24,7 @@
                  x:Name="PlaylistListbox"                
                  Style="{StaticResource PlaylistStyle}"
                  ItemsSource="{Binding SongsListObservable}"                                                
-                 SelectedItem="{Binding SelectedTrack, Mode=OneWayToSource}"
+                 SelectedItem="{Binding SelectedTrack, Mode=TwoWay}"
                  SelectionMode="Extended"
                  AllowDrop="True">
             

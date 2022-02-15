@@ -13,11 +13,6 @@ namespace AudioPlayerMVVMandNAudio
         #region PRIVATE MEMBERS
 
         /// <summary>
-        /// Audio player model
-        /// </summary>
-        private IAudioFilePlayer<float> audioFilePlayer;
-
-        /// <summary>
         /// Timer for updating data from model.
         /// </summary>
         private DispatcherTimer timer { get; set; }
@@ -35,6 +30,8 @@ namespace AudioPlayerMVVMandNAudio
         internal IAudioPlayerState State;
 
         private AudioFileVM bufferTrack;
+
+        public IAudioFilePlayer AudioFilePlayer { get; set; }
 
         #endregion
 
@@ -68,7 +65,8 @@ namespace AudioPlayerMVVMandNAudio
                 storedVolume = value;
 
                 //Sets audio file player volume if there is one, based on mute state
-                SetAudioPlayerVolume();
+                if(AudioFilePlayer !=null)
+                    SetAudioPlayerVolume();
             }
 
         }
@@ -85,7 +83,8 @@ namespace AudioPlayerMVVMandNAudio
             set
             {
                 muted = value;
-                SetAudioPlayerVolume();
+                if(AudioFilePlayer != null)
+                    SetAudioPlayerVolume();
             }
         }
 
@@ -95,36 +94,30 @@ namespace AudioPlayerMVVMandNAudio
         public bool IsPlaying => State is PlayState;
 
         /// <summary>
-        /// 
-        /// </summary>
-        public List<string[]> ErrorLog { get; set; }
-
-        /// <summary>
         /// Audio time position
         /// </summary>
         public double Position
         {
-            get => audioFilePlayer != null ? (double)(audioFilePlayer.StreamPosition)/(audioFilePlayer.StreamLength/100) : 0;
+            get => AudioFilePlayer.IsReady ? (double) (AudioFilePlayer.StreamPosition)/(AudioFilePlayer.StreamLength/100) : 0;
             set
             {
-                if(audioFilePlayer != null)
+                if(AudioFilePlayer.IsReady)
                 {
-                    audioFilePlayer.StreamPosition = (long)value * (audioFilePlayer.StreamLength / 100);
+                    AudioFilePlayer.StreamPosition = (long) value * (AudioFilePlayer.StreamLength / 100);
                     OnPropertyChanged(nameof(TimeCurrent));
                 }
-                    
             }
         }
 
         /// <summary>
         /// String representation of current time of audio which is playing.
         /// </summary>
-        public string TimeCurrent => audioFilePlayer != null ? audioFilePlayer.TimeCurrent.ToString(@"h\:mm\:ss") : " --:-- ";
+        public string TimeCurrent => AudioFilePlayer.IsReady? AudioFilePlayer.TimeCurrent.ToString(@"h\:mm\:ss") : " --:-- ";
 
         /// <summary>
         /// String representation of total time of audio which is playing
         /// </summary>
-        public string TimeTotal => audioFilePlayer != null ? audioFilePlayer.TimeTotal.ToString(@"h\:mm\:ss") : " --:-- ";
+        public string TimeTotal => AudioFilePlayer.IsReady? AudioFilePlayer.TimeTotal.ToString(@"h\:mm\:ss") : " --:-- ";
 
         #endregion
 
@@ -157,8 +150,9 @@ namespace AudioPlayerMVVMandNAudio
             //Sets start volume
             Volume = 50;
 
-            //Inits errog log list
-            ErrorLog = new List<string[]>();
+            //Audio player model
+            AudioFilePlayer = new AudioFilePlayerNAudio();
+            AudioFilePlayer.AudioHasEndedEvent += OnAudioHasEnded;
 
             //Timer
             timer = new DispatcherTimer();
@@ -173,146 +167,22 @@ namespace AudioPlayerMVVMandNAudio
 
         #region METHODS
 
-        #region PLAYBACK METHODS  if/else approach
-        /*
-        /// <summary>
-        /// Toggles between play and pause.
-        /// </summary>
-        /// <param name="o"></param>
-        private void PlayPauseAudio(object o)
-        {
-            //Works only when there is a track in buffer
-            if (BufferTrack != null && BufferTrack.Path != null)
-            {
-                //PAUSE
-                if (IsPlaying)
-                {
-                    //Stops timer
-                    timer?.Stop();
+        private void PlayPauseAudio(object o) => State.PlayTrack();
 
-                    //Pauses audio
-                    AudioEnginePause();
-
-                    //Change pause state property 
-                    IsPlaying = false;
-                }
-                //PLAY
-                else
-                {
-                    //Plays audio
-                    AudioEnginePlay();
-
-                    //Timer
-                    StartTimer();
-
-                    //Sets buffer track state
-                    BufferTrack.IsAudioFilePlaying = true;
-
-                    //Sets this player state
-                    IsPlaying = true;
-                }
-            }
-        }
-
-        /// <summary>
-        /// Stops current audio playback before audio reaching it's end.
-        /// </summary>
-        /// <param name="o"></param>
-        private void StopAudio(object o)
-        {
-            //Sets buffer track state
-            if (BufferTrack != null)
-                BufferTrack.IsAudioFilePlaying = false;
-
-            AudioEngineStop();
-
-            StopTimer();
-
-            //Sets this player state
-            IsPlaying = false;
-        }
-        */
-        #endregion
-
-        #region STATE METHODS state machine approach        
-
-        private void PlayPauseAudio(object o)
-        {
-            State.PlayTrack();
-        }
-
-        private void StopAudio(object o)
-        {
-            State.StopTrack();
-        }
-        
-        #endregion
-
-        #region AUDIO ENGINE METHODS
-        internal void AudioEnginePlay()
-        {
-            //If audio is paused - resumes audio
-            if (audioFilePlayer != null)
-                audioFilePlayer.ResumeAudio();
-
-            //If audio is not paused: 
-            else
-            {
-                //creates new audioplayer model to prevent from playing multiple files at the same time
-                try
-                {
-                    //Creates new instance of audio file player model
-                    audioFilePlayer = new AudioFilePlayerNAudio(BufferTrack.Path);
-                }
-                catch (Exception e)
-                {
-                    //Logs exception info
-                    ErrorLog.Add(new string[] { e.ToString(), e.Message });
-
-                    //Resets audioFilePlayer
-                    audioFilePlayer = null;
-
-                    return;
-                }
-
-                //Sets audioplayer model volume based on user volume settings(ex: volume fader)
-                SetAudioPlayerVolume();
-
-                //Subscribes to model event which informs about audio reaching it's end.
-                audioFilePlayer.AudioHasEndedEvent += OnAudioHasEnded;
-
-                //Plays audio
-                audioFilePlayer.PlayAudio();
-            }
-        }
-        internal void AudioEngineStop()
-        {
-            //If audio is playing or paused
-            if (audioFilePlayer != null)
-            {
-                //Stops audio file player
-                audioFilePlayer?.StopAudio();
-
-                //Clears model
-                audioFilePlayer = null;
-            }
-        }
-        internal void AudioEnginePause()
-        {
-            //Pause audio
-            audioFilePlayer?.PauseAudio();
-        }
+        private void StopAudio(object o) => State.StopTrack();
 
         /// <summary>
         /// If there is a audio player, sets it's volume.
         /// </summary>
         private void SetAudioPlayerVolume()
         {
-            if (audioFilePlayer != null)
-            {
-                var volume = (float)(storedVolume / 100);
-                audioFilePlayer.Volume = Muted ? 0 : volume;
-            }
+            AudioFilePlayer.Volume = Muted ? 0 : storedVolume;
+
+            //if (AudioFilePlayer != null)
+            //{
+            //    var volume = (float)(storedVolume / 100);
+            //    AudioFilePlayer.Volume = Muted ? 0 : volume;
+            //}
         }
 
         /// <summary>
@@ -322,9 +192,6 @@ namespace AudioPlayerMVVMandNAudio
         /// <param name="e"></param>
         private void OnAudioHasEnded(object sender, EventArgs e)
         {
-            //Clears audio player
-            audioFilePlayer = null;
-
             //Sets this player state
             OnPropertyChanged(nameof(IsPlaying));
 
@@ -333,8 +200,6 @@ namespace AudioPlayerMVVMandNAudio
         }
 
         public void RaiseOnAudioHasEndedEvent() => AudioHasEndedEvent?.Invoke(this, null);
-
-        #endregion
 
         #region TIMER METHODS
 

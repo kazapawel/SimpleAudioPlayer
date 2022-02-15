@@ -15,8 +15,11 @@
             //Plays audio only when there is a buffer track
             if (vM.BufferTrack != null && vM.BufferTrack.Path != null)
             {
+                //Sets path of audio file in audio file player
+                vM.AudioFilePlayer.Path = vM.BufferTrack.Path;
+
                 //Plays audio
-                vM.AudioEnginePlay();
+                vM.AudioFilePlayer.PlayAudio();
 
                 //Starts timer for readonly properties
                 vM.StartTimer();
@@ -27,9 +30,9 @@
                 //Refresh readonly property
                 vM.OnPropertyChanged(nameof(vM.IsPlaying));
             }
-            //Else raises an event. This situation should happend only once - after application start, when buffer is empty.
-            else
-                vM.RaiseOnAudioHasEndedEvent();
+            ////Else raises an event. This situation should happend only once - after application start, when buffer is empty.
+            //else
+            //    vM.RaiseOnAudioHasEndedEvent();
         }
 
         public void PlayTrack()

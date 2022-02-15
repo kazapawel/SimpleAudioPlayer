@@ -18,6 +18,9 @@ namespace AudioPlayerMVVMandNAudio
         /// </summary>
         private Playlist model;
 
+        /// <summary>
+        /// For making random index;
+        /// </summary>
         private Random random;
 
         #endregion
@@ -45,7 +48,7 @@ namespace AudioPlayerMVVMandNAudio
         /// <summary>
         /// Gets number of items in playlist.
         /// </summary>
-        public string Items => model.SongsList.Count.ToString();
+        public string Items => SongsListObservable.Count.ToString();
 
         #region DRAG AND DROP PROPERTIES
 
@@ -126,29 +129,23 @@ namespace AudioPlayerMVVMandNAudio
         /// </summary>
         public PlaylistVM()
         {
-            //Model
             model = new Playlist();
             random = new Random();
-
-            //Playlist for binding
             SongsListObservable = new ObservableCollection<AudioFileVM>();
 
             //Load data from model to observable collection
             foreach (var song in model.SongsList)
                 SongsListObservable.Add(new AudioFileVM(song));
 
-            //First track from playlist becomes buffer track
-            //LoadFirstTrackIntoBuffer();
+            model = null;
 
             //Commands
             LoadSelectedTrackCommand = new RelayCommand(LoadSelectedTrackToBuffer);
             RemoveTracksFromPlaylistCommand = new RelayCommand(RemoveTracksFromPlaylist);
             ClearPlaylistCommand = new RelayCommand(ClearPlaylist);
-
             AddFilesCommand = new AddFilesCommand(this);
             MoveItemCommand = new MoveItemCommand(this);
             OnWindowClosingCommand = new CloseWindowCommand(this);
-
             NextTrackCommand = new RelayCommand(NextTrack);
             PreviousTrackCommand = new RelayCommand(PreviousTrack);
         }
@@ -156,6 +153,8 @@ namespace AudioPlayerMVVMandNAudio
         #endregion
 
         #region METHODS
+
+        #region FUNCTIONALITY METHODS
 
         /// <summary>
         /// Raises an LoadAudioFileEvent and sends selected track as argument
@@ -243,28 +242,29 @@ namespace AudioPlayerMVVMandNAudio
             SelectedTrack = SongsListObservable[random.Next(SongsListObservable.Count)];
         }
 
+        #endregion
+
         #region PLAYLIST CRUD METHODS
 
         /// <summary>
-        /// 
+        /// Adds tracks to observable collection.
         /// </summary>
         /// <param name="trackPath"></param>
         public void AddTracksToPlaylist(IEnumerable<string> tracksPaths)
         {
-            //Adds tracks to model and observable collection
             foreach (var trackPath in tracksPaths)
             {
-                var track = new AudioFile(trackPath);
-                model.AddTrack(track);
-                SongsListObservable.Add(new AudioFileVM(track));
+                var track = new AudioFileVM(trackPath);
 
-                //Raises property changed on read only property
-                OnPropertyChanged(nameof(Items));
+                SongsListObservable.Add(track);
             }
+
+            //Raises property changed on read only property
+            OnPropertyChanged(nameof(Items));
         }
 
         /// <summary>
-        /// 
+        /// Removes tracks from observable collection.
         /// </summary>
         /// <param name="o"></param>
         private void RemoveTracksFromPlaylist(object o)
@@ -275,42 +275,30 @@ namespace AudioPlayerMVVMandNAudio
 
             //Removes songs
             foreach (var song in songs)
-                model.RemoveTrack(song.GetModel());
-
-            //Collection without removed tracks
-            var clean = SongsListObservable.Where(x => !songs.Contains(x));
-
-            //Removes tracks from model collection -> method 1 => iterate in reverse
-            //for(var i=SongsListObservable.Count-1;i>=0; i--)
-            //{
-            //    model.RemoveTrack()
-            //}
-
-            ClearObservableCollection(clean);
+                SongsListObservable.Remove(song);
         }
 
         /// <summary>
-        /// Removes all trakcs from playlist.
+        /// Removes all tracks from playlist.
         /// </summary>
         /// <param name="o"></param>
         private void ClearPlaylist(object o)
         {
-            model.ClearPlaylist();
-
             ClearObservableCollection(null);
-
-            //PlaylistClearedEvent?.Invoke(this, null);
+            GC.Collect();
         }
 
         /// <summary>
-        /// 
+        /// Clears observable collection.
         /// </summary>
         /// <param name="collection"></param>
         private void ClearObservableCollection(IEnumerable<AudioFileVM> collection)
         {
-            //Makes new observable collection
-            SongsListObservable = collection != null ? new ObservableCollection<AudioFileVM>(collection)
-                                                     : new ObservableCollection<AudioFileVM>();
+            ////Makes new observable collection
+            //SongsListObservable = collection != null ? new ObservableCollection<AudioFileVM>(collection)
+            //                                         : new ObservableCollection<AudioFileVM>();
+
+            SongsListObservable = new ObservableCollection<AudioFileVM>();
 
             //CollectionChanged does not work for new-ing collection...?
             OnPropertyChanged(nameof(SongsListObservable));
@@ -320,7 +308,7 @@ namespace AudioPlayerMVVMandNAudio
         }
 
         /// <summary>
-        /// Switches two items.
+        /// Switches two items in observable collection.
         /// </summary>
         /// <param name="target"></param>
         /// <param name="moved"></param>
@@ -354,7 +342,12 @@ namespace AudioPlayerMVVMandNAudio
         /// <summary>
         /// Saves playlist to file.
         /// </summary>
-        public void OnWindowClosing() => model.SavePlaylist();
+        public void OnWindowClosing()
+        {
+            model = new Playlist();
+            model.SongsList = SongsListObservable.Select(x => x.Path);
+            model.SavePlaylist();
+        } 
 
         #endregion
     }

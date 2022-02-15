@@ -139,7 +139,7 @@
                 <Button Grid.Column="1"
                         x:Name="playButton"
                         Style="{StaticResource ImageButton}"
-                        Tag="{Binding AudioPlayerVM.IsPlaying, Converter={StaticResource BoolToImageConverter }}"
+                        Tag="{Binding AudioPlayerVM.IsPlaying, Converter={StaticResource BoolToImageConverter }, Mode=OneWay}"
                         Width="24"
                         Height="24"
                         Command="{Binding AudioPlayerVM.PlayPauseAudioCommand}"
@@ -253,21 +253,21 @@
                     <!-- Title -->
                     <TextBlock Grid.Column="0" 
                                Style="{StaticResource TrackInfoTextblock}" 
-                               Text="{Binding AudioPlayerVM.BufferTrack.TrackTitle}"
+                               Text="{Binding AudioPlayerVM.BufferTrack.TrackTitle, Mode=OneWay}"
                                Foreground="{StaticResource ForegroundSimpleOrangeBrush}"
                                />
 
                     <!-- Artist -->
                     <TextBlock Grid.Column="1"
                                Style="{StaticResource TrackInfoTextblock}" 
-                               Text="{Binding AudioPlayerVM.BufferTrack.Artist}"
+                               Text="{Binding AudioPlayerVM.BufferTrack.Artist, Mode=OneWay}"
                                Foreground="{StaticResource ForegroundSimpleLightGreenBrush}"
                                />
 
                     <!-- Album -->
                     <TextBlock Grid.Column="2"
                                Style="{StaticResource TrackInfoTextblock}" 
-                               Text="{Binding AudioPlayerVM.BufferTrack.Album}"
+                               Text="{Binding AudioPlayerVM.BufferTrack.Album, Mode=OneWay}"
                                Foreground="{StaticResource ForegroundSimpleDarkGreenBrush}"
                        />
 
@@ -296,11 +296,10 @@
                     <!-- File properties -->
                     <TextBlock Grid.Column="3"
                                Style="{StaticResource TrackInfoTextblock}" 
-                               Text="{Binding AudioPlayerVM.BufferTrack.FileProperties}"
+                               Text="{Binding AudioPlayerVM.BufferTrack.FileProperties, Mode=OneWay}"
                                Width="500"
                                TextTrimming="CharacterEllipsis"
                                />
-
                 </Grid>
 
             </Border>

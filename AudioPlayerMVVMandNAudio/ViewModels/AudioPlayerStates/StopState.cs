@@ -12,7 +12,7 @@
         public void EnterState()
         {
             //Stops audio
-            vM.AudioEngineStop();
+            vM.AudioFilePlayer.StopAudio();
 
             //Stops timer
             vM.StopTimer();
@@ -22,13 +22,13 @@
                 vM.BufferTrack.IsAudioFilePlaying = false;
 
             //Refresh readonly property
-            vM.OnPropertyChanged(nameof(vM.IsPlaying));         
+            vM.OnPropertyChanged(nameof(vM.IsPlaying));
         }
 
         public void PlayTrack()
         {
-            vM.State = new PlayState(vM);
-            vM.State.EnterState();
+                vM.State = new PlayState(vM);
+                vM.State.EnterState();
         }
 
         public void StopTrack()

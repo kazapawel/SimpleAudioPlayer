@@ -12,7 +12,7 @@
         public void EnterState()
         {
             //Pauses audio
-            vM.AudioEnginePause();
+            vM.AudioFilePlayer.PauseAudio();
 
             //Stops timer
             vM.StopTimer();

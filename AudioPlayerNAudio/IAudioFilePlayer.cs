@@ -5,14 +5,24 @@ namespace AudioPlayerNAudio
     /// <summary>
     /// Audio player is responsible for all audio operations. 
     /// </summary>
-    public interface IAudioFilePlayer<T>
+    public interface IAudioFilePlayer
     {
         #region PROPERTIES
 
         /// <summary>
+        /// 
+        /// </summary>
+        string Path { get; set; }
+
+        /// <summary>
         /// Loaded audio file volume
         /// </summary>
-        T Volume { get; set; }
+        double Volume { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        bool IsReady { get; }
 
         TimeSpan TimeCurrent { get; }
 
@@ -51,7 +61,7 @@ namespace AudioPlayerNAudio
         /// <summary>
         /// 
         /// </summary>
-        void ResumeAudio();
+        //void ResumeAudio();
 
         #endregion
     }

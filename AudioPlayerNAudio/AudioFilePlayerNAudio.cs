@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using NAudio.Wave;
 
 namespace AudioPlayerNAudio
@@ -6,7 +7,7 @@ namespace AudioPlayerNAudio
     /// <summary>
     /// Audio file player based on NAudio library.
     /// </summary>
-    public class AudioFilePlayerNAudio : IAudioFilePlayer<float>
+    public class AudioFilePlayerNAudio : IAudioFilePlayer
     {
         #region PRIVATE MEMBERS
 
@@ -25,18 +26,44 @@ namespace AudioPlayerNAudio
         /// </summary>
         private bool StoppedBeforeEnd;
 
+        private double storedVolume;
         #endregion
 
         #region PUBLIC PROPERTIES
 
+        public bool IsReady => outputDevice != null && audioFileReader != null;
+
+        public double Volume
+        {
+            get
+            {
+                return audioFileReader != null ? (double)audioFileReader.Volume * 100 : 0;
+            }
+            set
+            {
+                storedVolume = value;
+                if (audioFileReader != null)
+                    audioFileReader.Volume=(float)(value / 100);
+            }
+        }
         /// <summary>
         /// Gets or sets volume of audio file.
         /// 
         /// </summary>
-        public float Volume
+        public float Volume2
         {
-            get => audioFileReader.Volume;
-            set => audioFileReader.Volume = value;
+            get 
+            {
+                if (audioFileReader != null)
+                    return audioFileReader.Volume;
+                else
+                    return 0;
+            }
+            set 
+            {
+                if (audioFileReader != null)
+                    audioFileReader.Volume = value;
+            }
         }
 
         /// <summary>
@@ -65,6 +92,13 @@ namespace AudioPlayerNAudio
 
         #endregion
 
+        public string Path { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string[] ErrorLog { get; set; }
+
         #region EVENTS
 
         /// <summary>
@@ -80,30 +114,9 @@ namespace AudioPlayerNAudio
         /// Default constructor.
         /// </summary>
         /// <param name="path"></param>
-        public AudioFilePlayerNAudio(string path)
+        public AudioFilePlayerNAudio() 
         {
-            outputDevice = new WaveOutEvent();
-
-            //Creates audio file reader
-            try
-            {
-                audioFileReader = new AudioFileReader(path);
-            }
-            catch (System.IO.InvalidDataException e)
-            {
-                //Re-throws exception
-                throw;
-            }
-
-            /*
-             * System.InvalidOperationException: 
-             * 'Got a frame at sample rate 32000, in an MP3 with sample rate 44100.
-             * Mp3FileReader does not support sample rate changes.'
-             * System.IO.InvalidDataException: 'Invalid MP3 file - no MP3 Frames Detected'
-
-             * 
-             */
-            outputDevice.PlaybackStopped += OnPlaybackStopped;
+            Volume = 50;
         }
 
         #endregion
@@ -116,11 +129,37 @@ namespace AudioPlayerNAudio
         /// <param name="path">Audio file's path</param>
         public void PlayAudio()
         {
-            //Inits audio device
-            outputDevice.Init(audioFileReader);
+            //If audio is paused resumes audio //NAudio.MM.Exception: 'NoDriver calling waveOutRestart'
+            if (outputDevice?.PlaybackState == PlaybackState.Paused)
+                outputDevice.Play();
+            else
+            {
+                //Crates device
+                outputDevice = new WaveOutEvent();
+                outputDevice.PlaybackStopped += OnPlaybackStopped;
 
-            //Plays audio
-            outputDevice.Play();
+                //Creates file reader
+                try
+                {
+                    audioFileReader = new AudioFileReader(Path);
+                    //System.Runtime.InteropServices.COMException: 'Typ strumienia bajtów podanego adresu URL jest nieobsługiwany. (0xC00D36C4)'
+
+                }
+                catch (Exception e)
+                {
+                    ErrorLog = new string[] { e.ToString(), e.Message };
+                    DisposeDevices();
+                    return;
+                }
+
+                //Inits audio device
+                outputDevice.Init(audioFileReader);
+
+                SetVolume();
+
+                //Plays audio
+                outputDevice.Play();
+            }
         }
 
         /// <summary>
@@ -133,22 +172,13 @@ namespace AudioPlayerNAudio
         }
 
         /// <summary>
-        /// If audio is paused, resumes it.
-        /// </summary>
-        public void ResumeAudio()
-        {
-            //NAudio.MM.Exception: 'NoDriver calling waveOutRestart'
-            if (outputDevice?.PlaybackState == PlaybackState.Paused)
-                outputDevice.Play();
-        }
-
-        /// <summary>
         /// Stops audio playback before audio file ends (ex. user pressed stop).
         /// </summary>
         public void StopAudio()
         {
             StoppedBeforeEnd = true;
             outputDevice?.Stop();
+            DisposeDevices();
         }
 
         /// <summary>
@@ -158,12 +188,16 @@ namespace AudioPlayerNAudio
         /// <param name="e"></param>
         private void OnPlaybackStopped(object sender, EventArgs e)
         {
-            //Disposes all
-            DisposeDevices();
-
             //If audio has stopped by reaching it's end - raises an event
             if (!StoppedBeforeEnd)
-                AudioHasEndedEvent?.Invoke(this, new EventArgs());
+            {
+                outputDevice.PlaybackStopped -= OnPlaybackStopped;
+
+                //Disposes all
+                DisposeDevices();
+
+                AudioHasEndedEvent?.Invoke(this, null);
+            }
         }
 
         /// <summary>
@@ -171,10 +205,18 @@ namespace AudioPlayerNAudio
         /// </summary>
         private void DisposeDevices()
         {
-            outputDevice.Dispose();
+            outputDevice?.Dispose();
             outputDevice = null;
-            audioFileReader.Dispose();
+            audioFileReader?.Dispose();
             audioFileReader = null;
+        }
+
+        public void SetVolume()
+        {
+            if (audioFileReader != null)
+            {
+                audioFileReader.Volume = (float)(storedVolume / 100);
+            }
         }
 
         #endregion

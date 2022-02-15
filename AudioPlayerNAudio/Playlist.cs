@@ -14,14 +14,9 @@ namespace AudioPlayerNAudio
         #region PUBLIC PROPERTIES
 
         /// <summary>
-        /// Collection of audio files.
+        /// Collection of audio files paths.
         /// </summary>
-        public List<AudioFile> SongsList { get; set; }
-
-        /// <summary>
-        /// Returns true if there is no tracks in playlist.
-        /// </summary>
-        public bool IsEmpty => SongsList.Count == 0;
+        public IEnumerable<string> SongsList { get; set; }
 
         /// <summary>
         /// This playlist's path.
@@ -45,22 +40,22 @@ namespace AudioPlayerNAudio
 
         #region METHODS
 
-        /// <summary>
-        /// Adds a track to songs list.
-        /// </summary>
-        /// <param name="track"></param>
-        public void AddTrack(AudioFile track) => SongsList.Add(track);
+        ///// <summary>
+        ///// Adds a track to songs list.
+        ///// </summary>
+        ///// <param name="track"></param>
+        //public void AddTrack(string track) => SongsList.Add(track);
 
-        /// <summary>
-        /// Removes track from songs list.
-        /// </summary>
-        /// <param name="track"></param>
-        public void RemoveTrack(AudioFile track) => SongsList.Remove(track);
+        ///// <summary>
+        ///// Removes track from songs list.
+        ///// </summary>
+        ///// <param name="track"></param>
+        //public void RemoveTrack(AudioFile track) => SongsList.Remove(track);
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public void ClearPlaylist() => SongsList = new List<AudioFile>();
+        ///// <summary>
+        ///// 
+        ///// </summary>
+        //public void ClearPlaylist() => SongsList = new List<AudioFile>();
 
         /// <summary>
         /// 
@@ -74,14 +69,14 @@ namespace AudioPlayerNAudio
         /// <summary>
         /// 
         /// </summary>
-        private void SaveTextFile() => TextFileSaver.ExportToFile(PlaylistPath, SongsList.Select(x => x.PathOfFile));
+        private void SaveTextFile() => TextFileSaver.ExportToFile(PlaylistPath, SongsList);
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="path"></param>
         /// <returns></returns>
-        private List<AudioFile> LoadFromTextFile(string path) => TextFileSaver.ImportFromFile(path)?.Select(x => new AudioFile(x)).ToList();
+        private IEnumerable<string> LoadFromTextFile(string path) => TextFileSaver.ImportFromFile(path);
 
         #endregion
 

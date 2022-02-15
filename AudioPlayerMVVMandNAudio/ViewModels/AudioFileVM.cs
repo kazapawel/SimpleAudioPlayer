@@ -1,4 +1,6 @@
 ﻿using AudioPlayerNAudio;
+using System;
+using System.IO;
 
 namespace AudioPlayerMVVMandNAudio
 {
@@ -9,16 +11,16 @@ namespace AudioPlayerMVVMandNAudio
     {
         #region PRIVATE MEMBERS
 
-        /// <summary>
-        /// Audio file model
-        /// </summary>
         private AudioFile model;
-
         private bool isAudioFilePlaying;
 
         #endregion
 
         #region PUBLIC PROPERTIES
+        /// <summary>
+        /// 
+        /// </summary>
+        public string Path => model.PathOfFile;
 
         /// <summary>
         /// Gets track's title.
@@ -34,11 +36,6 @@ namespace AudioPlayerMVVMandNAudio
         /// Gets album that track is from.
         /// </summary>
         public string Album => model.Album;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public string Path => model.PathOfFile;
 
         /// <summary>
         /// Total time in string format
@@ -67,14 +64,14 @@ namespace AudioPlayerMVVMandNAudio
 
         #region CONSTRUCTORS
 
-        /// <summary>
-        /// Default constructor with audio file model injected.
-        /// </summary>
-        /// <param name="audioFile"></param>
-        public AudioFileVM(AudioFile audioFile)
-        {
-            model = audioFile;
-        }
+        ///// <summary>
+        ///// Default constructor with audio file model injected.
+        ///// </summary>
+        ///// <param name="audioFile"></param>
+        //public AudioFileVM(AudioFile audioFile)
+        //{
+        //    model = audioFile;
+        //}
 
         /// <summary>
         /// Constructor which creates new AudioFile model based on path.
@@ -85,8 +82,6 @@ namespace AudioPlayerMVVMandNAudio
         }
 
         #endregion
-
-        public AudioFile GetModel() => model;
 
     }
 }

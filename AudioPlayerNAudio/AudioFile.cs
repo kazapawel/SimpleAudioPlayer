@@ -73,17 +73,17 @@ namespace AudioPlayerNAudio
             //File's name
             Name = System.IO.Path.GetFileName(path);
             
-            //Creates TagLib instance
-            try
-            {
-                tags = File.Create(path);
-            }
-            catch (Exception e)
-            {
-                //So user can see info about file corruption
-                errorMessage = e.Message;
-                exceptionName = e.GetType().FullName;
-            }
+            ////Creates TagLib instance
+            //try
+            //{
+            //    tags = File.Create(path);
+            //}
+            //catch (Exception e)
+            //{
+            //    //So user can see info about file corruption
+            //    errorMessage = e.Message;
+            //    exceptionName = e.GetType().FullName;
+            //}
 
             /*
              * TagLib.CorruptFileException: 'MPEG audio header not found.

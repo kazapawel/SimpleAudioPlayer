@@ -176,8 +176,13 @@ namespace AudioPlayerNAudio
         /// </summary>
         public void StopAudio()
         {
+            //Marks flag as true
             StoppedBeforeEnd = true;
+
+            //Stops audio
             outputDevice?.Stop();
+
+            //
             DisposeDevices();
         }
 

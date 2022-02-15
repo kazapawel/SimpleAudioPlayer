@@ -9,6 +9,11 @@ namespace AudioPlayerMVVMandNAudio
      * 
     TO DO:
             +DONE Allow drop on playlistitem
+        *fix stop events and stop logic
+        *create playlist vm state machine
+        *implement tags different way
+        *buttons images
+        
         *Volume slider - make it expotential, not linear
         *Position slider - update value after drag ends
         *Time popup - display value of dragged slider

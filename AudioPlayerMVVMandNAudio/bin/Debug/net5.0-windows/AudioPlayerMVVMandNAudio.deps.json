@@ -103,6 +103,7 @@
           }
         }
       },
+      "System.Buffers/4.5.1": {},
       "System.Security.AccessControl/4.7.0": {
         "dependencies": {
           "Microsoft.NETCore.Platforms": "3.1.0",
@@ -121,6 +122,7 @@
       "AudioPlayerNAudio/1.0.0": {
         "dependencies": {
           "NAudio": "2.0.1",
+          "System.Buffers": "4.5.1",
           "TagLibSharp": "2.2.0"
         },
         "runtime": {
@@ -197,6 +199,13 @@
       "sha512": "sha512-i7Da/gCqvwWvETFBRkuwCelSXEK5rPG7pTaqCU9aXFRiO0p7lwHjm/+k2lOWLmRGUJdLm/VSDO6Vknacnb6mSg==",
       "path": "naudio.winmm/2.0.1",
       "hashPath": "naudio.winmm.2.0.1.nupkg.sha512"
+    },
+    "System.Buffers/4.5.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Rw7ijyl1qqRS0YQD/WycNst8hUUMgrMH4FCn1nNm27M4VxchZ1js3fVjQaANHO5f3sN4isvP4a+Met9Y4YomAg==",
+      "path": "system.buffers/4.5.1",
+      "hashPath": "system.buffers.4.5.1.nupkg.sha512"
     },
     "System.Security.AccessControl/4.7.0": {
       "type": "package",

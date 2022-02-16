@@ -1,34 +1,33 @@
 ﻿namespace AudioPlayerMVVMandNAudio
 {
-    public class PauseState : IAudioPlayerState
+    public class PauseState : AudioPlayerState
     {
-        private readonly AudioPlayerVM vM;
-
-        public PauseState(AudioPlayerVM vm)
-        {
-            vM = vm;
-        }
-
-        public void EnterState()
+        public PauseState(AudioPlayerVM viewModel) : base(viewModel) { }
+        public override void EnterState()
         {
             //Pauses audio
-            vM.AudioFilePlayer.PauseAudio();
+            ViewModel.AudioFilePlayer.PauseAudio();
 
             //Stops timer
-            vM.StopTimer();
+            ViewModel.StopTimer();
 
             //Change pause state property 
-            vM.OnPropertyChanged(nameof(vM.IsPlaying));
+            ViewModel.OnPropertyChanged(nameof(ViewModel.IsPlaying));
         }
-        public void PlayTrack()
+        public override void PlayTrack()
         {
-            vM.State = new PlayState(vM);
-            vM.State.EnterState();
+            ViewModel.State = new PlayState(ViewModel);
+            ViewModel.State.EnterState();
         }
-        public void StopTrack()
+        public override void StopTrack()
         {
-            vM.State = new StopState(vM);
-            vM.State.EnterState();
+            ViewModel.State = new StopState(ViewModel);
+            ViewModel.State.EnterState();
+        }
+        public override void OnAudioHasEnded()
+        {
+            //to do
+            throw new System.NotImplementedException();
         }
     }
 }

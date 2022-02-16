@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "5bklpgEOrfv7ajENYsp65GYu0wqWoHLHvKEgAeWQOmSb8OJMJVRsTvtRVdu/cmRdIdKSBJsRyReSPFN2nLuhEg==",
+  "dgSpecHash": "k0UztI6uzbMtGAlapXxUDSM3aXTre5smbN8GCC7AWZsR+vZtH/5jGeZYo8/rT/x7Zaqw4V+W/vT2PEjvBzHSBA==",
   "success": true,
   "projectFilePath": "C:\\Users\\k\\source\\repos\\AudioPlayerMVVMandNAudio\\AudioPlayerMVVMandNAudio\\AudioPlayerMVVMandNAudio.csproj",
   "expectedPackageFiles": [
@@ -13,7 +13,6 @@
     "C:\\Users\\k\\.nuget\\packages\\naudio.wasapi\\2.0.0\\naudio.wasapi.2.0.0.nupkg.sha512",
     "C:\\Users\\k\\.nuget\\packages\\naudio.winforms\\2.0.1\\naudio.winforms.2.0.1.nupkg.sha512",
     "C:\\Users\\k\\.nuget\\packages\\naudio.winmm\\2.0.1\\naudio.winmm.2.0.1.nupkg.sha512",
-    "C:\\Users\\k\\.nuget\\packages\\system.buffers\\4.5.1\\system.buffers.4.5.1.nupkg.sha512",
     "C:\\Users\\k\\.nuget\\packages\\system.security.accesscontrol\\4.7.0\\system.security.accesscontrol.4.7.0.nupkg.sha512",
     "C:\\Users\\k\\.nuget\\packages\\system.security.principal.windows\\4.7.0\\system.security.principal.windows.4.7.0.nupkg.sha512",
     "C:\\Users\\k\\.nuget\\packages\\taglibsharp\\2.2.0\\taglibsharp.2.2.0.nupkg.sha512"

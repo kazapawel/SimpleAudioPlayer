@@ -1,50 +1,49 @@
 ﻿namespace AudioPlayerMVVMandNAudio
 {
-    public class PlayState : IAudioPlayerState
+    public class PlayState : AudioPlayerState
     {
-        private readonly AudioPlayerVM vM;
-
-        public PlayState(AudioPlayerVM vm)
-        {
-            vM = vm;
-        }
-
-
-        public void EnterState()
+        public PlayState(AudioPlayerVM viewModel) : base(viewModel) { }
+        public override void EnterState()
         {
             //Plays audio only when there is a buffer track
-            if (vM.BufferTrack != null && vM.BufferTrack.Path != null)
+            if (ViewModel.BufferTrack != null && ViewModel.BufferTrack.Path != null)
             {
                 //Sets path of audio file in audio file player
-                vM.AudioFilePlayer.Path = vM.BufferTrack.Path;
+                ViewModel.AudioFilePlayer.Path = ViewModel.BufferTrack.Path;
 
                 //Plays audio
-                vM.AudioFilePlayer.PlayAudio();
+                ViewModel.AudioFilePlayer.PlayAudio();
 
                 //Starts timer for readonly properties
-                vM.StartTimer();
+                ViewModel.StartTimer();
 
                 //Changes state of buffer track
-                vM.BufferTrack.IsAudioFilePlaying = true;
+                ViewModel.BufferTrack.IsAudioFilePlaying = true;
 
                 //Refresh readonly property
-                vM.OnPropertyChanged(nameof(vM.IsPlaying));
+                ViewModel.OnPropertyChanged(nameof(ViewModel.IsPlaying));
             }
-            ////Else raises an event. This situation should happend only once - after application start, when buffer is empty.
-            //else
-            //    vM.RaiseOnAudioHasEndedEvent();
+            //Else raises changes state to stop state without invoking enter state method
+            else
+                ViewModel.State = new StopState(ViewModel);
         }
-
-        public void PlayTrack()
+        public override void PlayTrack()
         {
-            vM.State = new PauseState(vM);
-            vM.State.EnterState();
+            ViewModel.State = new PauseState(ViewModel);
+            ViewModel.State.EnterState();
         }
-
-        public void StopTrack()
+        public override void StopTrack()
         {
-            vM.State = new StopState(vM);
-            vM.State.EnterState();
+            ViewModel.State = new StopState(ViewModel);
+            ViewModel.State.EnterState();
+        }
+        public override void OnAudioHasEnded()
+        {
+            //Updates flag
+            ViewModel.BufferTrack.IsAudioFilePlaying = false;
+
+            //Stops playback without invoking enter state method
+            ViewModel.State = new StopState(ViewModel);
         }
     }
 }

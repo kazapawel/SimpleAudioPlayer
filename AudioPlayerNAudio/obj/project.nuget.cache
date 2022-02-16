@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "jK4ItDopxBHls3YT7SlEcXjIn3Acs02SAgy7lgXDa+M9QHw/esq5wzjw/kkF4nmgYB9E9rC3p23ye737n0vwKg==",
+  "dgSpecHash": "ESPga062kCI0Vht6mOBnaWazQClIuJYuQjxBU9/blzucrb6+KD5nRjR7XZzJJieVPoYRVSIykuu9PaLYwpJSXg==",
   "success": true,
   "projectFilePath": "C:\\Users\\k\\source\\repos\\AudioPlayerMVVMandNAudio\\AudioPlayerNAudio\\AudioPlayerNAudio.csproj",
   "expectedPackageFiles": [
@@ -14,7 +14,7 @@
     "C:\\Users\\k\\.nuget\\packages\\naudio.winforms\\2.0.1\\naudio.winforms.2.0.1.nupkg.sha512",
     "C:\\Users\\k\\.nuget\\packages\\naudio.winmm\\2.0.1\\naudio.winmm.2.0.1.nupkg.sha512",
     "C:\\Users\\k\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512",
-    "C:\\Users\\k\\.nuget\\packages\\system.buffers\\4.5.1\\system.buffers.4.5.1.nupkg.sha512",
+    "C:\\Users\\k\\.nuget\\packages\\system.buffers\\4.5.0\\system.buffers.4.5.0.nupkg.sha512",
     "C:\\Users\\k\\.nuget\\packages\\system.memory\\4.5.3\\system.memory.4.5.3.nupkg.sha512",
     "C:\\Users\\k\\.nuget\\packages\\system.numerics.vectors\\4.4.0\\system.numerics.vectors.4.4.0.nupkg.sha512",
     "C:\\Users\\k\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\4.5.2\\system.runtime.compilerservices.unsafe.4.5.2.nupkg.sha512",

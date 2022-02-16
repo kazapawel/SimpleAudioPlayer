@@ -41,10 +41,7 @@
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="{x:Type ListBoxItem}">
-                                <Border x:Name="border"
-                                        Background="{TemplateBinding Background}">
-                                    <local:PlaylistItemControl/>
-                                </Border>
+                                <local:PlaylistItemControl Background="{TemplateBinding Background}"/>
                             </ControlTemplate>
                         </Setter.Value>
                     </Setter>
@@ -71,12 +68,12 @@
 
         <!-- OPTIONS -->
         <Border Grid.Row="1" 
-                BorderThickness="0"
+                BorderThickness="1"
                 BorderBrush="LightPink"
                 Margin="5,0,5,5"
                 Padding="1"
                 HorizontalAlignment="Right">
-            <Grid>
+            <Grid >
                 <Grid.ColumnDefinitions>
 
                     <ColumnDefinition Width="auto"/>

@@ -12,9 +12,8 @@
                       Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}, Path=DataContext.LoadSelectedTrackCommand}"/>
     </UserControl.InputBindings>
 
-    <Border Background="Transparent"
-            AllowDrop="True">
-        <Grid>
+    <Grid Background="Transparent"
+              AllowDrop="True">
         <Grid.ColumnDefinitions>
 
             <!-- Play/pause selection image-->
@@ -36,8 +35,8 @@
                Width="18"
                Visibility="{Binding Converter={StaticResource BoolToVisibilityConverter}, Path=IsAudioFilePlaying}"               
                />
-        
-            <!-- INFO -->
+
+        <!-- INFO -->
         <StackPanel Grid.Column="1"
                     HorizontalAlignment="Left">
 
@@ -71,6 +70,5 @@
                    FontSize="11"
                    />
     </Grid>
-    </Border>
 
 </UserControl>

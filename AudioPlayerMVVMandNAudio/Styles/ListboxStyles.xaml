@@ -25,10 +25,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ListBoxItem}">
-                    <Border x:Name="border"
-                            Background="{TemplateBinding Background}">
-                        <local:PlaylistItemControl/>
-                    </Border>
+                    <local:PlaylistItemControl Background="{TemplateBinding Background}"/>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

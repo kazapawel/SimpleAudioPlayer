@@ -27,7 +27,7 @@ namespace AudioPlayerMVVMandNAudio
         /// </summary>
         private double storedVolume;
 
-        internal IAudioPlayerState State;
+        internal AudioPlayerState State;
 
         private AudioFileVM bufferTrack;
 
@@ -168,12 +168,7 @@ namespace AudioPlayerMVVMandNAudio
         #region METHODS
 
         private void PlayPauseAudio(object o) => State.PlayTrack();
-
         private void StopAudio(object o) => State.StopTrack();
-
-        /// <summary>
-        /// If there is a audio player, sets it's volume.
-        /// </summary>
         private void SetAudioPlayerVolume()
         {
             AudioFilePlayer.Volume = Muted ? 0 : storedVolume;
@@ -184,22 +179,13 @@ namespace AudioPlayerMVVMandNAudio
             //    AudioFilePlayer.Volume = Muted ? 0 : volume;
             //}
         }
-
-        /// <summary>
-        /// If audio file has ended, clears model.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void OnAudioHasEnded(object sender, EventArgs e)
         {
-            //Sets this player state
-            OnPropertyChanged(nameof(IsPlaying));
+            State.OnAudioHasEnded();
 
             //Notify subscribers about playback end
             AudioHasEndedEvent?.Invoke(this, null);
         }
-
-        public void RaiseOnAudioHasEndedEvent() => AudioHasEndedEvent?.Invoke(this, null);
 
         #region TIMER METHODS
 
@@ -275,6 +261,11 @@ namespace AudioPlayerMVVMandNAudio
             PlayPauseAudio(null);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void OnPlaylistEnded(object sender, EventArgs e)
         {
             StopAudio(null);

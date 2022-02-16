@@ -114,7 +114,7 @@ namespace AudioPlayerNAudio
         /// Default constructor.
         /// </summary>
         /// <param name="path"></param>
-        public AudioFilePlayerNAudio() 
+        public AudioFilePlayerNAudio()
         {
             Volume = 50;
         }
@@ -157,6 +157,8 @@ namespace AudioPlayerNAudio
 
                 SetVolume();
 
+                
+
                 //Plays audio
                 outputDevice.Play();
             }
@@ -187,7 +189,7 @@ namespace AudioPlayerNAudio
         }
 
         /// <summary>
-        /// When audio is stopped (ends or stopped before end) this methos is invoked.
+        /// This is used only when audio reaches it's end.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -196,13 +198,13 @@ namespace AudioPlayerNAudio
             //If audio has stopped by reaching it's end - raises an event
             if (!StoppedBeforeEnd)
             {
-                outputDevice.PlaybackStopped -= OnPlaybackStopped;
-
                 //Disposes all
                 DisposeDevices();
 
                 AudioHasEndedEvent?.Invoke(this, null);
             }
+
+            StoppedBeforeEnd = false;
         }
 
         /// <summary>
@@ -210,12 +212,19 @@ namespace AudioPlayerNAudio
         /// </summary>
         private void DisposeDevices()
         {
+            //check for null
+            if(outputDevice != null)
+                outputDevice.PlaybackStopped -= OnPlaybackStopped;
+
             outputDevice?.Dispose();
             outputDevice = null;
             audioFileReader?.Dispose();
             audioFileReader = null;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public void SetVolume()
         {
             if (audioFileReader != null)

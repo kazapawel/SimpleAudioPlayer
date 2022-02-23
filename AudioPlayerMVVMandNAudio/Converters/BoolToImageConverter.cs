@@ -13,7 +13,6 @@ namespace AudioPlayerMVVMandNAudio
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            
             return (bool)value ? "pack://application:,,,/Images/Transport/pausebutton.png" : "pack://application:,,,/Images/Transport/play.png";
         }
 

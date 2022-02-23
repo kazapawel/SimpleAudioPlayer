@@ -146,7 +146,7 @@
                         />
 
                 <!-- NEXT TRACK button-->
-                <Button Grid.Column="2"
+                <Button Grid.Column="3"
                     x:Name="nextTrackButton"
                     Style="{StaticResource ImageButton}" 
                     Width="24"
@@ -156,7 +156,7 @@
                     />
 
                 <!-- STOP button-->
-                <Button Grid.Column="3"
+                <Button Grid.Column="2"
                     x:Name="stopButton"
                     Style="{StaticResource ImageButton}" 
                     Tag="pack://application:,,,/Images/Transport/stopsmall.png"
@@ -181,25 +181,23 @@
                 </Grid.ColumnDefinitions>
 
                 <CheckBox Grid.Column="0"
-                          x:Name="loopButton"
+                          Width="24"
+                          Height="24"
+                          Style="{StaticResource LoopCheckbox}"
                           IsChecked="{Binding PlaylistVM.LoopOn, Mode=OneWayToSource}"
-                          Width="20"
-                          Height="20"
-                          Margin="2"
-                          HorizontalAlignment="Center"
-                          VerticalAlignment="Center"
                           />
                 <CheckBox Grid.Column="1"
-                          x:Name="shuffleButton"
-                          Background="Red"
+                          Width="24"
+                          Height="24"
+                          Style="{StaticResource ShuffleCheckbox}"
                           IsChecked="{Binding PlaylistVM.ShuffleOn, Mode=OneWayToSource}"
-                          Width="20"
-                          Height="20"
-                          Margin="2"
-                          HorizontalAlignment="Center"
-                          VerticalAlignment="Center"
                           />
             </Grid>
+            
+            <!-- VOLUME SLIDER -->
+            <local:VolumeSliderControl Grid.Column="2"
+                                DataContext="{Binding AudioPlayerVM}"
+                                />
         </Grid>
         
         
@@ -232,82 +230,63 @@
         <!--#endregion-->
 
         <!--#region INFO -->
-        <StackPanel Grid.Row="4"
-                   >
+        <StackPanel Grid.Row="4">
 
             <!-- AUDIO TRACK Info-->
-            <Border 
-                BorderBrush="LightGreen"
-                BorderThickness="0"
-                Margin="3,0,3,3">
+            <Grid Margin="3,0,3,3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
 
-                <Grid >
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="auto"/>
-                        <ColumnDefinition Width="auto"/>
-                        <ColumnDefinition Width="auto"/>
-                        <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
 
-                    </Grid.ColumnDefinitions>
-
-                    <!-- Title -->
-                    <TextBlock Grid.Column="0" 
+                <!-- Title -->
+                <TextBlock Grid.Column="0" 
                                Style="{StaticResource TrackInfoTextblock}" 
                                Text="{Binding AudioPlayerVM.BufferTrack.TrackTitle, Mode=OneWay}"
                                Foreground="{StaticResource ForegroundSimpleOrangeBrush}"
                                />
 
-                    <!-- Artist -->
-                    <TextBlock Grid.Column="1"
+                <!-- Artist -->
+                <TextBlock Grid.Column="1"
                                Style="{StaticResource TrackInfoTextblock}" 
                                Text="{Binding AudioPlayerVM.BufferTrack.Artist, Mode=OneWay}"
                                Foreground="{StaticResource ForegroundSimpleLightGreenBrush}"
                                />
 
-                    <!-- Album -->
-                    <TextBlock Grid.Column="2"
-                               Style="{StaticResource TrackInfoTextblock}" 
-                               Text="{Binding AudioPlayerVM.BufferTrack.Album, Mode=OneWay}"
-                               Foreground="{StaticResource ForegroundSimpleDarkGreenBrush}"
-                       />
+                <!-- Album -->
+                <TextBlock Grid.Column="2"
+                           Style="{StaticResource TrackInfoTextblock}" 
+                           Text="{Binding AudioPlayerVM.BufferTrack.Album, Mode=OneWay}"
+                           Foreground="{StaticResource ForegroundSimpleDarkGreenBrush}"
+                           />
 
-                </Grid>
-
-            </Border>
-
+            </Grid>
 
             <!-- AUDIO FILE PROPERTIES Info-->
-            <Border 
-                BorderBrush="Red"
-                BorderThickness="0"
-                Margin="3,0,3,3">
+            <Grid Margin="3,0,3,3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="13*"/>
+                    <ColumnDefinition Width="3*"/>
 
-                <Grid >
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="auto"/>
-                        <ColumnDefinition Width="auto"/>
-                        <ColumnDefinition Width="auto"/>
-                        <ColumnDefinition Width="auto"/>
-                        <ColumnDefinition Width="13*"/>
-                        <ColumnDefinition Width="3*"/>
+                </Grid.ColumnDefinitions>
 
-                    </Grid.ColumnDefinitions>
-
-                    <!-- File properties -->
-                    <TextBlock Grid.Column="3"
+                <!-- File properties -->
+                <TextBlock Grid.Column="3"
                                Style="{StaticResource TrackInfoTextblock}" 
                                Text="{Binding AudioPlayerVM.BufferTrack.FileProperties, Mode=OneWay}"
                                Width="500"
                                TextTrimming="CharacterEllipsis"
                                />
-                </Grid>
-
-            </Border>
+            </Grid>
 
         </StackPanel>
-
-
-
 
         <!--#endregion-->
 

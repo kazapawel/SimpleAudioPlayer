@@ -16,6 +16,8 @@
     <None Remove="Images\audio unmute.png" />
     <None Remove="Images\clear.png" />
     <None Remove="Images\next.png" />
+    <None Remove="Images\Options\loop.png" />
+    <None Remove="Images\Options\shuffle.png" />
     <None Remove="Images\pausebutton.png" />
     <None Remove="Images\pigsad.png" />
     <None Remove="Images\play.png" />
@@ -39,6 +41,8 @@
     <Resource Include="Fonts\Source_Code_Pro\static\SourceCodePro-Medium.ttf" />
     <Resource Include="Fonts\Source_Code_Pro\static\SourceCodePro-MediumItalic.ttf" />
     <Resource Include="Fonts\Source_Code_Pro\static\SourceCodePro-Regular.ttf" />
+    <Resource Include="Images\Options\loop.png" />
+    <Resource Include="Images\Options\shuffle.png" />
     <Resource Include="Images\Playlist\addfile.png" />
     <Resource Include="Images\Playlist\addlist.png" />
     <Resource Include="Images\Playlist\note1.png" />

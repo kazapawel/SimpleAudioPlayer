@@ -10,11 +10,11 @@ none
 false
 TRACE;RELEASE;NET;NET5_0;NETCOREAPP
 C:\Users\k\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerMVVMandNAudio\App.xaml
-13-1926436096
+14-322231146
 
-28-190960516
+31-1840197095
 210-569029512
-Controls\PlaylistControl.xaml;Controls\PlaylistItem.xaml;Controls\TransportPanelControl.xaml;MainWindow.xaml;Styles\ButtonStyles.xaml;Styles\CheckboxStyles.xaml;Styles\Colors.xaml;Styles\Fonts.xaml;Styles\ListboxStyles.xaml;Styles\ScrollbarStyles.xaml;Styles\SliderStyles.xaml;Styles\TextblockStyles.xaml;Styles\WindowStyle.xaml;
+Controls\AudioPlayerControl.xaml;Controls\PlaylistControl.xaml;Controls\PlaylistItem.xaml;MainWindow.xaml;Styles\ButtonStyles.xaml;Styles\CheckboxStyles.xaml;Styles\Colors.xaml;Styles\Fonts.xaml;Styles\ImageStyles.xaml;Styles\ListboxStyles.xaml;Styles\ScrollbarStyles.xaml;Styles\SliderStyles.xaml;Styles\TextblockStyles.xaml;Styles\WindowStyle.xaml;
 
-True
+False
 

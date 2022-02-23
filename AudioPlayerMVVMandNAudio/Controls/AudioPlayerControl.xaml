@@ -32,41 +32,7 @@
 
             <!--#region VOLUME SLIDER -->
             <!--VOLUME SLIDER-->
-            <Grid Grid.Column="1"  VerticalAlignment="Center">
-
-                <Grid.ColumnDefinitions>
-
-                    <!--Volume slider-->
-                    <ColumnDefinition Width="*"/>
-
-                    <!--Speaker button-->
-                    <ColumnDefinition Width="auto"/>
-
-                </Grid.ColumnDefinitions>
-
-                <!--Volume slider-->
-                <Slider Grid.Column="0"
-                        x:Name="VolumeSlider"
-                        Style="{StaticResource VolumeSliderStyle}"
-                        Value="{Binding Volume, Mode=TwoWay}"
-                        IsMoveToPointEnabled="True"
-                        MinWidth="90"
-                        TickFrequency="10"
-                        Minimum="0"
-                        Maximum="100"
-                        Margin="10,7,10,0"
-                        MouseMove="VolumeSlider_MouseMove"
-                        MouseLeftButtonUp="VolumeSlider_MouseLeftButtonUp"
-                        />
-
-                <!--SPEAKER BUTTON-->
-                <CheckBox Grid.Column="1"
-                          Style="{StaticResource MuteAudioCheckbox}"         
-                          IsChecked="{Binding Muted}"
-                          Margin="5,5,8,5"
-                          />
-
-            </Grid>
+            
 
             <!--#endregion-->
 

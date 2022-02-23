@@ -13,14 +13,14 @@ namespace AudioPlayerMVVMandNAudio
     {
         #region DEPENDENCY PROPERTIES
 
-        public double SliderValueAfterDrag
-        {
-            get { return (double)GetValue(SliderValueAfterDragProperty); }
-            set { SetValue(SliderValueAfterDragProperty, value); }
-        }
+        //public double SliderValueAfterDrag
+        //{
+        //    get { return (double)GetValue(SliderValueAfterDragProperty); }
+        //    set { SetValue(SliderValueAfterDragProperty, value); }
+        //}
 
-        public static readonly DependencyProperty SliderValueAfterDragProperty =
-            DependencyProperty.Register("SliderValueAfterDrag", typeof(double), typeof(AudioPlayerControl), new FrameworkPropertyMetadata(null));
+        //public static readonly DependencyProperty SliderValueAfterDragProperty =
+        //    DependencyProperty.Register("SliderValueAfterDrag", typeof(double), typeof(AudioPlayerControl), new FrameworkPropertyMetadata(null));
 
         #endregion
 
@@ -39,12 +39,11 @@ namespace AudioPlayerMVVMandNAudio
         {
             base.OnApplyTemplate();
         }
-
         #region SLIDERS 
 
-        private void VolumeSlider_MouseMove(object sender, MouseEventArgs e) => SliderMouseMove(sender as Slider, e);
+        //private void VolumeSlider_MouseMove(object sender, MouseEventArgs e) => SliderMouseMove(sender as Slider, e);
 
-        private void VolumeSlider_MouseLeftButtonUp(object sender, MouseButtonEventArgs e) => SliderMouseLeftButtonUp(sender as Slider);
+        //private void VolumeSlider_MouseLeftButtonUp(object sender, MouseButtonEventArgs e) => SliderMouseLeftButtonUp(sender as Slider);
 
         private void PositionSlider_MouseMove(object sender, MouseEventArgs e) => SliderMouseMove(sender as Slider, e);
 
@@ -52,9 +51,6 @@ namespace AudioPlayerMVVMandNAudio
         {
             var slider = sender as Slider;
             SliderMouseLeftButtonUp(slider);
-            //SliderValueAfterDrag = slider.Value;
-            //slider.GetBindingExpression(Slider.ValueProperty).UpdateSource();
-            //var expression = BindingOperations.GetBindingExpression(PositionSlider, Slider.ValueProperty);
         }
 
         /// <summary>
@@ -90,3 +86,6 @@ namespace AudioPlayerMVVMandNAudio
         #endregion
     }
 }
+
+
+        

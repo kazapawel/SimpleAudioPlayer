@@ -15,6 +15,7 @@
             if (ViewModel.BufferTrack != null)
                 ViewModel.BufferTrack.IsAudioFilePlaying = false;
 
+
             //Refresh readonly property
             ViewModel.OnPropertyChanged(nameof(ViewModel.IsPlaying));
         }

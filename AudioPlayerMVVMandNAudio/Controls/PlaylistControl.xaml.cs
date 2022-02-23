@@ -196,8 +196,6 @@ namespace AudioPlayerMVVMandNAudio
 
         #endregion
 
-
-
         /// <summary>
         /// Invokes CloseWindowCommand.
         /// </summary>

@@ -143,7 +143,6 @@ namespace AudioPlayerNAudio
                 {
                     audioFileReader = new AudioFileReader(Path);
                     //System.Runtime.InteropServices.COMException: 'Typ strumienia bajtów podanego adresu URL jest nieobsługiwany. (0xC00D36C4)'
-
                 }
                 catch (Exception e)
                 {
@@ -178,14 +177,17 @@ namespace AudioPlayerNAudio
         /// </summary>
         public void StopAudio()
         {
-            //Marks flag as true
-            StoppedBeforeEnd = true;
+            if(outputDevice?.PlaybackState!=PlaybackState.Stopped)
+            {
+                //Marks flag as true
+                StoppedBeforeEnd = true;
 
-            //Stops audio
-            outputDevice?.Stop();
+                //Stops audio
+                outputDevice?.Stop();
 
-            //
-            DisposeDevices();
+                //
+                DisposeDevices();
+            }
         }
 
         /// <summary>

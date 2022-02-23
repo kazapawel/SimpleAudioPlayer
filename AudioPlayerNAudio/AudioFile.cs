@@ -10,13 +10,8 @@ namespace AudioPlayerNAudio
     {
         #region PRIVATE MEMBERS
 
-        /// <summary>
-        /// Private instance of TagLib. Contains info about audio file.
-        /// </summary>
-        private readonly File tags;
-
-        private readonly string errorMessage;
-        private readonly string exceptionName;
+        private string errorMessage;
+        private string exceptionName;
 
         #endregion
 
@@ -35,27 +30,27 @@ namespace AudioPlayerNAudio
         /// <summary>
         /// Gets audio file's title. If title is not set gets file's name.
         /// </summary>
-        public string Title => tags is null ? Name : tags.Tag.Title ?? Name;
+        public string Title { get; private set; }
 
         /// <summary>
         /// Gets first artist from performers list or description it there are no performers.
         /// </summary>
-        public string Artist { get => tags is null ? exceptionName : tags.Tag.Performers.Length > 0 ? tags.Tag.Performers[0] : string.Empty; private set{} }
+        public string Artist { get; private set; }
 
         /// <summary>
         /// Gets audio's file album title.
         /// </summary>
-        public string Album => tags is null ? string.Empty : tags.Tag.Album;
+        public string Album { get; private set; }
 
         /// <summary>
         /// Gets audio file's duration time.
         /// </summary>
-        public TimeSpan Duration => tags is null ? new TimeSpan(0) : tags.Properties.Duration;
+        public TimeSpan Duration { get; private set; }
 
-        public string Description => tags is null ? errorMessage : tags.Properties.Description;
-        public int AudioChannels => tags is null ? 0 : tags.Properties.AudioChannels;
-        public int AudioSampleRate => tags is null ? 0 : tags.Properties.AudioSampleRate;
-        public int BitsPerSample => tags is null ? 0 : tags.Properties.BitsPerSample == 0 ? tags.Properties.AudioBitrate : tags.Properties.BitsPerSample;
+        public string Description { get; private set; }
+        public int AudioChannels { get; private set; }
+        public int AudioSampleRate { get; private set; }
+        public int BitsPerSample { get; private set; }
 
         #endregion
 
@@ -67,24 +62,30 @@ namespace AudioPlayerNAudio
         /// <param name="path"></param>
         public AudioFile(string path)
         {
-            //File's path
             PathOfFile = path;
-
-            //File's name
             Name = System.IO.Path.GetFileName(path);
-            
-            ////Creates TagLib instance
-            //try
-            //{
-            //    tags = File.Create(path);
-            //}
-            //catch (Exception e)
-            //{
-            //    //So user can see info about file corruption
-            //    errorMessage = e.Message;
-            //    exceptionName = e.GetType().FullName;
-            //}
 
+            //Creates TagLib instance
+            File tags = null;
+            try
+            {
+                tags = File.Create(PathOfFile);
+            }
+            catch (Exception e)
+            {
+                //For user to be able to see info about file corruption
+                errorMessage = e.Message;
+                exceptionName = e.GetType().FullName;
+            }
+
+            Title = tags is null ? Name : tags.Tag.Title ?? Name;
+            Artist = tags is null ? exceptionName : tags.Tag.Performers.Length > 0 ? tags.Tag.Performers[0] : string.Empty;
+            Album = tags is null ? string.Empty : tags.Tag.Album;
+            Duration = tags is null ? new TimeSpan(0) : tags.Properties.Duration;
+            Description = tags is null ? errorMessage : tags.Properties.Description;
+            AudioChannels = tags is null ? 0 : tags.Properties.AudioChannels;
+            AudioSampleRate = tags is null ? 0 : tags.Properties.AudioSampleRate;
+            BitsPerSample = tags is null ? 0 : tags.Properties.BitsPerSample == 0 ? tags.Properties.AudioBitrate : tags.Properties.BitsPerSample;         
             /*
              * TagLib.CorruptFileException: 'MPEG audio header not found.
              * TagLib.UnsupportedFormatException: 

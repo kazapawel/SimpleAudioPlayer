@@ -12,10 +12,7 @@
                 <ControlTemplate TargetType="{x:Type Button}">
 
                     <Border x:Name="buttonBorder"
-                            Background="Magenta"
-                            
-                            BorderThickness="0"
-                            BorderBrush="Red"                          
+                            Background="Transparent"                                             
                             Padding="0">
 
                         <Image x:Name="buttonImage"

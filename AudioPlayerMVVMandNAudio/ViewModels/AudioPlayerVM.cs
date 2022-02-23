@@ -133,7 +133,6 @@ namespace AudioPlayerMVVMandNAudio
 
         public RelayCommand StopAudioCommand { get; set; }
 
-
         #endregion
 
         #region CONSTRUCTORS
@@ -186,6 +185,8 @@ namespace AudioPlayerMVVMandNAudio
             //Notify subscribers about playback end
             AudioHasEndedEvent?.Invoke(this, null);
         }
+
+        internal void RequestTrack() => AudioHasEndedEvent?.Invoke(this, null);
 
         #region TIMER METHODS
 

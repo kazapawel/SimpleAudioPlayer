@@ -71,10 +71,9 @@ namespace AudioPlayerMVVMandNAudio
             get { return (ICommand)GetValue(AddFilesCommandProperty); }
             set { SetValue(AddFilesCommandProperty, value); }
         }
-       
+
         public static readonly DependencyProperty AddFilesCommandProperty =
             DependencyProperty.Register("AddFilesCommand", typeof(ICommand), typeof(PlaylistControl), new PropertyMetadata(null));
-
 
         /// <summary>
         /// 
@@ -87,6 +86,18 @@ namespace AudioPlayerMVVMandNAudio
         
         public static readonly DependencyProperty MoveItemCommandProperty =
             DependencyProperty.Register("MoveItemCommand", typeof(ICommand), typeof(PlaylistControl), new PropertyMetadata(null));
+
+
+
+        public ICommand DoubleClickCommand
+        {
+            get { return (ICommand)GetValue(DoubleClickCommandProperty); }
+            set { SetValue(DoubleClickCommandProperty, value); }
+        }
+
+        public static readonly DependencyProperty DoubleClickCommandProperty =
+            DependencyProperty.Register("DoubleClickCommand", typeof(ICommand), typeof(PlaylistControl), new PropertyMetadata(null));
+
 
         #endregion
 
@@ -249,8 +260,17 @@ namespace AudioPlayerMVVMandNAudio
             return file.Attributes.HasFlag(FileAttributes.Directory);
         }
 
+
         #endregion
 
-        
+        /// <summary>
+        /// Invokes DoubleClickCommand.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ListBoxItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            DoubleClickCommand?.Execute(null);
+        }
     }
 }

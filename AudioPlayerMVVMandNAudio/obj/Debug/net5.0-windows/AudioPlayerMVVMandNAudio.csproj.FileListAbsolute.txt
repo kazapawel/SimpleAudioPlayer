@@ -47,7 +47,7 @@ C:\Users\k\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerMVVMandNAudio\obj\De
 C:\Users\k\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerMVVMandNAudio\obj\Debug\net5.0-windows\Controls\PlaylistControl.baml
 C:\Users\k\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerMVVMandNAudio\obj\Debug\net5.0-windows\Styles\Fonts.baml
 C:\Users\k\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerMVVMandNAudio\obj\Debug\net5.0-windows\Styles\ImageStyles.baml
-C:\Users\k\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerMVVMandNAudio\obj\Debug\net5.0-windows\Controls\AudioPlayerControl.g.cs
-C:\Users\k\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerMVVMandNAudio\obj\Debug\net5.0-windows\Controls\AudioPlayerControl.baml
 C:\Users\k\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerMVVMandNAudio\obj\Debug\net5.0-windows\Controls\VolumeSliderControl.g.cs
 C:\Users\k\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerMVVMandNAudio\obj\Debug\net5.0-windows\Controls\VolumeSliderControl.baml
+C:\Users\k\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerMVVMandNAudio\obj\Debug\net5.0-windows\Controls\PositionSliderControl.g.cs
+C:\Users\k\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerMVVMandNAudio\obj\Debug\net5.0-windows\Controls\PositionSliderControl.baml

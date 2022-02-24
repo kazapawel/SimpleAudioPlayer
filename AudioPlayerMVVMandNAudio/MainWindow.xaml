@@ -92,18 +92,18 @@
         
         <!--#region TRANSPORT BUTTONS / OPTIONS BUTTONS / VOLUME SLIDER -->
         <Grid Grid.Row="1">
-            
+
             <Grid.ColumnDefinitions>
-                
+
                 <!-- Transport buttons -->
                 <ColumnDefinition Width="auto"/>
-                
+
                 <!-- Options buttons-->
                 <ColumnDefinition Width="auto"/>
-                
+
                 <!-- Volume slider -->
                 <ColumnDefinition Width="*"/>
-                
+
             </Grid.ColumnDefinitions>
 
             <!-- TRANSPORT BUTTONS -->
@@ -166,18 +166,18 @@
                     />
 
             </Grid>
-            
+
             <!-- OPTIONS BUTTONS -->
             <Grid Grid.Column="1">
-                
+
                 <Grid.ColumnDefinitions>
-                    
+
                     <!-- Loop button -->
                     <ColumnDefinition Width="auto"/>
-                    
+
                     <!-- Shuffle button -->
                     <ColumnDefinition Width="auto"/>
-                    
+
                 </Grid.ColumnDefinitions>
 
                 <CheckBox Grid.Column="0"
@@ -193,26 +193,18 @@
                           IsChecked="{Binding PlaylistVM.ShuffleOn, Mode=OneWayToSource}"
                           />
             </Grid>
-            
+
             <!-- VOLUME SLIDER -->
             <local:VolumeSliderControl Grid.Column="2"
-                                DataContext="{Binding AudioPlayerVM}"
-                                />
+                                       DataContext="{Binding AudioPlayerVM}"
+                                       />
         </Grid>
-        
-        
         <!--#endregion-->
 
-        <!--#region AUDIO PLAYER -->
-        <!--  -->
-        <Border Grid.Row="2">
-
-            <!-- AUDIO PLAYER CONTROL -->
-            <local:AudioPlayerControl DataContext="{Binding AudioPlayerVM}"
-                                      x:Name="audioPlayerControl"/>
-
-        </Border>
-
+        <!--#region POSITION/TIME SLIDER -->
+        <local:PositionSliderControl Grid.Row="2"
+                                  DataContext="{Binding AudioPlayerVM}"
+                                  x:Name="audioPlayerControl"/>
         <!--#endregion-->
 
         <!--#region PLAYLIST -->
@@ -221,11 +213,12 @@
                                x:Name="playlistControl"
                                VerticalAlignment="Stretch"
                                IncomingFiles="{Binding IncomingFiles}"
-                               AddFilesCommand="{Binding AddFilesCommand}"
+                               AddFilesCommand="{Binding AddFilesAsyncCommand}"
                                MoveItemCommand="{Binding MoveItemCommand}"
                                TargetItem="{Binding TargetItem}"
                                MovedItem="{Binding MovedItem}"
                                OnWindowClosingCommand="{Binding OnWindowClosingCommand}"
+                               DoubleClickCommand="{Binding LoadSelectedTrackCommand}"
                                />
         <!--#endregion-->
 

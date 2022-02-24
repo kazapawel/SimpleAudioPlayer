@@ -6,6 +6,7 @@ using System.Windows.Input;
 using System.Linq;
 using System.Collections.Specialized;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace AudioPlayerMVVMandNAudio
 {
@@ -22,6 +23,8 @@ namespace AudioPlayerMVVMandNAudio
         /// For making random index;
         /// </summary>
         private Random random;
+
+        private bool info;
 
         #endregion
 
@@ -50,6 +53,20 @@ namespace AudioPlayerMVVMandNAudio
         /// </summary>
         public string Items => SongsListObservable.Count.ToString();
 
+        public bool Info
+        {
+            get => info;
+            set
+            {
+                if (info != value)
+                {
+                    info = value;
+                    OnPropertyChanged(nameof(Info));
+                }
+            }
+        }
+        
+
         #region DRAG AND DROP PROPERTIES
 
         private IEnumerable<string> incomingFiles;
@@ -77,47 +94,35 @@ namespace AudioPlayerMVVMandNAudio
         #region EVENTS
 
         /// <summary>
-        /// Occurs when selected file is loaded into "buffer"
+        /// Occurs when selected file is loaded into "buffer".
         /// </summary>
         public event EventHandler<AudioFileVMEventArgs> LoadSelectedAudioFileEvent;
 
+        /// <summary>
+        /// Occurs when playlist reaches an end.
+        /// </summary>
         public event EventHandler PlaylistHasEndedEvent;
 
         #endregion
 
         #region COMMANDS
 
-        /// <summary>
-        /// Loads selected track, in a responsone for double mouse click.
-        /// </summary>
         public ICommand LoadSelectedTrackCommand { get; set; }
 
-        /// <summary>
-        /// Removes track from playlist.
-        /// </summary>
         public ICommand RemoveTracksFromPlaylistCommand { get; set; }
 
-        /// <summary>
-        /// Removes all tracks from playlist.
-        /// </summary>
         public ICommand ClearPlaylistCommand { get; set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
+        public ICommand AddFilesAsyncCommand { get; set; }
+
         public ICommand AddFilesCommand { get; set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
         public ICommand MoveItemCommand { get; set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
         public ICommand OnWindowClosingCommand { get; set; }
 
         public ICommand NextTrackCommand { get; set; }
+
         public ICommand PreviousTrackCommand { get; set; }
 
         #endregion
@@ -134,8 +139,7 @@ namespace AudioPlayerMVVMandNAudio
             SongsListObservable = new ObservableCollection<AudioFileVM>();
 
             //Load data from model to observable collection
-            foreach (var song in model.SongsList)
-                SongsListObservable.Add(new AudioFileVM(song));
+            AddTracksToPlaylist(model.SongsList);
 
             model = null;
 
@@ -144,6 +148,7 @@ namespace AudioPlayerMVVMandNAudio
             RemoveTracksFromPlaylistCommand = new RelayCommand(RemoveTracksFromPlaylist);
             ClearPlaylistCommand = new RelayCommand(ClearPlaylist);
             AddFilesCommand = new AddFilesCommand(this);
+            AddFilesAsyncCommand = new AddFilesAsyncCommand(this);
             MoveItemCommand = new MoveItemCommand(this);
             OnWindowClosingCommand = new CloseWindowCommand(this);
             NextTrackCommand = new RelayCommand(NextTrack);
@@ -169,6 +174,10 @@ namespace AudioPlayerMVVMandNAudio
             LoadSelectedAudioFileEvent?.Invoke(this, new AudioFileVMEventArgs(BufferTrack));
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="o"></param>
         private void NextTrack(object o)
         {
             if (ShuffleOn)
@@ -179,6 +188,10 @@ namespace AudioPlayerMVVMandNAudio
             LoadSelectedTrackToBuffer(null);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="o"></param>
         private void PreviousTrack(object o)
         {
             if (ShuffleOn)
@@ -235,7 +248,7 @@ namespace AudioPlayerMVVMandNAudio
         }
 
         /// <summary>
-        /// 
+        /// Sets random track in playlist as selected track.
         /// </summary>
         private void RandomTrackSet()
         {
@@ -249,15 +262,58 @@ namespace AudioPlayerMVVMandNAudio
         /// <summary>
         /// Adds tracks to observable collection.
         /// </summary>
+        /// <param name="tracksPaths"></param>
+        /// <returns></returns>
+        public async Task AddTracksToPlaylistAsync(IEnumerable<string> tracksPaths)
+        {
+            Info = true;
+
+            SongsListObservable = await Task.Run(()=> AddItems(tracksPaths));
+
+            //CollectionChanged does not work for new-ing collection...?
+            OnPropertyChanged(nameof(SongsListObservable));
+
+            //Raises property changed on read only property
+            OnPropertyChanged(nameof(Items));
+
+            Info = false;
+
+            GC.Collect();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="tracksPaths"></param>
+        /// <returns></returns>
+        private ObservableCollection<AudioFileVM> AddItems(IEnumerable<string> tracksPaths)
+        {
+            var col = new ObservableCollection<AudioFileVM>();
+
+            foreach (var item in SongsListObservable)
+                col.Add(item);
+
+            foreach (var path in tracksPaths)
+            {
+                var track = new AudioFileVM(path);
+                col.Add(track);
+            };
+
+            return col;
+        }
+
+        /// <summary>
+        /// Adds tracks to observable collection.
+        /// </summary>
         /// <param name="trackPath"></param>
         public void AddTracksToPlaylist(IEnumerable<string> tracksPaths)
         {
-            foreach (var trackPath in tracksPaths)
+            foreach (var path in tracksPaths)
             {
-                var track = new AudioFileVM(trackPath);
+                var track = new AudioFileVM(path);
 
                 SongsListObservable.Add(track);
-            }
+            };
 
             //Raises property changed on read only property
             OnPropertyChanged(nameof(Items));
@@ -273,38 +329,29 @@ namespace AudioPlayerMVVMandNAudio
             System.Collections.IList items = (System.Collections.IList)o;
             var songs = items.Cast<AudioFileVM>();
 
-            //Removes songs
-            foreach (var song in songs)
-                SongsListObservable.Remove(song);
-        }
+            //Removes tracks
+            foreach (var track in songs.ToList())
+                SongsListObservable.Remove(track);
 
-        /// <summary>
-        /// Removes all tracks from playlist.
-        /// </summary>
-        /// <param name="o"></param>
-        private void ClearPlaylist(object o)
-        {
-            ClearObservableCollection(null);
+            //Raise property changed on read only property
+            OnPropertyChanged(nameof(Items));
+
             GC.Collect();
         }
 
         /// <summary>
-        /// Clears observable collection.
+        /// Removes all tracks from observable collection.
         /// </summary>
-        /// <param name="collection"></param>
-        private void ClearObservableCollection(IEnumerable<AudioFileVM> collection)
+        /// <param name="o"></param>
+        private void ClearPlaylist(object o)
         {
-            ////Makes new observable collection
-            //SongsListObservable = collection != null ? new ObservableCollection<AudioFileVM>(collection)
-            //                                         : new ObservableCollection<AudioFileVM>();
-
             SongsListObservable = new ObservableCollection<AudioFileVM>();
 
-            //CollectionChanged does not work for new-ing collection...?
+            //Raise property changed on read only properties
             OnPropertyChanged(nameof(SongsListObservable));
-
-            //Raise property changed on read only property
             OnPropertyChanged(nameof(Items));
+
+            GC.Collect();
         }
 
         /// <summary>

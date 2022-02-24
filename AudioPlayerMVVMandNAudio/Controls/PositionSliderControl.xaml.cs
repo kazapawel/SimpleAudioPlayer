@@ -9,7 +9,7 @@ namespace AudioPlayerMVVMandNAudio
     /// <summary>
     /// Interaction logic for TransportPanelControl.xaml
     /// </summary>
-    public partial class AudioPlayerControl : UserControl
+    public partial class PositionSliderControl : UserControl
     {
         #region DEPENDENCY PROPERTIES
 
@@ -27,7 +27,7 @@ namespace AudioPlayerMVVMandNAudio
         /// <summary>
         /// Dedfault constructor
         /// </summary>
-        public AudioPlayerControl()
+        public PositionSliderControl()
         {
             InitializeComponent();
         }

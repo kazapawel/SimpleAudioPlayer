@@ -47,5 +47,7 @@ C:\Users\k\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerMVVMandNAudio\obj\Re
 C:\Users\k\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerMVVMandNAudio\obj\Release\net5.0-windows\AudioPlayerMVVMandNAudio.pdb
 C:\Users\k\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerMVVMandNAudio\obj\Release\net5.0-windows\AudioPlayerMVVMandNAudio.genruntimeconfig.cache
 C:\Users\k\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerMVVMandNAudio\obj\Release\net5.0-windows\Styles\ImageStyles.baml
-C:\Users\k\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerMVVMandNAudio\obj\Release\net5.0-windows\Controls\AudioPlayerControl.g.cs
-C:\Users\k\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerMVVMandNAudio\obj\Release\net5.0-windows\Controls\AudioPlayerControl.baml
+C:\Users\k\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerMVVMandNAudio\obj\Release\net5.0-windows\Controls\PositionSliderControl.g.cs
+C:\Users\k\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerMVVMandNAudio\obj\Release\net5.0-windows\Controls\VolumeSliderControl.g.cs
+C:\Users\k\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerMVVMandNAudio\obj\Release\net5.0-windows\Controls\PositionSliderControl.baml
+C:\Users\k\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerMVVMandNAudio\obj\Release\net5.0-windows\Controls\VolumeSliderControl.baml

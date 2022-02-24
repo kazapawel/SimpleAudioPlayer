@@ -23,7 +23,8 @@
                  ItemsSource="{Binding SongsListObservable}"                                                
                  SelectedItem="{Binding SelectedTrack, Mode=TwoWay}"
                  SelectionMode="Extended"
-                 AllowDrop="True">
+                 AllowDrop="True"
+                 >
             
             <!-- Playlist item style -->
             <ListBox.ItemContainerStyle>
@@ -32,6 +33,7 @@
                     <!-- Events handlers -->
                     <EventSetter Event="MouseMove" Handler="Item_MouseMove"/>
                     <EventSetter Event="DragOver" Handler="Item_DragOver"/>
+                    <EventSetter Event="MouseDoubleClick" Handler="ListBoxItem_MouseDoubleClick"/>
                     <!--<EventSetter Event="Drop" Handler="Item_Drop"/>-->
 
                     <!-- Template -->
@@ -64,32 +66,37 @@
 
 
         <!-- OPTIONS -->
-        <!--<Border Grid.Row="1" 
-                BorderThickness="1"
-                BorderBrush="LightPink"
-                Margin="5,0,5,5"
-                Padding="1"
-                HorizontalAlignment="Right">-->
-            <Grid Grid.Row="1"
+        <!-- Info -->
+        <TextBlock Grid.Row="1"
+                   Style="{StaticResource WhiteTextblock}"
+                   Visibility="{Binding Info, Converter={StaticResource BoolToVisibilityConverter}}"
+                   Text="Adding items..."
+                   Margin="5,0,0,0"
+                   Padding="2"
+                   FontSize="11"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Left"
+                           />
+        <Grid Grid.Row="1"
                   Margin="5,0,5,5"
                   HorizontalAlignment="Right"
                   >
-                <Grid.ColumnDefinitions>
+            <Grid.ColumnDefinitions>
 
-                    <ColumnDefinition Width="auto"/>
-                    <ColumnDefinition Width="auto"/>
-                    <ColumnDefinition Width="auto"/>
-                    <ColumnDefinition Width="auto"/>
-                    <ColumnDefinition Width="auto"/>
-                    <ColumnDefinition Width="auto"/>
-                    
-                    <!-- Save button-->
-                    <ColumnDefinition Width="auto"/>
-                    
-                </Grid.ColumnDefinitions>
-                
-               <!-- Header-->
-                <TextBlock Grid.Column="0"
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+
+                <!-- Save button-->
+                <ColumnDefinition Width="auto"/>
+
+            </Grid.ColumnDefinitions>
+   
+            <!-- Header-->
+            <TextBlock Grid.Column="1"
                            Style="{StaticResource WhiteTextblock}"
                            Text="Items:"
                            Padding="2"
@@ -97,54 +104,52 @@
                            VerticalAlignment="Center"
                            />
 
-                <!-- Items count-->
-                <TextBlock Grid.Column="1"
+            <!-- Items count-->
+            <TextBlock Grid.Column="2"
                            Style="{StaticResource WhiteTextblock}"
                            Text="{Binding Items}"
                            Padding="2"
                            FontSize="11"
                            VerticalAlignment="Center"
                            />
-                
-                <!-- Add item button -->
-                <Button Grid.Column="2"
+
+            <!-- Add item button -->
+            <Button Grid.Column="3"
                         Style="{StaticResource ImageButtonSmall}"
                         Tag="pack://application:,,,/Images/Playlist/addfile.png"
                         Click="AddButton_Click"
                         />
 
-                <!-- Remove items button -->
-                <Button Grid.Column="3" 
+            <!-- Remove items button -->
+            <Button Grid.Column="4" 
                         Style="{StaticResource ImageButtonSmall}"
                         Tag="pack://application:,,,/Images/Playlist/removefile.png"
                         CommandParameter="{Binding ElementName=PlaylistListbox, Path=SelectedItems}"
                         Command="{Binding RemoveTracksFromPlaylistCommand}"
                         />
 
-                <!-- Load playlist button--><!--
+            <!-- Load playlist button-->
+            <!--
                 <Button Grid.Column="4"
                         Style="{StaticResource ImageButtonSmall}"
                         Tag="pack://application:,,,/Images/addlist.png"
                         />
 
-                --><!-- Save playlist button--><!--
+                -->
+            <!-- Save playlist button-->
+            <!--
                 <Button Grid.Column="5"
                         Style="{StaticResource ImageButtonSmall}"
                         Tag="pack://application:,,,/Images/addlist.png"
                         />-->
 
-                <!-- Clear playlist button-->
-                <Button Grid.Column="6"
+            <!-- Clear playlist button-->
+            <Button Grid.Column="5"
                         Style="{StaticResource ImageButtonSmall}"
                         Tag="pack://application:,,,/Images/Playlist/clear.png"
                         Command="{Binding ClearPlaylistCommand}"
                         />
 
-            </Grid>
-        <!--</Border>-->
-        
-
-        
-
+        </Grid>
     </Grid>
 </UserControl>

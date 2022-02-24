@@ -19,7 +19,7 @@ namespace AudioPlayerNAudio
         /// <summary>
         /// NAudio audio file reader 
         /// </summary>
-        private AudioFileReader audioFileReader;
+        private MediaFoundationReader audioFileReader;
 
         /// <summary>
         /// Flag that informs if playback was stopped before reaching its end(ex: by user pressing stop).
@@ -29,6 +29,8 @@ namespace AudioPlayerNAudio
         private double storedVolume;
         #endregion
 
+        
+        
         #region PUBLIC PROPERTIES
 
         public bool IsReady => outputDevice != null && audioFileReader != null;
@@ -37,32 +39,13 @@ namespace AudioPlayerNAudio
         {
             get
             {
-                return audioFileReader != null ? (double)audioFileReader.Volume * 100 : 0;
+                return outputDevice != null ? (double)outputDevice.Volume * 100 : 0;
             }
             set
             {
                 storedVolume = value;
-                if (audioFileReader != null)
-                    audioFileReader.Volume=(float)(value / 100);
-            }
-        }
-        /// <summary>
-        /// Gets or sets volume of audio file.
-        /// 
-        /// </summary>
-        public float Volume2
-        {
-            get 
-            {
-                if (audioFileReader != null)
-                    return audioFileReader.Volume;
-                else
-                    return 0;
-            }
-            set 
-            {
-                if (audioFileReader != null)
-                    audioFileReader.Volume = value;
+                if (outputDevice != null)
+                    outputDevice.Volume=(float)(value / 100);
             }
         }
 
@@ -141,7 +124,7 @@ namespace AudioPlayerNAudio
                 //Creates file reader
                 try
                 {
-                    audioFileReader = new AudioFileReader(Path);
+                    audioFileReader = new MediaFoundationReader(Path);
                     //System.Runtime.InteropServices.COMException: 'Typ strumienia bajtów podanego adresu URL jest nieobsługiwany. (0xC00D36C4)'
                 }
                 catch (Exception e)
@@ -155,8 +138,6 @@ namespace AudioPlayerNAudio
                 outputDevice.Init(audioFileReader);
 
                 SetVolume();
-
-                
 
                 //Plays audio
                 outputDevice.Play();
@@ -206,6 +187,10 @@ namespace AudioPlayerNAudio
                 AudioHasEndedEvent?.Invoke(this, null);
             }
 
+            //check for null
+            //if (outputDevice != null)
+            //    outputDevice.PlaybackStopped -= OnPlaybackStopped;
+
             StoppedBeforeEnd = false;
         }
 
@@ -214,10 +199,6 @@ namespace AudioPlayerNAudio
         /// </summary>
         private void DisposeDevices()
         {
-            //check for null
-            if(outputDevice != null)
-                outputDevice.PlaybackStopped -= OnPlaybackStopped;
-
             outputDevice?.Dispose();
             outputDevice = null;
             audioFileReader?.Dispose();
@@ -231,7 +212,8 @@ namespace AudioPlayerNAudio
         {
             if (audioFileReader != null)
             {
-                audioFileReader.Volume = (float)(storedVolume / 100);
+                outputDevice.Volume = (float)(storedVolume / 100);
+                //audioFileReader.Volume = 
             }
         }
 

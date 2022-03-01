@@ -123,6 +123,9 @@ namespace AudioPlayerMVVMandNAudio
 
         #region EVENTS
 
+        /// <summary>
+        /// Occurs when audio reaches an end.
+        /// </summary>
         public event EventHandler AudioHasEndedEvent;
 
         #endregion
@@ -171,12 +174,6 @@ namespace AudioPlayerMVVMandNAudio
         private void SetAudioPlayerVolume()
         {
             AudioFilePlayer.Volume = Muted ? 0 : storedVolume;
-
-            //if (AudioFilePlayer != null)
-            //{
-            //    var volume = (float)(storedVolume / 100);
-            //    AudioFilePlayer.Volume = Muted ? 0 : volume;
-            //}
         }
         private void OnAudioHasEnded(object sender, EventArgs e)
         {
@@ -194,9 +191,6 @@ namespace AudioPlayerMVVMandNAudio
         /// </summary>
         internal void StartTimer()
         {
-            //Creates new dispatcher timer for updating time values from model
-            
-
             //Starts timer
             timer.Start();
 
@@ -214,7 +208,6 @@ namespace AudioPlayerMVVMandNAudio
         {
             //Stops timer
             timer?.Stop();
-            //timer = null;
 
             //Updates current time
             OnPropertyChanged(nameof(TimeCurrent));

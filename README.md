@@ -7,7 +7,7 @@ Functionality:
 * Drag and move files in playlist
 * Random order play
 * Loop playlist
-* Displaying trags and info
+* Displaying tags and info
 * Drag and move sliders
 
 Libraries:

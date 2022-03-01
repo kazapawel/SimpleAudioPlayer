@@ -185,7 +185,6 @@ namespace AudioPlayerMVVMandNAudio
             //Notify subscribers about playback end
             AudioHasEndedEvent?.Invoke(this, null);
         }
-
         internal void RequestTrack() => AudioHasEndedEvent?.Invoke(this, null);
 
         #region TIMER METHODS

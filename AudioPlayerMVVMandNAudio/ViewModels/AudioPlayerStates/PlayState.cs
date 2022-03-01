@@ -2,15 +2,7 @@
 {
     public class PlayState : AudioPlayerState
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="viewModel"></param>
         public PlayState(AudioPlayerVM viewModel) : base(viewModel) { }
-
-        /// <summary>
-        /// 
-        /// </summary>
         public override void EnterState()
         {
             //Plays audio only when there is a buffer track
@@ -38,10 +30,6 @@
                 ViewModel.RequestTrack();
             }
         }
-
-        /// <summary>
-        /// 
-        /// </summary>
         public override void PlayTrack()
         {
             ViewModel.State = new PauseState(ViewModel);
@@ -52,10 +40,6 @@
             ViewModel.State = new StopState(ViewModel);
             ViewModel.State.EnterState();
         }
-
-        /// <summary>
-        /// 
-        /// </summary>
         public override void OnAudioHasEnded()
         {
             //Updates flag

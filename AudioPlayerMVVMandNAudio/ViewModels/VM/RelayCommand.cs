@@ -25,7 +25,7 @@ namespace AudioPlayerMVVMandNAudio
         #region ICOMMAND IMPLEMENTATION
 
         /// <summary>
-        /// Event
+        /// 
         /// </summary>
         public event EventHandler CanExecuteChanged
         {
@@ -40,8 +40,7 @@ namespace AudioPlayerMVVMandNAudio
         /// <returns></returns>
         public bool CanExecute(object parameter)
         {
-            return _canExecute == null ? true : _canExecute(parameter);
-            
+            return _canExecute == null ? true : _canExecute(parameter);  
         }
 
         /// <summary>

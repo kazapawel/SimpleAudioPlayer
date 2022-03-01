@@ -4,8 +4,6 @@ using System.Collections.ObjectModel;
 using System.Collections.Generic;
 using System.Windows.Input;
 using System.Linq;
-using System.Collections.Specialized;
-using System.IO;
 using System.Threading.Tasks;
 
 namespace AudioPlayerMVVMandNAudio
@@ -45,7 +43,14 @@ namespace AudioPlayerMVVMandNAudio
         /// </summary>
         public AudioFileVM SelectedTrack { get; set; }
 
+        /// <summary>
+        /// Flag that indicates loop state.
+        /// </summary>
         public bool LoopOn { get; set; }
+
+        /// <summary>
+        /// Flag that indicates random play state.
+        /// </summary>
         public bool ShuffleOn { get; set; }
 
         /// <summary>
@@ -53,6 +58,9 @@ namespace AudioPlayerMVVMandNAudio
         /// </summary>
         public string Items => SongsListObservable.Count.ToString();
 
+        /// <summary>
+        /// Flag to inform about adding files.
+        /// </summary>
         public bool Info
         {
             get => info;
@@ -64,8 +72,7 @@ namespace AudioPlayerMVVMandNAudio
                     OnPropertyChanged(nameof(Info));
                 }
             }
-        }
-        
+        }      
 
         #region DRAG AND DROP PROPERTIES
 
@@ -175,13 +182,20 @@ namespace AudioPlayerMVVMandNAudio
         }
 
         /// <summary>
-        /// 
+        /// Sets next track in playlist.
         /// </summary>
         /// <param name="o"></param>
         private void NextTrack(object o)
         {
             if (ShuffleOn)
                 RandomTrackSet();
+
+            //If playlist has ended raises an event an returns
+            else if (!LoopOn && SongsListObservable.IndexOf(BufferTrack) + 1 == SongsListObservable.Count)
+            {
+                PlaylistHasEndedEvent?.Invoke(this, null);
+                return;
+            }
             else
                 NextTrackSet();
 
@@ -189,7 +203,7 @@ namespace AudioPlayerMVVMandNAudio
         }
 
         /// <summary>
-        /// 
+        /// Sets previous track.
         /// </summary>
         /// <param name="o"></param>
         private void PreviousTrack(object o)
@@ -270,7 +284,7 @@ namespace AudioPlayerMVVMandNAudio
 
             SongsListObservable = await Task.Run(()=> AddItems(tracksPaths));
 
-            //CollectionChanged does not work for new-ing collection...?
+            //CollectionChanged does not work for new-ing collection
             OnPropertyChanged(nameof(SongsListObservable));
 
             //Raises property changed on read only property
@@ -290,15 +304,17 @@ namespace AudioPlayerMVVMandNAudio
         {
             var col = new ObservableCollection<AudioFileVM>();
 
+            //Adds present items to new collection
             foreach (var item in SongsListObservable)
                 col.Add(item);
 
+            //Creates and adds new items
             foreach (var path in tracksPaths)
             {
                 var track = new AudioFileVM(path);
                 col.Add(track);
-            };
-
+            }
+            
             return col;
         }
 

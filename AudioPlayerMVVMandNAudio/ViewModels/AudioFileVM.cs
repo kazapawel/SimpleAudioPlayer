@@ -1,6 +1,4 @@
 ﻿using AudioPlayerNAudio;
-using System;
-using System.IO;
 
 namespace AudioPlayerMVVMandNAudio
 {
@@ -17,6 +15,7 @@ namespace AudioPlayerMVVMandNAudio
         #endregion
 
         #region PUBLIC PROPERTIES
+
         /// <summary>
         /// 
         /// </summary>
@@ -45,7 +44,7 @@ namespace AudioPlayerMVVMandNAudio
         public string FileProperties => $"{model.Description} | {(model.AudioChannels>1 ? "stereo" : "mono")} | {model.AudioSampleRate} Hz | {model.BitsPerSample}";
 
         /// <summary>
-        /// 
+        /// Flag for icon display
         /// </summary>
         public bool IsAudioFilePlaying
         {
@@ -63,15 +62,6 @@ namespace AudioPlayerMVVMandNAudio
         #endregion
 
         #region CONSTRUCTORS
-
-        ///// <summary>
-        ///// Default constructor with audio file model injected.
-        ///// </summary>
-        ///// <param name="audioFile"></param>
-        //public AudioFileVM(AudioFile audioFile)
-        //{
-        //    model = audioFile;
-        //}
 
         /// <summary>
         /// Constructor which creates new AudioFile model based on path.

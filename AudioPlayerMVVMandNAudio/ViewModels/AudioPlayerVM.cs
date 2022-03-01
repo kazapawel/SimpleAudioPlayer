@@ -262,7 +262,7 @@ namespace AudioPlayerMVVMandNAudio
         }
 
         /// <summary>
-        /// 
+        /// Stops audio.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>

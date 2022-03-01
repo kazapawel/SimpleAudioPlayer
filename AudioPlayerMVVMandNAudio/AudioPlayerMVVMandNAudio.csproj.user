@@ -10,7 +10,7 @@
     <Compile Update="Controls\PlaylistControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Controls\PlaylistItem.xaml.cs">
+    <Compile Update="Controls\PlaylistItemControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Controls\PositionSliderControl.xaml.cs">
@@ -24,7 +24,7 @@
     <Page Update="Controls\PlaylistControl.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Controls\PlaylistItem.xaml">
+    <Page Update="Controls\PlaylistItemControl.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Controls\PositionSliderControl.xaml">

@@ -86,11 +86,6 @@ namespace AudioPlayerNAudio
             AudioChannels = tags is null ? 0 : tags.Properties.AudioChannels;
             AudioSampleRate = tags is null ? 0 : tags.Properties.AudioSampleRate;
             BitsPerSample = tags is null ? 0 : tags.Properties.BitsPerSample == 0 ? tags.Properties.AudioBitrate : tags.Properties.BitsPerSample;         
-            /*
-             * TagLib.CorruptFileException: 'MPEG audio header not found.
-             * TagLib.UnsupportedFormatException: 
-             * 'E:\Muza\breakbit\Booty Luv - Shine (Destroyers & Aggresivnes Rmx).mp3.sfk (taglib/sfk)'
-             */
         }
 
         #endregion

@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
-using System.Linq;
 
 namespace AudioPlayerNAudio
 {
     /// <summary>
-    /// Represents collection of songs. 
+    /// Represents collection of songs paths. 
     /// </summary>
     public class Playlist
     {
@@ -53,7 +51,7 @@ namespace AudioPlayerNAudio
         //public void RemoveTrack(AudioFile track) => SongsList.Remove(track);
 
         ///// <summary>
-        ///// 
+        ///// Removes all tracks from playlist.
         ///// </summary>
         //public void ClearPlaylist() => SongsList = new List<AudioFile>();
 

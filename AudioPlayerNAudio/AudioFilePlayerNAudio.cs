@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using NAudio.Wave;
 
 namespace AudioPlayerNAudio
@@ -27,14 +26,19 @@ namespace AudioPlayerNAudio
         private bool StoppedBeforeEnd;
 
         private double storedVolume;
+
         #endregion
 
-        
-        
         #region PUBLIC PROPERTIES
 
+        /// <summary>
+        /// 
+        /// </summary>
         public bool IsReady => outputDevice != null && audioFileReader != null;
 
+        /// <summary>
+        /// Gets and sets output device volume
+        /// </summary>
         public double Volume
         {
             get
@@ -72,15 +76,18 @@ namespace AudioPlayerNAudio
         /// Audio stream's total length.
         /// </summary>
         public long StreamLength => audioFileReader != null ? audioFileReader.Length : 0;
-
-        #endregion
-
+      
+        /// <summary>
+        /// Path of the file to play.
+        /// </summary>
         public string Path { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
         public string[] ErrorLog { get; set; }
+
+        #endregion
 
         #region EVENTS
 
@@ -134,12 +141,8 @@ namespace AudioPlayerNAudio
                     return;
                 }
 
-                //Inits audio device
                 outputDevice.Init(audioFileReader);
-
                 SetVolume();
-
-                //Plays audio
                 outputDevice.Play();
             }
         }
@@ -187,10 +190,6 @@ namespace AudioPlayerNAudio
                 AudioHasEndedEvent?.Invoke(this, null);
             }
 
-            //check for null
-            //if (outputDevice != null)
-            //    outputDevice.PlaybackStopped -= OnPlaybackStopped;
-
             StoppedBeforeEnd = false;
         }
 
@@ -213,7 +212,6 @@ namespace AudioPlayerNAudio
             if (audioFileReader != null)
             {
                 outputDevice.Volume = (float)(storedVolume / 100);
-                //audioFileReader.Volume = 
             }
         }
 

@@ -16,5 +16,5 @@ C:\Users\k\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerMVVMandNAudio\App.xa
 210-2005018570
 Controls\PlaylistControl.xaml;Controls\PlaylistItemControl.xaml;Controls\PositionSliderControl.xaml;Controls\VolumeSliderControl.xaml;MainWindow.xaml;Styles\ButtonStyles.xaml;Styles\CheckboxStyles.xaml;Styles\Colors.xaml;Styles\Fonts.xaml;Styles\ImageStyles.xaml;Styles\ListboxStyles.xaml;Styles\ScrollbarStyles.xaml;Styles\SliderStyles.xaml;Styles\TextblockStyles.xaml;Styles\WindowStyle.xaml;
 
-False
+True
 

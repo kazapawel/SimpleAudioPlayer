@@ -108,7 +108,7 @@
 
             <!-- TRANSPORT BUTTONS -->
             <Grid Grid.Column="0"
-              Margin="5,5,0,5">
+                  Margin="5,5,0,5">
 
                 <Grid.ColumnDefinitions>
 
@@ -128,12 +128,12 @@
 
                 <!-- PREVIOUS TRACK button -->
                 <Button Grid.Column="0"
-                    Style="{StaticResource ImageButton}" 
-                    Height="24"
-                    Width="24"
-                    Tag="pack://application:,,,/Images/Transport/previous.png"                   
-                    Command="{Binding PlaylistVM.PreviousTrackCommand}"
-                    />
+                        Style="{StaticResource ImageButton}" 
+                        Height="24"
+                        Width="24"
+                        Tag="pack://application:,,,/Images/Transport/previous.png"                   
+                        Command="{Binding PlaylistVM.PreviousTrackCommand}"
+                        />
 
                 <!-- PLAY -->
                 <Button Grid.Column="1"
@@ -147,23 +147,23 @@
 
                 <!-- NEXT TRACK button-->
                 <Button Grid.Column="3"
-                    x:Name="nextTrackButton"
-                    Style="{StaticResource ImageButton}" 
-                    Width="24"
-                    Height="24"
-                    Tag="pack://application:,,,/Images/Transport/next.png"
-                    Command="{Binding PlaylistVM.NextTrackCommand}"
-                    />
+                        x:Name="nextTrackButton"
+                        Style="{StaticResource ImageButton}" 
+                        Width="24"
+                        Height="24"
+                        Tag="pack://application:,,,/Images/Transport/next.png"
+                        Command="{Binding PlaylistVM.NextTrackCommand}"
+                        />
 
                 <!-- STOP button-->
                 <Button Grid.Column="2"
-                    x:Name="stopButton"
-                    Style="{StaticResource ImageButton}" 
-                    Tag="pack://application:,,,/Images/Transport/stopsmall.png"
-                    Width="24"
-                    Height="24"
-                    Command="{Binding AudioPlayerVM.StopAudioCommand}"
-                    />
+                        x:Name="stopButton"
+                        Style="{StaticResource ImageButton}" 
+                        Tag="pack://application:,,,/Images/Transport/stopsmall.png"
+                        Width="24"
+                        Height="24"
+                        Command="{Binding AudioPlayerVM.StopAudioCommand}"
+                        />
 
             </Grid>
 
@@ -196,6 +196,7 @@
 
             <!-- VOLUME SLIDER -->
             <local:VolumeSliderControl Grid.Column="2"
+                                       x:Name="volumeSliderControl"
                                        DataContext="{Binding AudioPlayerVM}"
                                        />
         </Grid>
@@ -203,14 +204,15 @@
 
         <!--#region POSITION/TIME SLIDER -->
         <local:PositionSliderControl Grid.Row="2"
-                                  DataContext="{Binding AudioPlayerVM}"
-                                  x:Name="audioPlayerControl"/>
+                                     x:Name="audioPlayerControl"
+                                     DataContext="{Binding AudioPlayerVM}"
+                                     />
         <!--#endregion-->
 
         <!--#region PLAYLIST -->
         <local:PlaylistControl Grid.Row="3"
-                               DataContext="{Binding PlaylistVM}"
                                x:Name="playlistControl"
+                               DataContext="{Binding PlaylistVM}"                            
                                VerticalAlignment="Stretch"
                                IncomingFiles="{Binding IncomingFiles}"
                                AddFilesCommand="{Binding AddFilesAsyncCommand}"
@@ -219,6 +221,7 @@
                                MovedItem="{Binding MovedItem}"
                                OnWindowClosingCommand="{Binding OnWindowClosingCommand}"
                                DoubleClickCommand="{Binding LoadSelectedTrackCommand}"
+                               DeletePressedCommand="{Binding RemoveTracksFromPlaylistCommand}"
                                />
         <!--#endregion-->
 
@@ -237,17 +240,17 @@
 
                 <!-- Title -->
                 <TextBlock Grid.Column="0" 
-                               Style="{StaticResource TrackInfoTextblock}" 
-                               Text="{Binding AudioPlayerVM.BufferTrack.TrackTitle, Mode=OneWay}"
-                               Foreground="{StaticResource ForegroundSimpleOrangeBrush}"
-                               />
+                           Style="{StaticResource TrackInfoTextblock}" 
+                           Text="{Binding AudioPlayerVM.BufferTrack.TrackTitle, Mode=OneWay}"
+                           Foreground="{StaticResource ForegroundSimpleOrangeBrush}"
+                           />
 
                 <!-- Artist -->
                 <TextBlock Grid.Column="1"
-                               Style="{StaticResource TrackInfoTextblock}" 
-                               Text="{Binding AudioPlayerVM.BufferTrack.Artist, Mode=OneWay}"
-                               Foreground="{StaticResource ForegroundSimpleLightGreenBrush}"
-                               />
+                           Style="{StaticResource TrackInfoTextblock}" 
+                           Text="{Binding AudioPlayerVM.BufferTrack.Artist, Mode=OneWay}"
+                           Foreground="{StaticResource ForegroundSimpleLightGreenBrush}"
+                           />
 
                 <!-- Album -->
                 <TextBlock Grid.Column="2"
@@ -272,11 +275,11 @@
 
                 <!-- File properties -->
                 <TextBlock Grid.Column="3"
-                               Style="{StaticResource TrackInfoTextblock}" 
-                               Text="{Binding AudioPlayerVM.BufferTrack.FileProperties, Mode=OneWay}"
-                               Width="500"
-                               TextTrimming="CharacterEllipsis"
-                               />
+                           Style="{StaticResource TrackInfoTextblock}" 
+                           Text="{Binding AudioPlayerVM.BufferTrack.FileProperties, Mode=OneWay}"
+                           Width="500"
+                           TextTrimming="CharacterEllipsis"
+                           />
             </Grid>
 
         </StackPanel>

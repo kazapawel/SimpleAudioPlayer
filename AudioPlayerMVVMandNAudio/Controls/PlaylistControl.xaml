@@ -6,7 +6,8 @@
              xmlns:local="clr-namespace:AudioPlayerMVVMandNAudio"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
+    
+    <Grid >
         <Grid.RowDefinitions>
             
             <!-- playlsit listbox -->
@@ -24,12 +25,15 @@
                  SelectedItem="{Binding SelectedTrack, Mode=TwoWay}"
                  SelectionMode="Extended"
                  AllowDrop="True"
-                 >
+                 FocusVisualStyle="{x:Null}">
             
             <!-- Playlist item style -->
             <ListBox.ItemContainerStyle>
                 <Style TargetType="ListBoxItem">
-                    
+
+                    <!-- To not show dotted border -->
+                    <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+
                     <!-- Events handlers -->
                     <EventSetter Event="MouseMove" Handler="Item_MouseMove"/>
                     <EventSetter Event="DragOver" Handler="Item_DragOver"/>
@@ -47,7 +51,7 @@
 
                     <!-- Selection style trigger -->
                     <Style.Triggers>
-
+                        
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter Property="Background" Value="#1D556D"/>
                         </Trigger>
@@ -58,7 +62,7 @@
                             </MultiTrigger.Conditions>
                             <Setter Property="Background" Value="#196E92"/>
                         </MultiTrigger>
-
+                        
                     </Style.Triggers>
                 </Style>
             </ListBox.ItemContainerStyle>
@@ -78,9 +82,8 @@
                    HorizontalAlignment="Left"
                            />
         <Grid Grid.Row="1"
-                  Margin="5,0,5,5"
-                  HorizontalAlignment="Right"
-                  >
+              Margin="5,0,5,5"
+              HorizontalAlignment="Right">
             <Grid.ColumnDefinitions>
 
                 <ColumnDefinition Width="auto"/>
@@ -115,18 +118,19 @@
 
             <!-- Add item button -->
             <Button Grid.Column="3"
-                        Style="{StaticResource ImageButtonSmall}"
-                        Tag="pack://application:,,,/Images/Playlist/addfile.png"
-                        Click="AddButton_Click"
-                        />
+                    Style="{StaticResource ImageButtonSmall}"
+                    Tag="pack://application:,,,/Images/Playlist/addfile.png"
+                    Click="AddButton_Click"
+                    />
 
             <!-- Remove items button -->
-            <Button Grid.Column="4" 
-                        Style="{StaticResource ImageButtonSmall}"
-                        Tag="pack://application:,,,/Images/Playlist/removefile.png"
-                        CommandParameter="{Binding ElementName=PlaylistListbox, Path=SelectedItems}"
-                        Command="{Binding RemoveTracksFromPlaylistCommand}"
-                        />
+            <Button Grid.Column="4"
+                    x:Name="removeTrackButton"
+                    Style="{StaticResource ImageButtonSmall}"
+                    Tag="pack://application:,,,/Images/Playlist/removefile.png"
+                    CommandParameter="{Binding ElementName=PlaylistListbox, Path=SelectedItems}"
+                    Command="{Binding RemoveTracksFromPlaylistCommand}"
+                    />
 
             <!-- Load playlist button-->
             <!--

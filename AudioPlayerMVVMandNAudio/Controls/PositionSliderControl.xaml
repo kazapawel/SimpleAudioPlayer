@@ -10,7 +10,8 @@
 
         <Grid Grid.Row="0" 
               Margin="5,0,5,5"
-              AllowDrop="True">
+              AllowDrop="True"
+              FocusVisualStyle="{x:Null}">
             
             <Grid.ColumnDefinitions>
 

@@ -5,7 +5,6 @@ C:\Users\k\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerMVVMandNAudio\obj\Re
 C:\Users\k\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerMVVMandNAudio\obj\Release\net5.0-windows\Styles\SliderStyles.baml
 C:\Users\k\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerMVVMandNAudio\obj\Release\net5.0-windows\Styles\WindowStyle.baml
 C:\Users\k\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerMVVMandNAudio\obj\Release\net5.0-windows\Controls\PlaylistControl.g.cs
-C:\Users\k\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerMVVMandNAudio\obj\Release\net5.0-windows\Controls\PlaylistItem.g.cs
 C:\Users\k\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerMVVMandNAudio\obj\Release\net5.0-windows\MainWindow.g.cs
 C:\Users\k\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerMVVMandNAudio\obj\Release\net5.0-windows\App.g.cs
 C:\Users\k\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerMVVMandNAudio\obj\Release\net5.0-windows\GeneratedInternalTypeHelper.g.cs
@@ -30,7 +29,6 @@ C:\Users\k\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerMVVMandNAudio\bin\Re
 C:\Users\k\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerMVVMandNAudio\bin\Release\net5.0-windows\AudioPlayerNAudio.pdb
 C:\Users\k\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerMVVMandNAudio\obj\Release\net5.0-windows\App.baml
 C:\Users\k\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerMVVMandNAudio\obj\Release\net5.0-windows\Controls\PlaylistControl.baml
-C:\Users\k\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerMVVMandNAudio\obj\Release\net5.0-windows\Controls\PlaylistItem.baml
 C:\Users\k\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerMVVMandNAudio\obj\Release\net5.0-windows\MainWindow.baml
 C:\Users\k\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerMVVMandNAudio\obj\Release\net5.0-windows\Styles\ButtonStyles.baml
 C:\Users\k\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerMVVMandNAudio\obj\Release\net5.0-windows\Styles\CheckboxStyles.baml
@@ -51,3 +49,5 @@ C:\Users\k\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerMVVMandNAudio\obj\Re
 C:\Users\k\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerMVVMandNAudio\obj\Release\net5.0-windows\Controls\VolumeSliderControl.g.cs
 C:\Users\k\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerMVVMandNAudio\obj\Release\net5.0-windows\Controls\PositionSliderControl.baml
 C:\Users\k\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerMVVMandNAudio\obj\Release\net5.0-windows\Controls\VolumeSliderControl.baml
+C:\Users\k\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerMVVMandNAudio\obj\Release\net5.0-windows\Controls\PlaylistItemControl.g.cs
+C:\Users\k\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerMVVMandNAudio\obj\Release\net5.0-windows\Controls\PlaylistItemControl.baml

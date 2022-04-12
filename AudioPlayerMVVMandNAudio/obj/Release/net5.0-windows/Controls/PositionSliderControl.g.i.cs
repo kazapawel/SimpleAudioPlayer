@@ -61,7 +61,7 @@ namespace AudioPlayerMVVMandNAudio {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/AudioPlayerMVVMandNAudio;V1.0.0.0;component/controls/positionslidercontrol.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/AudioPlayerMVVMandNAudio;component/controls/positionslidercontrol.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\Controls\PositionSliderControl.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

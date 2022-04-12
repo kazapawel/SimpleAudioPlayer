@@ -74,5 +74,17 @@ namespace AudioPlayerMVVMandNAudio
         }
 
         #endregion
+
+        public void OnLeftArrowPressed(object sender, EventArgs e)
+        {
+            if(volumeSlider.Value>0)
+                volumeSlider.Value--;
+        }
+
+        public void OnRightArrowPressed(object sender, EventArgs e)
+        {
+            if(volumeSlider.Value<100)
+                volumeSlider.Value++;
+        }
     }
 }

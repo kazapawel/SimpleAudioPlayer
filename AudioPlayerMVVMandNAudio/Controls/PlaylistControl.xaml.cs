@@ -37,7 +37,7 @@ namespace AudioPlayerMVVMandNAudio
         }
 
         public static readonly DependencyProperty TargetItemProperty =
-            DependencyProperty.Register("TargetItem", typeof(object), typeof(PlaylistControl), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault ));
+            DependencyProperty.Register("TargetItem", typeof(object), typeof(PlaylistControl), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
 
         /// <summary>
         /// 
@@ -83,12 +83,14 @@ namespace AudioPlayerMVVMandNAudio
             get { return (ICommand)GetValue(MoveItemCommandProperty); }
             set { SetValue(MoveItemCommandProperty, value); }
         }
-        
+
         public static readonly DependencyProperty MoveItemCommandProperty =
             DependencyProperty.Register("MoveItemCommand", typeof(ICommand), typeof(PlaylistControl), new PropertyMetadata(null));
 
 
-
+        /// <summary>
+        /// 
+        /// </summary>
         public ICommand DoubleClickCommand
         {
             get { return (ICommand)GetValue(DoubleClickCommandProperty); }
@@ -97,6 +99,49 @@ namespace AudioPlayerMVVMandNAudio
 
         public static readonly DependencyProperty DoubleClickCommandProperty =
             DependencyProperty.Register("DoubleClickCommand", typeof(ICommand), typeof(PlaylistControl), new PropertyMetadata(null));
+
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public ICommand SpacebarPressedCommand
+        {
+            get { return (ICommand)GetValue(SpacebarPressedCommandProperty); }
+            set { SetValue(SpacebarPressedCommandProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for UpArrowPressedCommand.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty SpacebarPressedCommandProperty =
+            DependencyProperty.Register("SpacebarPressedCommand", typeof(ICommand), typeof(PlaylistControl), new PropertyMetadata(null));
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public ICommand EnterPressedCommand
+        {
+            get { return (ICommand)GetValue(EnterPressedCommandProperty); }
+            set { SetValue(EnterPressedCommandProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for DownArrowPressedCommand.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty EnterPressedCommandProperty =
+            DependencyProperty.Register("EnterPressedCommand", typeof(ICommand), typeof(PlaylistControl), new PropertyMetadata(null));
+
+
+
+        public ICommand DeletePressedCommand
+        {
+            get { return (ICommand)GetValue(DeletePressedCommandProperty); }
+            set { SetValue(DeletePressedCommandProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for DeletePressedCommand.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty DeletePressedCommandProperty =
+            DependencyProperty.Register("DeletePressedCommand", typeof(ICommand), typeof(PlaylistControl), new PropertyMetadata(null));
+
+
 
 
         #endregion
@@ -207,15 +252,70 @@ namespace AudioPlayerMVVMandNAudio
 
         #endregion
 
+        #region MAIN WINDOW EVENTS HANDLERS
+
         /// <summary>
         /// Invokes CloseWindowCommand.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        public void OnWindowClosing(object sender,System.ComponentModel.CancelEventArgs e)
+        public void OnWindowClosing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             OnWindowClosingCommand?.Execute(null);
         }
+
+        /// <summary>
+        /// Selects previous item in playlist.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public void OnUpArrowPressed(object sender, EventArgs e)
+        {
+            if (PlaylistListbox.SelectedIndex > 0)
+                PlaylistListbox.SelectedIndex--;
+        }
+
+        /// <summary>
+        /// Selects next item in playlist.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public void OnDownArrowPressed(object sender, EventArgs e)
+        {
+            if (PlaylistListbox.SelectedIndex < PlaylistListbox.Items.Count)
+                PlaylistListbox.SelectedIndex++;
+        }
+
+        /// <summary>
+        /// Executes DoubleClickCommand.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public void OnEnterPressed(object sender, EventArgs e)
+        {
+            DoubleClickCommand?.Execute(null);
+        }
+
+        /// <summary>
+        /// Pause/play track
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public void OnSpacebarPressed(object sender, EventArgs e)
+        {
+            SpacebarPressedCommand?.Execute(null);
+        }
+
+        /// <summary>
+        /// Executes DeletePressedCommand.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public void OnDeletePressed(object sender, EventArgs e)
+        {
+            this.removeTrackButton.Command?.Execute(PlaylistListbox.SelectedItems);
+        }
+        #endregion
 
         #region PRIVATE HELPER METHODS
 
@@ -256,7 +356,6 @@ namespace AudioPlayerMVVMandNAudio
         private bool IsDirectory(string path)
         {
             var file = new FileInfo(path);
-
             return file.Attributes.HasFlag(FileAttributes.Directory);
         }
 
@@ -264,13 +363,13 @@ namespace AudioPlayerMVVMandNAudio
         #endregion
 
         /// <summary>
-        /// Invokes DoubleClickCommand.
+        /// Executes DoubleClickCommand.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void ListBoxItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            DoubleClickCommand?.Execute(null);
+            DoubleClickCommand?.Execute(PlaylistListbox.SelectedItems);
         }
     }
 }

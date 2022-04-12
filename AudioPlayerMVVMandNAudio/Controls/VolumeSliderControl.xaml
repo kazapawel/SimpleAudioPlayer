@@ -6,7 +6,10 @@
              xmlns:local="clr-namespace:AudioPlayerMVVMandNAudio"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Grid.Column="1"  VerticalAlignment="Center">
+    
+    <Grid Grid.Column="1"  
+          VerticalAlignment="Center"
+          FocusVisualStyle="{x:Null}">
 
         <Grid.ColumnDefinitions>
 
@@ -20,26 +23,26 @@
 
         <!--Volume slider-->
         <Slider Grid.Column="0"
-                        x:Name="volumeSlider"
-                        Style="{StaticResource VolumeSliderStyle}"
-                        Value="{Binding Volume, Mode=TwoWay}"
-                        IsMoveToPointEnabled="True"
-                        MinWidth="90"
-                        TickFrequency="10"
-                        Minimum="0"
-                        Maximum="100"
-                        Margin="10,7,10,0"
-                        MouseMove="VolumeSlider_MouseMove"
-                        MouseLeftButtonUp="VolumeSlider_MouseLeftButtonUp"
-                        />
+                x:Name="volumeSlider"
+                Style="{StaticResource VolumeSliderStyle}"
+                Value="{Binding Volume, Mode=TwoWay}"
+                IsMoveToPointEnabled="True"
+                MinWidth="90"
+                TickFrequency="10"
+                Minimum="0"
+                Maximum="100"
+                Margin="10,7,10,0"
+                MouseMove="VolumeSlider_MouseMove"
+                MouseLeftButtonUp="VolumeSlider_MouseLeftButtonUp"
+                />
 
         <!--SPEAKER BUTTON-->
         <CheckBox Grid.Column="1"
-                          Tag="volume"
-                          Style="{StaticResource MuteAudioCheckbox}"         
-                          IsChecked="{Binding Muted}"
-                          Margin="5,5,8,5"
-                          />
+                  Tag="volume"
+                  Style="{StaticResource MuteAudioCheckbox}"         
+                  IsChecked="{Binding Muted}"
+                  Margin="5,5,8,5"
+                  />
 
     </Grid>
 </UserControl>

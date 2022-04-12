@@ -1,4 +1,4 @@
-# AudioPlayerMVVM
+# AudioPlayer
 This is a simple audio player made with C# and WPF.
 Main audio engine is build around [NAudio library](https://github.com/naudio/NAudio).
 

@@ -1,0 +1,15 @@
+C:\Users\user\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerMVVMandNAudio\bin\Release\net5.0-windows\publish\AudioPlayerMVVMandNAudio.exe
+C:\Users\user\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerMVVMandNAudio\bin\Release\net5.0-windows\publish\AudioPlayerMVVMandNAudio.dll
+C:\Users\user\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerMVVMandNAudio\bin\Release\net5.0-windows\publish\AudioPlayerMVVMandNAudio.deps.json
+C:\Users\user\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerMVVMandNAudio\bin\Release\net5.0-windows\publish\AudioPlayerMVVMandNAudio.runtimeconfig.json
+C:\Users\user\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerMVVMandNAudio\bin\Release\net5.0-windows\publish\AudioPlayerMVVMandNAudio.pdb
+C:\Users\user\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerMVVMandNAudio\bin\Release\net5.0-windows\publish\NAudio.dll
+C:\Users\user\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerMVVMandNAudio\bin\Release\net5.0-windows\publish\NAudio.Asio.dll
+C:\Users\user\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerMVVMandNAudio\bin\Release\net5.0-windows\publish\NAudio.Core.dll
+C:\Users\user\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerMVVMandNAudio\bin\Release\net5.0-windows\publish\NAudio.Midi.dll
+C:\Users\user\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerMVVMandNAudio\bin\Release\net5.0-windows\publish\NAudio.Wasapi.dll
+C:\Users\user\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerMVVMandNAudio\bin\Release\net5.0-windows\publish\NAudio.WinForms.dll
+C:\Users\user\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerMVVMandNAudio\bin\Release\net5.0-windows\publish\NAudio.WinMM.dll
+C:\Users\user\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerMVVMandNAudio\bin\Release\net5.0-windows\publish\TagLibSharp.dll
+C:\Users\user\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerMVVMandNAudio\bin\Release\net5.0-windows\publish\AudioPlayerNAudio.dll
+C:\Users\user\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerMVVMandNAudio\bin\Release\net5.0-windows\publish\AudioPlayerNAudio.pdb

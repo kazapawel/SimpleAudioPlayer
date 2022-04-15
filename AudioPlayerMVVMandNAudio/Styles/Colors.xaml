@@ -52,5 +52,8 @@
     <Color x:Key="ForegroundSimpleOrangeColor">#D88C4C</Color>
     <SolidColorBrush x:Key="ForegroundSimpleOrangeBrush" Color="{StaticResource ForegroundSimpleOrangeColor}"/>
 
+    <Color x:Key="ForegroundSimpleRedColor">#F22D4C</Color>
+    <SolidColorBrush x:Key="ForegroundSimpleRedBrush" Color="{StaticResource ForegroundSimpleRedColor}"/>
+
 
 </ResourceDictionary>

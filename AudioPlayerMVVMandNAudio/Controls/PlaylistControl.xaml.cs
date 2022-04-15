@@ -173,13 +173,13 @@ namespace AudioPlayerMVVMandNAudio
                 Multiselect = true,
 
                 //Sets filter for files that can be chosen
-                Filter = "Audio files |*.mp3;*.wav"
+                Filter = "Audio files |*.mp3;*.wav;*.aiff;*.sami;*.smi;*.sami;*.m4a;*.m4v;*.mov;*.mp4;*.avi;*.aac;*.adts;*.asf;*.wma;*.wmv;*.3g2;*.3gp;*.3gp2;*.3gpp"
             };
 
             //If user selects files and presses OK
             if (dialog.ShowDialog() == true)
             {
-                //Gets names of all selected files
+                //Gets names of all selected files and sends them to property
                 AddFiles(dialog.FileNames);
             }
         }

@@ -18,6 +18,11 @@ namespace AudioPlayerNAudio
         #region PUBLIC PROPERTIES
 
         /// <summary>
+        /// True if file is corrupted or is not a audio file or not supported by player.
+        /// </summary>
+        public bool IsCorrupted { get; set; }
+
+        /// <summary>
         /// Gets audio file's path.
         /// </summary>
         public string PathOfFile { get; }
@@ -65,7 +70,7 @@ namespace AudioPlayerNAudio
             PathOfFile = path;
             Name = System.IO.Path.GetFileName(path);
 
-            //Creates TagLib instance
+            // Creates TagLib instance
             File tags = null;
             try
             {
@@ -73,9 +78,10 @@ namespace AudioPlayerNAudio
             }
             catch (Exception e)
             {
-                //For user to be able to see info about file corruption
+                // For user to be able to see info about file corruption
                 errorMessage = e.Message;
                 exceptionName = e.GetType().FullName;
+                IsCorrupted = true;
             }
 
             Title = tags is null ? Name : tags.Tag.Title ?? Name;

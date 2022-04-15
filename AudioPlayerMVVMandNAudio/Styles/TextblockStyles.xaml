@@ -23,6 +23,11 @@
     <Style TargetType="{x:Type TextBlock}" x:Key="GrayTextblock" BasedOn="{StaticResource SourceCodeProRegular}">
         <Setter Property="Foreground" Value="{StaticResource ForegroundDarkBrush}"/>
         <Setter Property="FontSize" Value="12"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding IsCorrupted}" Value="True">
+                <Setter Property="Foreground" Value="{StaticResource ForegroundSimpleRedBrush}"/>
+            </DataTrigger>
+        </Style.Triggers>
     </Style>
 
     <!-- DEFAULT PINK textblock style -->

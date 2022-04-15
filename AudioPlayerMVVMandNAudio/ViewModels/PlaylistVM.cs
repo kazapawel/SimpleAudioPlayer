@@ -174,6 +174,10 @@ namespace AudioPlayerMVVMandNAudio
         /// <param name="o"></param>
         private void LoadSelectedTrackToBuffer(object o)
         {
+            //No action if file is corrupted
+            if (SelectedTrack.IsCorrupted)
+                return;
+
             //Selected track becomes buffer track
             BufferTrack = SelectedTrack;
 
@@ -230,6 +234,7 @@ namespace AudioPlayerMVVMandNAudio
 
             //Checks if track is not last one
             if (newIndex < SongsListObservable.Count)
+
                 //Changes track selection
                 SelectedTrack = SongsListObservable[newIndex];
 

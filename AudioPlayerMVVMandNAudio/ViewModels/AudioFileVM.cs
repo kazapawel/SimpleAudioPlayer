@@ -17,7 +17,12 @@ namespace AudioPlayerMVVMandNAudio
         #region PUBLIC PROPERTIES
 
         /// <summary>
-        /// 
+        /// Get's track's corruption state.
+        /// </summary>
+        public bool IsCorrupted => model.IsCorrupted;
+
+        /// <summary>
+        /// Get's track path.
         /// </summary>
         public string Path => model.PathOfFile;
 
@@ -37,7 +42,7 @@ namespace AudioPlayerMVVMandNAudio
         public string Album => model.Album;
 
         /// <summary>
-        /// Total time in string format
+        /// Total time in string format.
         /// </summary>
         public string TimeTotal => $"{model.Duration.Hours * 60 + model.Duration.Minutes}:{model.Duration.Seconds :D2}";
 

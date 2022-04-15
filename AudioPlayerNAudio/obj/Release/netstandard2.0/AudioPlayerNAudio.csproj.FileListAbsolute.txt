@@ -8,3 +8,13 @@ C:\Users\k\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerNAudio\obj\Release\n
 C:\Users\k\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerNAudio\obj\Release\netstandard2.0\AudioPlayerNAudio.dll
 C:\Users\k\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerNAudio\obj\Release\netstandard2.0\AudioPlayerNAudio.pdb
 C:\Users\k\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerNAudio\obj\Release\netstandard2.0\AudioPlayerNAudio.csproj.AssemblyReference.cache
+C:\Users\user\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerNAudio\bin\Release\netstandard2.0\AudioPlayerNAudio.deps.json
+C:\Users\user\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerNAudio\bin\Release\netstandard2.0\AudioPlayerNAudio.dll
+C:\Users\user\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerNAudio\bin\Release\netstandard2.0\AudioPlayerNAudio.pdb
+C:\Users\user\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerNAudio\obj\Release\netstandard2.0\AudioPlayerNAudio.csproj.AssemblyReference.cache
+C:\Users\user\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerNAudio\obj\Release\netstandard2.0\AudioPlayerNAudio.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\user\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerNAudio\obj\Release\netstandard2.0\AudioPlayerNAudio.AssemblyInfoInputs.cache
+C:\Users\user\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerNAudio\obj\Release\netstandard2.0\AudioPlayerNAudio.AssemblyInfo.cs
+C:\Users\user\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerNAudio\obj\Release\netstandard2.0\AudioPlayerNAudio.csproj.CoreCompileInputs.cache
+C:\Users\user\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerNAudio\obj\Release\netstandard2.0\AudioPlayerNAudio.dll
+C:\Users\user\source\repos\AudioPlayerMVVMandNAudio\AudioPlayerNAudio\obj\Release\netstandard2.0\AudioPlayerNAudio.pdb

@@ -1,10 +1,11 @@
 # AudioPlayer
-This is a simple audio player made with C# and WPF.
+This is a simple looking audio player made with C# and WPF.
 Main audio engine is build around [NAudio library](https://github.com/naudio/NAudio).
 
 Functionality:
 * Drag and drop files
 * Drag and move files in playlist
+* Keyboard shortcuts
 * Random order play
 * Loop playlist
 * Displaying tags and info

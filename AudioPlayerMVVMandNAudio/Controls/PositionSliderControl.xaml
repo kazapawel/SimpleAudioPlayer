@@ -34,6 +34,7 @@
 
             <!-- Time and position slider-->
             <Slider x:Name="PositionSlider"
+                    FocusVisualStyle="{x:Null}"
                     Style="{StaticResource TimeSliderStyle}" 
                     Grid.Column="1"
                     Orientation="Horizontal"

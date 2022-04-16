@@ -24,6 +24,7 @@
         <!--Volume slider-->
         <Slider Grid.Column="0"
                 x:Name="volumeSlider"
+                FocusVisualStyle="{x:Null}"
                 Style="{StaticResource VolumeSliderStyle}"
                 Value="{Binding Volume, Mode=TwoWay}"
                 IsMoveToPointEnabled="True"

@@ -173,7 +173,7 @@ namespace AudioPlayerMVVMandNAudio
                 Multiselect = true,
 
                 //Sets filter for files that can be chosen
-                Filter = "Audio files |*.mp3;*.wav;*.aiff;*.sami;*.smi;*.sami;*.m4a;*.m4v;*.mov;*.mp4;*.avi;*.aac;*.adts;*.asf;*.wma;*.wmv;*.3g2;*.3gp;*.3gp2;*.3gpp"
+                Filter = "Audio files |*.mp3;*.wav;*.aiff;*.sami;*.smi;*.m4a;*.m4v;*.mov;*.mp4;*.avi;*.aac;*.adts;*.asf;*.wma;*.wmv;*.3g2;*.3gp;*.3gp2;*.3gpp"
             };
 
             //If user selects files and presses OK
@@ -206,7 +206,10 @@ namespace AudioPlayerMVVMandNAudio
         /// <param name="files"></param>
         private void AddFiles(IEnumerable<string> files)
         {
-            IncomingFiles = files;
+            var extensions = new string[]
+            {".mp3",".wav",".aiff",".sami",".smi",".m4a",".m4v",".mov",".mp4",".avi",".aac",".adts",".asf",".wma",".wmv",".3g2",".3gp",".3gp2",".3gpp"};
+
+            IncomingFiles = files.Where(x => extensions.Contains(Path.GetExtension(x)));
             AddFilesCommand?.Execute(null);
         }
 

@@ -287,7 +287,7 @@ namespace AudioPlayerMVVMandNAudio
         {
             Info = true;
 
-            SongsListObservable = await Task.Run(()=> AddItems(tracksPaths));
+            SongsListObservable = await Task.Run(() => AddItems(tracksPaths));
 
             //CollectionChanged does not work for new-ing collection
             OnPropertyChanged(nameof(SongsListObservable));
@@ -307,20 +307,20 @@ namespace AudioPlayerMVVMandNAudio
         /// <returns></returns>
         private ObservableCollection<AudioFileVM> AddItems(IEnumerable<string> tracksPaths)
         {
-            var col = new ObservableCollection<AudioFileVM>();
+            var tracksCollection = new ObservableCollection<AudioFileVM>();
 
             //Adds present items to new collection
             foreach (var item in SongsListObservable)
-                col.Add(item);
+                tracksCollection.Add(item);
 
             //Creates and adds new items
             foreach (var path in tracksPaths)
             {
                 var track = new AudioFileVM(path);
-                col.Add(track);
+                tracksCollection.Add(track);          
             }
             
-            return col;
+            return tracksCollection;
         }
 
         /// <summary>

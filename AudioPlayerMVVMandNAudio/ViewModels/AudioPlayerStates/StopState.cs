@@ -15,7 +15,6 @@
             if (ViewModel.BufferTrack != null)
                 ViewModel.BufferTrack.IsAudioFilePlaying = false;
 
-
             //Refresh readonly property
             ViewModel.OnPropertyChanged(nameof(ViewModel.IsPlaying));
         }
@@ -26,7 +25,7 @@
         }
         public override void StopTrack()
         {
-            //Do nothing
+            //do nothing
         }
         public override void OnAudioHasEnded()
         {
